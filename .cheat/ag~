@@ -1,0 +1,5 @@
+$ agp -al require -G Rnw$   # search + print file names
+$ aga "ducks"   # look inside alias for a term
+$ aghs "agi"    # search history
+$ agh # Help
+

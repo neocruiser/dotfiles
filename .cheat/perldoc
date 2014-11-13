@@ -1,0 +1,6 @@
+$ perldoc -f BuiltinFunction
+$ perldoc -L it -f BuiltinFunction
+$ perldoc -q FAQ Keyword
+$ perldoc -L fr -q FAQ Keyword
+$ perldoc -v PerlVariable
+$ perldoc -a PerlAPI

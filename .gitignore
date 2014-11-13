@@ -1,0 +1,20 @@
+# ignore everything
+*
+
+# exclude
+!.gitignore
+!README.md
+!.emacs
+!.bashrc
+!.dictionary.txt
+!.tmux*
+!.vimperatorrc
+!.Xdefaults
+!.zshrc
+
+!perls/
+!.cheat/
+!.oh-my-zsh/custom/
+!.tmux/
+!.transmission-cli/
+

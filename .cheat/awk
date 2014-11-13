@@ -1,0 +1,8 @@
+# sum integers from a file or stdin, one integer per line:
+printf '1\n2\n3\n' | awk '{ sum += $1} END {print sum}'
+
+# outut not separated with whitespaces
+$ echo 'one X,two Y,three Z,four W' | awk -F , '{print $4}'
+
+# print middle field
+$ echo 'one two three four five' | awk '{print $((NF/2)+1)}'

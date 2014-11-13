@@ -1,0 +1,27 @@
+$ chmod a+x myscript.sh   # Add execute for all (myscript.sh)
+$ chmod a-w myscript.sh   # Remove write from user/group/global
+$ chmod = myscript.sh     # Remove read/write/execute from user/group/global
+$ chmod 644 myscript.sh   # Set user to read/write and group/global read
+$ chmod 755 myscript.sh   # Set user to read/write/execute and group/global read/execute
+$ chmod 666 myscript.sh   # Set user/group/global to read/write
+$ find <directory> -type d -exec chmod a=rwx {} +   # find and chmod it
+
+# Roles
+u - user (owner of the file)
+g - group (members of file's group)
+o - global (all users who are not owner and not part of group)
+a - all (all 3 roles above)
+
+# Numeric representations
+7 - full (rwx)
+6 - read and write (rw-)
+5 - read and execute (r-x)
+4 - read only (r--)
+3 - write and execute (-wx)
+2 - write only (-w-)
+1 - execute only (--x)
+0 - none (---)
+
+>> file base permission = 666
+>> directory base permission = 777
+>> umask bas permission when creating a file = 022

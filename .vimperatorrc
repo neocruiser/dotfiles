@@ -1,0 +1,6 @@
+"3.8.2 (created: 2014/02/13 23:52:43)
+
+highlight CmdLine background: black; color: white; transition: all 0.25s;
+source! /home/neocruiser/.vimperatorrc.local
+
+" vim: set ft=vimperator:

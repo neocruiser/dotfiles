@@ -1,0 +1,3 @@
+$ lsc # changed file
+$ lsx # changed files by extension
+$ lsd # changed directories descending order

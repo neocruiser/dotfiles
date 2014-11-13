@@ -1,0 +1,89 @@
+| keybinding     | command                           | plugin      |
+|----------------+-----------------------------------+-------------|
+| Ch-m           | help                              | emacs       |
+| Ch-k           | describe key                      | emacs       |
+| Ch-a           | describe apropos                  | emacs       |
+| Ch-b           | describe binding                  | emacs       |
+| Mx eval-buffer | reload buffer                     | emacs       |
+| M =            | count selected words              | emacs       |
+| ESC            | God mode on/off                   | emacs       |
+| Mx-diff        | compare 2 files                   | emacs       |
+| Mx-linum       | add line numbering                | emacs       |
+| Cc-x           | helm-scholar                      | emacs       |
+| Mx-shell       | shell                             | emacs       |
+| Mx-R           | R                                 | emacs       |
+| Cx-Cw          | save as                           | emacs       |
+| Cx-5-2         | new frame from within window      | emacs       |
+| Cx-5-b         | new frame from between buffers    | emacs       |
+| C-M-v          | sroll unfocused frame             | emacs       |
+| Cx-5-o         | swith between windows             | emacs       |
+| M-%            | search/replace                    | emacs       |
+| M-C-%          | search/replace REGEX              | emacs       |
+| Cx-Cv          | replace this file w/ an alternate | emacs       |
+| M-g            | Go to line                        | emacs       |
+| M-z            | delete until "next" charachter    | emacs       |
+| S-C u,d,l,r    | resize window                     | emacs       |
+| C-t, M-t       | transpose 2 charachters/words     | emacs       |
+| Cx-t           | transpose 2 lines                 | emacs       |
+| Cx-Cu, Cx-Cl   | switch upper/lower case           | emacs       |
+| Cx-n-s         | open heading only                 | org         |
+| Cx-n-w         | open all headings                 | org         |
+| M-S-right      | add column                        | org         |
+| M-S-left       | del column                        | org         |
+| M-S-down       | add row                           | org         |
+| M-S-up         | del row                           | org         |
+| Cc-Cb          | select previous heading           | org         |
+| Cc-Ce          | compile/export org file           | org         |
+| Cc-a           | agenda                            | org         |
+| Cc-.           | insert date                       | org         |
+| Cc-Cs          | insert schedule                   | org         |
+| Cc-Cd          | insert deadline                   | org         |
+| Cc-Cx-d        | insrt drawer                      | org         |
+| Cc-l           | store location                    | org         |
+| Cc-Cl          | insert link, location ...         | org         |
+| M-h            | mark line                         | org         |
+| Cc-/           | sparce tree                       | org         |
+| <e TAB         | open exemple environment          | org         |
+| M-$            | correct word                      | ispell      |
+| Cc-m           | activate Helm                     | Helm        |
+| Cx-Cf          | open file Helm                    | Helm        |
+| C-spc          | select file activated helm        | Helm        |
+| M-a            | select multiple files             | Helm        |
+| Cc-x           | Helm-bibtex                       | Helm        |
+| Cc-c           | Reftex (biblio must be included)  | Helm        |
+| C-@            | select entry                      | Helm-bibtex |
+| M-(            | loop through next selected entry  | Helm-bibtex |
+| Mn-C           | previous chunk                    | knitr       |
+| Mn-c           | next chunk                        | knitr       |
+| Cx-i           | insert content of file            | knitr       |
+| Mn-x           | insert Sexp                       | knitr       |
+| Mn-r           | compile knitr                     | knitr       |
+| Mn-P-p         | export/open pdf                   | knitr       |
+| Mn-u           | purl                              | knitr       |
+| Mn-s           | sweave (extrat to sweave)         | knitr       |
+| Mn-T           | Tangle (extract R code)           | knitr       |
+| Cc-Ca-L        | insert a link                     | Markdown    |
+| Cc-Cs-Cp       | code synthas region               | Markdown    |
+| Cc-Ct-h        | insert title                      | Markdown    |
+| Cc-Ct 1-6      | insert subtitles                  | Markdown    |
+| Cc -           | insert /hline                     | Markdown    |
+| Cc-CC-m        | compile                           | Markdown    |
+| Cc-Cc-p        | preview                           | Markdown    |
+| Cc-Cc-v        | html/browser view                 | Markdown    |
+| C =            | select region                     | latex       |
+| Cc %           | comment/uncomment region          | latex       |
+| Cc-Ca          | Master file compile               | latex       |
+| Cc-x           | helm-bibtex                       | latex       |
+| Cc-c           | reftex                            | latex       |
+| Cc-Cc          | compile latex & bibtex            | latex       |
+| Cc-Cq          | format paragraph                  | latex       |
+| C-M-f          | move to fwd environment           | latex       |
+| C-M-b          | move back environment             | latex       |
+| Cc-Cp          | previous section                  | latex       |
+| Cc-Cn          | next section                      | latex       |
+| Cc-Cj          | indent line (function)            | perl        |
+| Cc-Ca          | toggle autoline                   | perl        |
+| Cc-Cb          | find bad style                    | perl        |
+| Cc-t           | tidy code                         | perl        |
+| C-;            | comment line                      | perl        |
+| Cu-C;          | delete comment                    | perl        |

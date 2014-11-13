@@ -1,0 +1,25 @@
+/connect <server domain name>	# To connect to an IRC server
+/join #<channel name> 	# To join a channel
+/nick <my nickname>   # To set a nickname
+/msg <nickname>	      # To send a private message to a user
+/wc  # To close the current channel window
+ALT+<number>, eg. ALT+1, ALT+2 	    # To switch between channel windows
+/names 	      # To list the nicknames within a channel
+/topic <description>	# To change the topic
+/exit  # To quit irssi
+
+| Command       | Alias     | Info                                                            |
+|---------------+-----------+-----------------------------------------------------------------|
+| /ban          | /bans, /b | Sets or List bans for a channel                                 |
+| /clear        | /c, /cl   | Clears a channel buffer                                         |
+| /join         | /j        | Joins a channel                                                 |
+| /kick         | /k        | Kicks a user                                                    |
+| /kickban      | /kb       | Kickban a user                                                  |
+| /msg          | /m        | Send a private message to a user                                |
+| /unban*       | /mub      | Clears the unbanlist (unbans everyone) in a channel             |
+| /names        | /n        | Lists the users in the current channel                          |
+| /query        | /q        | Open a query window with a user, or close current query window  |
+| /topic        | /t        | Displays/edits current topic.                                   |
+|               |           | Tip: use /t[space][tab] to automatically fill in existing topic |
+| /window close | /wc       | Force closure of a window.                                      |
+| /whois        | /wi       | WHOIS a user. Displays user information                         |

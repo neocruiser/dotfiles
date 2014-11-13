@@ -1,0 +1,2 @@
+$ torrent "magnet= ..."   # unlimited download speed + encrypted + magnet link
+$ transmission-cli -ep -d 1000 -u 50 -f ~/.transmission-cli/finish.sh *.torrent

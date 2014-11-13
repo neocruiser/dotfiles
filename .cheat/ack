@@ -1,0 +1,12 @@
+# show file types ecognized by ack
+$ ack --help-type
+
+## show results from R files only
+$ ack --rr --group require
+$ ack --rr -l require
+
+## show searchable files in working directory
+$ ack -f
+
+# Highlight a matched string while still showing the entire (growing) log file.
+$ tail -f /var/log/syslog | ack --passthru 192.168.1.10

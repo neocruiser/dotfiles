@@ -1,0 +1,2 @@
+$ cpan App::cpanminus	# install cpan
+$ cpanm Module::Name	# install module

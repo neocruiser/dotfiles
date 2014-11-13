@@ -1,0 +1,5 @@
+$ agp 0 require Rnw$   # search + print lines + 0 lines after pattern
+$ aga "ducks"   # look inside alias for a term
+$ aghs "agi"    # search history
+$ agh # Help
+
