@@ -9,6 +9,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(aggressive-indent-comments-too nil)
  '(blink-cursor-delay 0.7)
  '(blink-cursor-mode nil)
  '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
@@ -184,7 +185,18 @@
 (require 'undo-tree)
  (global-undo-tree-mode)
 
- 
+;;;; Autoindentation
+;====================
+;; Autoindentation plugins a numerous
+;; either electric indent
+;; or aggressive indent with add-hooks
+;(electric-indent-mode 1) ; autoindentation
+
+(global-aggressive-indent-mode)
+;(add-hook 'ess-mode-hook #'aggressive-indent-mode)
+;(add-hook 'latex-mode-hook #'aggressive-indent-mode)
+;(add-hook 'cperl-mode-hook #'aggressive-indent-mode)
+
 ;;;; ace jump mode
 ;==================
 (autoload
@@ -354,7 +366,7 @@ to maximize the screen estate."
 
 ;;;; ORG mode
 ;==============================
-(setq org-startup-indented t)
+;(setq org-startup-indented t)
 
 ;; setting up the staging area with DROPBOX
 (setq org-mobile-directory "/media/Data/Dropbox/Private/org/")
@@ -392,6 +404,7 @@ to maximize the screen estate."
       '(lambda ()
          (delete '("\\.pdf\\'" . default) org-file-apps)
          (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+
 
 ;;;; ESS (emacs and R)
 ;=====================
@@ -456,6 +469,28 @@ to maximize the screen estate."
 ; Table of content activation in menubar
 (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
   (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
+
+
+;;;; SCRATCH buffer
+;==================
+;; The scratch buffer can be initialized with a major mode of choice
+(setq initial-major-mode 'r-mode)
+(setq initial-scratch-message "\
+# This buffer is for notes you don't want to save, and for R code.
+# If you want to create an *.Rnw file, run ~/perls/knitr.pl
+# then enter the file's and project's name.
+
+")
+
+;;;; Openning large files
+;=========================
+(require 'vlf-integrate)
+(eval-after-load "vlf"
+  '(define-key vlf-prefix-map "\C-xv" vlf-mode-map))
+
+;; warn when opening files bigger than 100MB
+(setq large-file-warning-threshold 100000000)
+
 
 ;;;; Yasnippets
 ;==============================
@@ -580,8 +615,10 @@ to maximize the screen estate."
   (setq cperl-close-paren-offset -4)
   (setq cperl-indent-parens-as-block t)
   (setq cperl-tab-always-indent t)
-;  (set-face-background 'cperl-array-face "wheat")
-;  (set-face-background 'cperl-hash-face "wheat")
+  (set-face-background 'cperl-array-face "#5c888b")
+  (set-face-foreground 'cperl-array-face "#656555")
+  (set-face-background 'cperl-hash-face "#9c6363")
+  (set-face-foreground 'cperl-hash-face "#656555")
   )
 (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
 
