@@ -1,4 +1,4 @@
-personal_ws-1.1 en 88 
+personal_ws-1.1 en 90 
 microarray
 extarticle
 linenumbers
@@ -66,9 +66,11 @@ maketitle
 OMIM
 canevas
 exome
+GWA
 resequencing
 searchTwitter
 dataset
+haplotype
 interpretability
 noindent
 timeline
