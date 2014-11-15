@@ -9,10 +9,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-; '(aggressive-indent-comments-too nil)
  '(blink-cursor-delay 0.7)
  '(blink-cursor-mode nil)
  '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(global-aggressive-indent-mode t)
  '(helm-adaptive-history-length 250)
  '(helm-bibtex-format-citation-functions (quote ((org-mode . helm-bibtex-format-citation-org-link-to-PDF) (latex-mode . helm-bibtex-format-citation-cite) (markdown-mode . helm-bibtex-format-citation-pandoc-citeproc) (default . helm-bibtex-format-citation-default))))
  '(helm-mode t)
@@ -187,15 +187,18 @@
 
 ;;;; Autoindentation
 ;==================
-;; Autoindentation plugins a numerous
+;; Autoindentation plugins are numerous
 ;; either electric indent
 ;; or aggressive indent with add-hooks
-(electric-indent-mode 1) ; autoindentation
+;; Both need further parametrization
+;; issues with the comment section
 
-;(global-aggressive-indent-mode)
-;(add-hook 'ess-mode-hook #'aggressive-indent-mode)
-;(add-hook 'latex-mode-hook #'aggressive-indent-mode)
-;(add-hook 'cperl-mode-hook #'aggressive-indent-mode)
+
+(setq auto-indent-key-for-end-of-line-then-newline "<M-return>")
+(setq auto-indent-key-for-end-of-line-insert-char-then-newline "<M-S-return>")
+(setq auto-indent-indent-style 'aggressive)
+(require 'auto-indent-mode)
+
 
 ;;;; ace jump mode
 ;==================
@@ -670,3 +673,76 @@ to maximize the screen estate."
 
  (set (make-local-variable 'eldoc-documentation-function)
         'tal-eldoc-function)
+
+
+
+
+;;----------------------------------------------------------
+;; ---- BEGIN Email client ----
+;;----------------------------------------------------------
+(add-to-list 'load-path "~/.emacs.d/mu4e")
+(require 'mu4e)
+
+;; default
+(setq mu4e-maildir "~/Maildir")
+(setq mu4e-drafts-folder "/[Gmail].Drafts")
+(setq mu4e-sent-folder   "/[Gmail].Sent Mail")
+(setq mu4e-trash-folder  "/[Gmail].Trash")
+
+;; don't save message to Sent Messages, Gmail/IMAP takes care of this
+(setq mu4e-sent-messages-behavior 'delete)
+
+;; setup some handy shortcuts
+;; you can quickly switch to your Inbox -- press ``ji''
+;; then, when you want archive some messages, move them to
+;; the 'All Mail' folder by pressing ``ma''.
+
+(setq mu4e-maildir-shortcuts
+      '( ("/INBOX"               . ?i)
+         ("/[Gmail].Sent Mail"   . ?s)
+         ("/[Gmail].Trash"       . ?t)
+         ("/[Gmail].All Mail"    . ?a)))
+
+;; allow for updating mail using 'U' in the main view:
+(setq mu4e-get-mail-command "offlineimap")
+
+;; something about ourselves
+(setq
+ user-mail-address "slei.bass@gmail.com"
+ user-full-name "Sleiman Bassim"
+ message-signature
+ (concat
+  "Sleiman Bassim, PhD\n"
+  "Microbiology & Molecular Genetics\n"
+  "University of Vermont\n"
+  "Hills Building, 105 Carrigan Drive\n"
+  "Burlington, VT 05405\n"
+   "\n"))
+
+;; sending mail -- replace USERNAME with your gmail username
+;; also, make sure the gnutls command line utils are installed
+;; package 'gnutls-bin' in Debian/Ubuntu
+
+(require 'smtpmail)
+;; (setq message-send-mail-function 'smtpmail-send-it
+;;       starttls-use-gnutls t
+;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+;;       smtpmail-auth-credentials
+;;       '(("smtp.gmail.com" 587 "renws1990@gmail.com" nil))
+;;       smtpmail-default-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-server "smtp.gmail.com"
+;;       smtpmail-smtp-service 587)
+
+;; alternatively, for emacs-24 you can use:
+(setq message-send-mail-function 'smtpmail-send-it
+    smtpmail-stream-type 'starttls
+    smtpmail-default-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-server "smtp.gmail.com"
+    smtpmail-smtp-service 587)
+
+;; don't keep message buffers around
+(setq message-kill-buffer-on-exit t)
+
+;;----------------------------------------------------------
+;; ---- END Email client ----
+;;----------------------------------------------------------

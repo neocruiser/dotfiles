@@ -1,4 +1,4 @@
-personal_ws-1.1 en 90 
+personal_ws-1.1 en 92 
 microarray
 extarticle
 linenumbers
@@ -46,6 +46,7 @@ eicosanoid
 bigmemory
 benthic
 transcriptome
+phenotypic
 Archlinux
 genotyping
 SNPs
@@ -79,6 +80,7 @@ api
 Hadoop
 mailto
 unialgal
+haplotypes
 dplyr
 ectotherms
 subsec
