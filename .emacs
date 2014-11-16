@@ -12,6 +12,7 @@
  '(blink-cursor-delay 0.7)
  '(blink-cursor-mode nil)
  '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(ecb-options-version "2.40")
  '(global-aggressive-indent-mode t)
  '(helm-adaptive-history-length 250)
  '(helm-bibtex-format-citation-functions (quote ((org-mode . helm-bibtex-format-citation-org-link-to-PDF) (latex-mode . helm-bibtex-format-citation-cite) (markdown-mode . helm-bibtex-format-citation-pandoc-citeproc) (default . helm-bibtex-format-citation-default))))
@@ -34,8 +35,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 109 :width normal))))
  '(cursor ((t (:background "tan" :foreground "black"))))
- '(flyspell-duplicate ((t (:foreground "Gold3"))) t)
- '(flyspell-incorrect ((t (:foreground "OrangeRed"))) t)
+ '(flyspell-duplicate ((t (:foreground "Gold3"))))
+ '(flyspell-incorrect ((t (:foreground "OrangeRed"))))
  '(sml/filename ((t (:inherit sml/global :foreground "pale goldenrod" :weight bold))))
  '(sml/global ((t (:foreground "#93a1a1"))))
  '(sml/modes ((t (:inherit sml/global))))
@@ -127,10 +128,10 @@
 
 ;;;; Window resize in linux
 ;============================
-(global-set-key (kbd "M-s-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "M-s-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "M-s-<down>") 'shrink-window)
-(global-set-key (kbd "M-s-<up>") 'enlarge-window)
+(global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-S-s-<down>") 'shrink-window)
+(global-set-key (kbd "M-S-s-<up>") 'enlarge-window)
 
 
 ;;;; Move line up or down (global)
@@ -313,7 +314,6 @@
 (require 'helm-anything)
 
 (global-set-key (kbd "C-x b") 'helm-mini)
-(global-set-key (kbd "C-!") 'helm-anything-resume)
 (global-set-key (kbd "M-x") 'helm-M-x)
 
 ;; HELM-bibtex
@@ -496,6 +496,11 @@
 (setq large-file-warning-threshold 100000000)
 
 
+;;;; Emacs code Browser (ECB)
+;============================
+(require 'ecb-autoloads)
+
+
 ;;;; Yasnippets
 ;==============================
 (require 'yasnippet)
@@ -516,7 +521,6 @@
 ;;;; Autocompletion scripts
 ;==============================
 ;; source (http://tinyurl.com/c7enart)
-(require 'ac-math)
 (require 'auto-complete)
 (require 'auto-complete-config)
 
@@ -531,7 +535,6 @@
  ac-auto-show-menu nil
  ac-auto-start 4
 ; ac-menu-height 20
-; ac-math-unicode-in-math-p t
 ; ac-auto-start nil		;; disable autoatic autcompletion
 )
 
@@ -550,7 +553,7 @@
                ac-sources)))
 
 ; popup fix
-;(setq popup-use-optimized-column-computation nil)
+(setq popup-use-optimized-column-computation nil)
 
 
 
@@ -567,6 +570,8 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 (global-set-key (kbd "C-c m") 'mu4e)  ;; email
+(global-set-key (kbd "C-c p") 'speedbar)  ;; speedbar
+(global-set-key (kbd "C-c e") 'ecb-activate)  ;; ECB
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key [f11] 'fullscreen)
@@ -717,7 +722,16 @@
 
 ;; use 'fancy' non-ascii characters in various places in mu4e
 (setq mu4e-use-fancy-chars t)
+(if (equal window-system 'x)
+    (progn
+      (set-fontset-font "fontset-default" 'unicode "Dejavu Sans Mono")
+      (set-face-font 'default "Inconsolata-10")))
 
+;; Confirmation before sending
+(add-hook 'message-send-hook
+  (lambda ()
+    (unless (yes-or-no-p "Sure you want to send this?")
+      (signal 'quit nil))))
 
 ;; attempt to show images when viewing messages
 (setq mu4e-view-show-images t)
@@ -725,7 +739,7 @@
 ;; allow for updating mail using 'U' in the main view:
 (setq
    mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
-   mu4e-update-interval 120)             ;; update every 2 minutes
+   mu4e-update-interval 300)             ;; update every 5 minutes
 
 ;; Open html emails in web browser using ''aV''
  (add-to-list 'mu4e-view-actions
@@ -764,14 +778,6 @@
 ;; package 'gnutls-bin' in Debian/Ubuntu
 
 (require 'smtpmail)
-;; (setq message-send-mail-function 'smtpmail-send-it
-;;       starttls-use-gnutls t
-;;       smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-;;       smtpmail-auth-credentials
-;;       '(("smtp.gmail.com" 587 "renws1990@gmail.com" nil))
-;;       smtpmail-default-smtp-server "smtp.gmail.com"
-;;       smtpmail-smtp-server "smtp.gmail.com"
-;;       smtpmail-smtp-service 587)
 
 ;; alternatively, for emacs-24 you can use:
 (setq message-send-mail-function 'smtpmail-send-it
