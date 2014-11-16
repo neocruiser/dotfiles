@@ -11,7 +11,7 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-delay 0.7)
  '(blink-cursor-mode nil)
- '(custom-safe-themes (quote ("756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
  '(global-aggressive-indent-mode t)
  '(helm-adaptive-history-length 250)
  '(helm-bibtex-format-citation-functions (quote ((org-mode . helm-bibtex-format-citation-org-link-to-PDF) (latex-mode . helm-bibtex-format-citation-cite) (markdown-mode . helm-bibtex-format-citation-pandoc-citeproc) (default . helm-bibtex-format-citation-default))))
@@ -34,8 +34,8 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 109 :width normal))))
  '(cursor ((t (:background "tan" :foreground "black"))))
- '(flyspell-duplicate ((t (:foreground "Gold3"))))
- '(flyspell-incorrect ((t (:foreground "OrangeRed"))))
+ '(flyspell-duplicate ((t (:foreground "Gold3"))) t)
+ '(flyspell-incorrect ((t (:foreground "OrangeRed"))) t)
  '(sml/filename ((t (:inherit sml/global :foreground "pale goldenrod" :weight bold))))
  '(sml/global ((t (:foreground "#93a1a1"))))
  '(sml/modes ((t (:inherit sml/global))))
@@ -223,8 +223,8 @@
 
 ;;;; Powerline
 ;=========================
-  (require 'powerline)
-   (powerline-center-evil-theme)
+;  (require 'powerline)
+;   (powerline-center-evil-theme)
   
 ;;;; Smart mode line
 ;=======================
@@ -343,17 +343,18 @@
 
 ;;;; Line numbering
 ;==============================
-(add-hook 'prog-mode-hook 'linum-mode)
-(defun linum-off-mode ()
-  "Toggles the line numbers as well as the fringe. This allows me
-to maximize the screen estate."
-  (interactive)
-  (if linum-mode
-      (progn
-        (fringe-mode '(0 . 0))
-        (linum-mode -1))
-    (fringe-mode '(8 . 0))
-    (linum-mode 1)))
+;(add-hook 'prog-mode-hook 'linum-mode)
+;(defun linum-off-mode ()
+;  "Toggles the line numbers as well as the fringe. This allows me
+;to maximize the screen estate."
+;  (interactive)
+;  (if linum-mode
+;      (progn
+;        (fringe-mode '(0 . 0))
+;        (linum-mode -1))
+;    (fringe-mode '(8 . 0))  ; (8 . 0) to activate
+;    (linum-mode 1)))  ; 1 to activate
+
 
 ;;;; Flyspell dictionnary and auto-dictionary
 ;=============================================
@@ -565,7 +566,7 @@ to maximize the screen estate."
 (global-set-key "\C-cl" 'org-store-link)	; used in combination w/ Cc Cl 
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key (kbd "C-c C-l") 'linum-off-mode)  ;; For Linux
+(global-set-key (kbd "C-c m") 'mu4e)  ;; email
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key [f11] 'fullscreen)
@@ -683,8 +684,19 @@ to maximize the screen estate."
 (add-to-list 'load-path "~/.emacs.d/mu4e")
 (require 'mu4e)
 
+;; the headers to show in the headers list -- a pair of a field
+;; and its width, with `nil' meaning 'unlimited'
+;; (better only use that for the last field.
+;; These are the defaults:
+(setq mu4e-headers-fields
+    '( (:date          .  10)
+       (:flags         .   6)
+       (:from          .  22)
+       (:subject       .  nil)))
+
+
 ;; default
-(setq mu4e-maildir "~/Maildir")
+(setq mu4e-maildir "/media/Data/Maildir")
 (setq mu4e-drafts-folder "/[Gmail].Drafts")
 (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
 (setq mu4e-trash-folder  "/[Gmail].Trash")
@@ -703,8 +715,36 @@ to maximize the screen estate."
          ("/[Gmail].Trash"       . ?t)
          ("/[Gmail].All Mail"    . ?a)))
 
+;; use 'fancy' non-ascii characters in various places in mu4e
+(setq mu4e-use-fancy-chars t)
+
+
+;; attempt to show images when viewing messages
+(setq mu4e-view-show-images t)
+
 ;; allow for updating mail using 'U' in the main view:
-(setq mu4e-get-mail-command "offlineimap")
+(setq
+   mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
+   mu4e-update-interval 120)             ;; update every 2 minutes
+
+;; Open html emails in web browser using ''aV''
+ (add-to-list 'mu4e-view-actions
+            '("ViewInBrowser" . mu4e-action-view-in-browser) t)
+
+;; show internal images in email
+;; enable inline images
+     (setq mu4e-view-show-images t)
+     ;; use imagemagick, if available
+     (when (fboundp 'imagemagick-register-types)
+        (imagemagick-register-types))
+
+;; save attachments
+(setq mu4e-attachment-dir  "~/Downloads")
+
+;; view html emails
+(setq mu4e-html2text-command "html2text -utf8 -width 72")
+
+;; Wrap messages with w
 
 ;; something about ourselves
 (setq
@@ -742,6 +782,26 @@ to maximize the screen estate."
 
 ;; don't keep message buffers around
 (setq message-kill-buffer-on-exit t)
+
+;; attaching files with dired
+;; Mark files
+;; Cc RET Ca
+ (require 'gnus-dired)
+;; make the `gnus-dired-mail-buffers' function also work on
+;; message-mode derived modes, such as mu4e-compose-mode
+(defun gnus-dired-mail-buffers ()
+  "Return a list of active message buffers."
+  (let (buffers)
+    (save-current-buffer
+      (dolist (buffer (buffer-list t))
+	(set-buffer buffer)
+	(when (and (derived-mode-p 'message-mode)
+		(null message-sent-message-via))
+	  (push (buffer-name buffer) buffers))))
+    (nreverse buffers)))
+
+(setq gnus-dired-mail-mode 'mu4e-user-agent)
+(add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
 
 ;;----------------------------------------------------------
 ;; ---- END Email client ----
