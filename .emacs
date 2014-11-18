@@ -12,7 +12,10 @@
  '(blink-cursor-delay 0.7)
  '(blink-cursor-mode nil)
  '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
+ '(ecb-layout-name "left15")
  '(ecb-options-version "2.40")
+ '(ecb-use-speedbar-instead-native-tree-buffer (quote dir))
+ '(ecb-windows-width 0.15)
  '(global-aggressive-indent-mode t)
  '(helm-adaptive-history-length 250)
  '(helm-bibtex-format-citation-functions (quote ((org-mode . helm-bibtex-format-citation-org-link-to-PDF) (latex-mode . helm-bibtex-format-citation-cite) (markdown-mode . helm-bibtex-format-citation-pandoc-citeproc) (default . helm-bibtex-format-citation-default))))
@@ -33,10 +36,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 109 :width normal))))
+ '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 110 :width normal))))
  '(cursor ((t (:background "tan" :foreground "black"))))
  '(flyspell-duplicate ((t (:foreground "Gold3"))))
- '(flyspell-incorrect ((t (:foreground "OrangeRed"))))
+ '(flyspell-incorrect ((t (:foreground "light salmon"))))
  '(sml/filename ((t (:inherit sml/global :foreground "pale goldenrod" :weight bold))))
  '(sml/global ((t (:foreground "#93a1a1"))))
  '(sml/modes ((t (:inherit sml/global))))
@@ -694,9 +697,9 @@
 ;; (better only use that for the last field.
 ;; These are the defaults:
 (setq mu4e-headers-fields
-    '( (:date          .  10)
-       (:flags         .   6)
-       (:from          .  22)
+    '( (:date          .  12)
+       (:flags         .   7)
+       (:from          .  25)
        (:subject       .  nil)))
 
 

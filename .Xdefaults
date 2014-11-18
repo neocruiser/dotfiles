@@ -31,35 +31,44 @@ URxvt*scrollWithBuffer: true ! scroll in relation to buffer (with mouse scroll o
 URxvt*scrollTtyKeypress: true ! scroll back to the bottom on keypress
 !! scrollback buffer in secondary screen (like less)
 
-URxvt*background: #2B2B2B
-URxvt*foreground: #DEDEDE
 
-URxvt*colorUL: #86a2b0
+! special
+*.foreground:   #bea492
+*.background:   #181512
+*.cursorColor:  #bea492
+*.colorBD:  	#bea492
 
 ! black
-URxvt*color0  : #2E3436
-URxvt*color8  : #555753
+*.color0:       #33302e
+*.color8:       #81776f
+
 ! red
-URxvt*color1  : #CC0000
-URxvt*color9  : #EF2929
+*.color1:       #8c4c4c
+*.color9:       #9f5555
+
 ! green
-URxvt*color2  : #4E9A06
-URxvt*color10 : #8AE234
+*.color2:       #746c48
+*.color10:      #857b52
+
 ! yellow
-URxvt*color3  : #C4A000
-URxvt*color11 : #FCE94F
+*.color3:       #907245
+*.color11:      #9c7e53
+
 ! blue
-URxvt*color4  : #3465A4
-URxvt*color12 : #729FCF
+*.color4:       #4c626d
+*.color12:      #5b707a
+
 ! magenta
-URxvt*color5  : #75507B
-URxvt*color13 : #AD7FA8
+*.color5:       #604c5f
+*.color13:      #625665
+
 ! cyan
-URxvt*color6  : #06989A
-URxvt*color14 : #34E2E2
+*.color6:       #4b5e57
+*.color14:      #557067
+
 ! white
-URxvt*color7  : #D3D7CF
-URxvt*color15 : #EEEEEC
+*.color7:       #a69181
+*.color15:      #e8dfcd
 
 !! open URLs
 urxvt.underlineURLs: false

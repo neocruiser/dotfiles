@@ -1,4 +1,4 @@
-personal_ws-1.1 en 92 
+personal_ws-1.1 en 96 
 microarray
 extarticle
 linenumbers
@@ -45,10 +45,11 @@ oauth
 eicosanoid
 bigmemory
 benthic
-transcriptome
 phenotypic
+transcriptome
 Archlinux
 genotyping
+snps
 SNPs
 CiteULike
 keypoints
@@ -56,8 +57,10 @@ emacs
 dataframe
 username
 arachidonic
+mutlimarker
 bassim
 formatR
+LD
 biomolecules
 rjson
 twitteR
@@ -72,6 +75,7 @@ resequencing
 searchTwitter
 dataset
 haplotype
+epistatic
 interpretability
 noindent
 timeline
