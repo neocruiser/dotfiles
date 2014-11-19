@@ -1,58 +1,3 @@
-;; Since Nov 6 2014. No issue with any code
-;; Hit C-_ to set Master file in latex-mode
-;; org-mode and knitr work with latex
-;; ! Before compiling knitr, open R with M-x (important)
-;; helm-bibtex works too
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(blink-cursor-delay 0.7)
- '(blink-cursor-mode nil)
- '(custom-safe-themes (quote ("3a727bdc09a7a141e58925258b6e873c65ccf393b2240c51553098ca93957723" "756597b162f1be60a12dbd52bab71d40d6a2845a3e3c2584c6573ee9c332a66e" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" default)))
- '(ecb-layout-name "left15")
- '(ecb-options-version "2.40")
- '(ecb-use-speedbar-instead-native-tree-buffer (quote dir))
- '(ecb-windows-width 0.15)
- '(global-aggressive-indent-mode t)
- '(helm-adaptive-history-length 250)
- '(helm-bibtex-format-citation-functions (quote ((org-mode . helm-bibtex-format-citation-org-link-to-PDF) (latex-mode . helm-bibtex-format-citation-cite) (markdown-mode . helm-bibtex-format-citation-pandoc-citeproc) (default . helm-bibtex-format-citation-default))))
- '(helm-mode t)
- '(inhibit-startup-echo-area-message nil)
- '(inhibit-startup-screen t)
- '(markdown-command "/home/neocruiser/Markdown_1.0.1/Markdown.pl")
- '(menu-bar-mode nil)
- '(save-place t nil (saveplace))
- '(scroll-bar-mode nil)
- '(show-paren-mode t)
- '(tool-bar-mode nil)
- '(uniquify-buffer-name-style (quote post-forward) nil (uniquify)))
-
- 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 110 :width normal))))
- '(cursor ((t (:background "tan" :foreground "black"))))
- '(flyspell-duplicate ((t (:foreground "Gold3"))))
- '(flyspell-incorrect ((t (:foreground "light salmon"))))
- '(sml/filename ((t (:inherit sml/global :foreground "pale goldenrod" :weight bold))))
- '(sml/global ((t (:foreground "#93a1a1"))))
- '(sml/modes ((t (:inherit sml/global))))
- '(sml/position-percentage ((t (:weight normal))))
- '(sml/prefix ((t (:inherit sml/global :foreground "peru"))))
- '(sml/read-only ((t (:inherit sml/global :foreground "medium aquamarine"))))
- '(sml/vc-edited ((t (:inherit sml/modified :foreground "light salmon"))))
- '(sml/warning ((t (:inherit sml/global :foreground "light coral" :weight bold))) t)
- '(writegood-duplicates-face ((t (:inherit font-lock-warning-face :foreground "dark orange"))))
- '(writegood-passive-voice-face ((t (:inherit font-lock-warning-face :foreground "dark turquoise"))))
- '(writegood-weasels-face ((t (:inherit font-lock-warning-face :foreground "magenta")))))
- 
-
 ;;;; Desktop Session Managment
 ;==============================
 ;; This code is very usefull
@@ -115,6 +60,7 @@
 
 ;;;; Miscelanious
 ;=================
+(setq make-pointer-invisible t) ; hide the mouse when typing
 (setq debug-on-error t) ;; debug-on-error
 (setq make-backup-files nil) ;; Get rid of backup files
 (fset `yes-or-no-p `y-or-n-p) ;; change yes to y and no to n
@@ -128,6 +74,11 @@
 (require 'ansi-color) ; translates ANSI SGR into emacs faces
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
+;;;; Clipboard settings in Linux
+(setq x-select-enable-clipboard t)
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setq save-interprogram-paste-before-kill t)
 
 ;;;; Window resize in linux
 ;============================
@@ -224,6 +175,12 @@
 (eval-after-load "ace-jump-mode"
   '(ace-jump-mode-enable-mark-sync))
 (define-key global-map (kbd "C-x SPC") 'ace-jump-mode-pop-mark)
+
+;;;; Keyfreq list
+;================
+(require 'keyfreq)
+(keyfreq-mode 1)
+(keyfreq-autosave-mode 1)
 
 ;;;; Powerline
 ;=========================
@@ -514,7 +471,26 @@
   yas-use-menu nil
 )
 
-;(define-key yas-minor-mode-map (kbd "TAB") nil) ; remove Tab completion with yas (if failed try <tab>)
+
+(progn
+      (defun my-yas/prompt (prompt choices &optional display-fn)
+      (let* ((names (loop for choice in choices
+                          collect (or (and display-fn
+                                           (funcall display-fn choice))
+                                      coice)))
+             (selected (helm-other-buffer
+                        `(((name . ,(format "%s" prompt))
+                           (candidates . names)
+                           (action . (("Insert snippet" . (lambda (arg)
+                                                            arg))))))
+                        "*helm yas/prompt*")))
+        (if selected
+            (let ((n (position selected names :test 'equal)))
+              (nth n choices))
+          (signal 'quit "user quit!"))))
+      (custom-set-variables '(yas/prompt-functions '(my-yas/prompt))))
+
+(global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
 
 ;;;; Expand Region
 ;=================
@@ -567,7 +543,7 @@
 ;; Variables are declared earlier
 ;; Modes are declared throughout the file
 ;; This section holds a collection of keybindings grouped together
-
+(global-set-key "\C-xrs" 'bookmark-save)
 (global-set-key "\C-cc" 'reftex-citation)
 (global-set-key "\C-cl" 'org-store-link)	; used in combination w/ Cc Cl 
 (global-set-key "\C-ca" 'org-agenda)
@@ -815,3 +791,10 @@
 ;;----------------------------------------------------------
 ;; ---- END Email client ----
 ;;----------------------------------------------------------
+
+(when (eq window-system 'x)
+  ;; Font family
+  (set-fontset-font "fontset-default" 'symbol "Inconsolata")
+  (set-default-font "Inconsolata")
+  ;; Font size
+  (set-face-attribute 'default nil :height 113)) 
