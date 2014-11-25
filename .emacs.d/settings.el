@@ -746,11 +746,11 @@ file to write to."
   :bind
   (("C-M-z" . helm-resume)
    ("C-c x" . helm-bibtex)
-   ("C-h b" . helm-descbinds)
-   ("C-x C-r" . helm-mini)
-   ("C-x M-o" . helm-occur)
-   ("C-x C-o" . helm-occur)
    ("M-y" . helm-show-kill-ring)
+   ("C-h b" . helm-descbinds)
+   ;;("C-x C-r" . helm-mini)
+   ;;("C-x M-o" . helm-occur)
+   ("C-x C-o" . helm-occur)
    ("C-h a" . helm-apropos)
    ("C-h m" . helm-man-woman)
    ("M-g >" . helm-ag-this-file)
@@ -759,7 +759,7 @@ file to write to."
    ("C-c g" . helm-do-ag)
    ("C-x C-i" . helm-semantic-or-imenu)
    ("M-x" . helm-M-x)
-   ("C-x C-b" . helm-buffers-list)
+   ;;("C-x C-b" . helm-buffers-list)
    ;;("C-x b" . helm-buffers-list)
    ("C-x b" . helm-mini)
    ("C-h t" . helm-world-time)
@@ -1013,10 +1013,7 @@ file to write to."
 ;;; Automatically resizes windows to the golden ration (1.618)
 (use-package golden-ratio
   :diminish golden-ratio-mode
-  :defer t
-  :config
-  (setq golden-ratio-exclude-modes
-        '(erc-mode mu4e-headers-mode mu4e-view-mode)))
+  :defer t)
 
 
 
@@ -1126,7 +1123,7 @@ file to write to."
 (global-set-key "\C-cl" 'org-store-link)	; used in combination w/ Cc Cl 
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(global-set-key (kbd "C-c m") 'mu4e)  ;; email
+;;(global-set-key (kbd "C-c m") 'mu4e)  ;; email
 (global-set-key (kbd "C-c p") 'speedbar)  ;; speedbar
 (global-set-key (kbd "C-c e") 'ecb-activate)  ;; ECB
 (global-set-key (kbd "M-<up>") 'move-line-up)
@@ -1248,115 +1245,7 @@ file to write to."
 
 
 
-;;----------------------------------------------------------
-;; ---- BEGIN Email client ----
-;;----------------------------------------------------------
-(add-to-list 'load-path "~/.emacs.d/mu4e")
-(use-package mu4e
-  :init
-  (progn
-    ;; the headers to show in the headers list -- a pair of a field
-    ;; and its width, with `nil' meaning 'unlimited'
-    ;; (better only use that for the last field.
-    ;; These are the defaults:
-    (setq mu4e-headers-fields
-          '( (:date          .  12)
-             (:flags         .   7)
-             (:from          .  25)
-             (:subject       .  nil)))
 
-
-    ;; default
-    (setq mu4e-maildir "/media/Data/Maildir")
-    (setq mu4e-drafts-folder "/[Gmail].Drafts")
-    (setq mu4e-sent-folder   "/[Gmail].Sent Mail")
-    (setq mu4e-trash-folder  "/[Gmail].Trash")
-
-    ;; don't save message to Sent Messages, Gmail/IMAP takes care of this
-    (setq mu4e-sent-messages-behavior 'delete)
-
-    ;; setup some handy shortcuts
-    ;; you can quickly switch to your Inbox -- press ``ji''
-    ;; then, when you want archive some messages, move them to
-    ;; the 'All Mail' folder by pressing ``ma''.
-    (setq mu4e-maildir-shortcuts
-          '( ("/INBOX"               . ?i)
-             ("/[Gmail].Sent Mail"   . ?s)
-             ("/[Gmail].Trash"       . ?t)
-             ("/[Gmail].All Mail"    . ?a)))
-    ;; use 'fancy' non-ascii characters in various places in mu4e
-    (setq mu4e-use-fancy-chars t)
-    (if (equal window-system 'x)
-        (progn
-          (set-fontset-font "fontset-default" 'unicode "Dejavu Sans Mono")
-      (set-face-font 'default "Inconsolata-10")))
-    ;; Confirmation before sending
-    (add-hook 'message-send-hook
-              (lambda ()
-                (unless (yes-or-no-p "Sure you want to send this?")
-                  (signal 'quit nil))))
-    ;; attempt to show images when viewing messages
-    (setq mu4e-view-show-images t)
-    ;; allow for updating mail using 'U' in the main view:
-    (setq
-     mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
-     mu4e-update-interval 300)             ;; update every 5 minutes
-    ;; Open html emails in web browser using ''aV''
-    (add-to-list 'mu4e-view-actions
-                 '("ViewInBrowser" . mu4e-action-view-in-browser) t)
-    ;; show internal images in email
-    ;; enable inline images
-    (setq mu4e-view-show-images t)
-    ;; use imagemagick, if available
-    (when (fboundp 'imagemagick-register-types)
-      (imagemagick-register-types))
-    ;; save attachments
-    (setq mu4e-attachment-dir  "~/Downloads")
-    ;; view html emails
-    (setq mu4e-html2text-command "html2text -utf8 -width 72")
-    ;; Signature
-    (setq
-     user-mail-address "slei.bass@gmail.com"
-     user-full-name "Sleiman Bassim"
-     message-signature
-     (concat
-      "Sleiman Bassim, PhD\n"
-      "Microbiology & Molecular Genetics\n"
-      "University of Vermont\n"
-      "Hills Building, 105 Carrigan Drive\n"
-      "Burlington, VT 05405\n"
-      "\n"))
-    ;; sending mail -- replace USERNAME with your gmail username
-    ;; also, make sure the gnutls command line utils are installed
-    ;; package 'gnutls-bin' in Debian/Ubuntu
-    (use-package smtpmail)
-    ;; alternatively, for emacs-24 you can use:
-    (setq message-send-mail-function 'smtpmail-send-it
-          smtpmail-stream-type 'starttls
-          smtpmail-default-smtp-server "smtp.gmail.com"
-          smtpmail-smtp-server "smtp.gmail.com"
-          smtpmail-smtp-service 587)
-    ;; don't keep message buffers around
-    (setq message-kill-buffer-on-exit t)
-    ;; attaching files with dired
-    ;; Mark files
-    ;; Cc RET Ca
-    (use-package gnus-dired)
-    ;; make the `gnus-dired-mail-buffers' function also work on
-    ;; message-mode derived modes, such as mu4e-compose-mode
-    (defun gnus-dired-mail-buffers ()
-      "Return a list of active message buffers."
-      (let (buffers)
-        (save-current-buffer
-          (dolist (buffer (buffer-list t))
-            (set-buffer buffer)
-            (when (and (derived-mode-p 'message-mode)
-                       (null message-sent-message-via))
-              (push (buffer-name buffer) buffers))))
-        (nreverse buffers)))
-    (setq gnus-dired-mail-mode 'mu4e-user-agent)
-    (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
-    ))
 
 (when (eq window-system 'x)
   ;; Font family
@@ -1364,3 +1253,4 @@ file to write to."
   (set-default-font "Inconsolata")
   ;; Font size
   (set-face-attribute 'default nil :height 113))
+
