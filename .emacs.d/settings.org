@@ -1,23 +1,66 @@
+#+TITLE: Emacs Configuration
+#+AUTHOR: Sleiman Bassim, PhD
+#+EMAIL: slei.bass@gmail.com
+
+#+STARTUP: content
+#+STARTUP: hidestars
+#+OPTIONS: toc:3 H:3 num:2
+#+LANGUAGE: english
+#+LaTeX_HEADER: \usepackage[ttscale=.875]{libertine}
+#+LATEX_HEADER: \usepackage[T1]{fontenc}
+#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}
+#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}
+#+LATEX_HEADER: \usepackage[innermargin=1.5cm,outermargin=1.25cm,vmargin=3cm]{geometry}
+#+LATEX_HEADER: \usepackage[hyperref,x11names]{xcolor}
+#+LATEX_HEADER: \usepackage[colorlinks=true,urlcolor=SteelBlue4,linkcolor=Firebrick4]{hyperref}
+#+LATEX_HEADER: \linespread{1}
+#+LATEX_HEADER: \setlength{\itemsep}{-30pt}
+#+LATEX_HEADER: \setlength{\parskip}{0pt}
+#+LATEX_HEADER: \setlength{\parsep}{-5pt}
+
+* Startup
+ Set user credentials
+  #+BEGIN_SRC emacs-lisp
 
 (setq user-full-name "Sleiman Bassim"
       user-mail-address "slei.bass@gmail.com")
 
+  #+end_src
+
+
+use UTF8 for everything
+#+begin_src emacs-lisp
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
+#+end_src
 
+synthax highlighting for all buffers
+#+begin_src emacs-lisp
 (global-font-lock-mode t)
+#+end_src
 
+Garbage collect reduced
+#+begin_src emacs-lisp
 (setq gc-cons-threshold 20000000)
+#+end_src
 
+Allow font-lock-mode to do background parsing
+#+begin_src emacs-lisp
 (setq jit-lock-stealth-time 1
       jit-lock-stealth-load 100
       jit-lock-chunk-size 1000
       jit-lock-defer-time 0.01)
+#+end_src
 
+Disable the current buffer mark
+#+begin_src emacs-lisp
 (transient-mark-mode t)
+#+end_src
 
+Turn off all modes
+#+begin_src emacs-lisp
 (when (functionp 'menu-bar-mode)
   (menu-bar-mode -1))
 (when (functionp 'set-scroll-bar-mode)
@@ -30,47 +73,95 @@
   (tool-bar-mode -1))
 (when (functionp 'blink-cursor-mode)
   (blink-cursor-mode -1))
+#+end_src
 
+Turn off beep
+#+begin_src emacs-lisp
 (setq ring-bell-function (lambda()))
 (setq inhibit-startup-message t
       initial-major-mode 'fundamental-mode)
+#+end_src
 
+Trun Line number mode
+#+begin_src emacs-lisp
 (line-number-mode 1)
 (column-number-mode 1)
+#+end_src
 
+Yes(y) No(n)
+#+begin_src emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
+#+end_src
 
+Ignore case when file completion
+#+begin_src emacs-lisp
 (setq read-file-name-completion-ignore-case t)
+#+end_src
 
+Line naviguation
+#+begin_src emacs-lisp
 (setq line-move-visual t)
+#+end_src
 
+Replace under the selection
+#+begin_src emacs-lisp
 (pending-delete-mode t)
+#+end_src
 
+Hide the mouse when typing
+#+begin_src emacs-lisp
 (setq make-pointer-invisible t)
+#+end_src
 
+Set fill column
+#+begin_src emacs-lisp
 (setq-default fill-column 80)
 (setq-default default-tab-width 2)
 (setq-default indent-tabs-mode nil)
+#+end_src
 
+Refer to a file by simlink
+#+begin_src emacs-lisp
 (setq-default find-file-visit-truename nil)
+#+end_src
 
+Uniquify buffer names
+#+begin_src emacs-lisp
 (use-package uniquify
   :config
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+#+end_src
 
+Activate regex for search and replace
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
 (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 (global-set-key (kbd "M-%") 'query-replace-regexp)
+#+end_src
 
+split frames better
+#+begin_src emacs-lisp
 (setq split-width-threshold 180)
+#+end_src
 
+Activate whitespace mode
+#+begin_src emacs-lisp
 (whitespace-mode t)
+#+end_src
 
+Indicate trailing empty lines
+#+begin_src emacs-lisp
 (set-default 'indicate-empty-lines t)
 (setq show-trailing-whitespace t)
+#+end_src
 
+seed the number generator
+#+begin_src emacs-lisp
 (random t)
+#+end_src
 
+Autofill mode turned on
+#+begin_src emacs-lisp
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'latex-mode-hook 'turn-on-auto-fill)
 
@@ -78,11 +169,20 @@
   :init
   (progn
     (diminish 'auto-fill-function "AF")))
+#+end_src
 
+single space ends a sentence
+#+begin_src emacs-lisp
 (setq sentence-end-double-space nil)
+#+end_src
 
+unified diffs by default
+#+begin_src emacs-lisp
 (setq diff-switches "-u")
+#+end_src
 
+Intialize the scratch buffer with a R
+#+begin_src emacs-lisp
 (setq initial-major-mode 'r-mode
       initial-scratch-message "\
 # This buffer is for notes you don't want to save, and for R code.
@@ -95,20 +195,35 @@
     (if (equal buffer-to-kill "*scratch*")
         (bury-buffer)
       ad-do-it)))
+#+end_src
 
+Open large Files
+#+begin_src emacs-lisp
 (use-package vlf-integrate
   :bind ("C-c v" . vlf))
 ;; warn when opening files bigger than 100MB
 (setq large-file-warning-threshold 100000000)
+#+end_src
 
+Remove fringe things
+#+begin_src emacs-lisp
 (when (functionp 'set-fringe-style)
   (set-fringe-style 0))
+#+end_src
 
+revert buffer if it changes on disk
+#+begin_src emacs-lisp
 (global-auto-revert-mode 1)
+#+end_src
 
+X11 specific things
+#+begin_src emacs-lisp
 (when (window-system)
   (setenv "EMACS_GUI" "t"))
+#+end_src
 
+ What to do with temporary files
+#+begin_src emacs-lisp
 ;; savehist
 (setq savehist-additional-variables
       ;; also save my search entries
@@ -120,7 +235,10 @@
 (setq delete-auto-save-files t)
 (setq backup-directory-alist
       '(("." . "~/.emacs_backups")))
+#+end_src
 
+Build a dictionary file with Flyspell
+#+begin_src emacs-lisp
 (setq ispell-personal-dictionary "~/.dictionary.txt")
 ;; flyspell
 (use-package flyspell
@@ -132,19 +250,28 @@
   :init
   (progn
     (diminish 'flyspell-mode "FS")))
+#+end_src
 
+remove/activate spelling in org-mode
+#+begin_src emacs-lisp
 (dolist (hook '(text-mode-hook org-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
+#+end_src
 
-(add-hook 'ess-mode-hook        ;; flyspell disable
+flyspell disable in Rnw mode
+#+begin_src emacs-lisp
+(add-hook 'ess-mode-hook	;; flyspell disable
           (lambda ()
             (flyspell-mode -1)
-;               (ispell-kill-ispell 1)
-;               (flyspell-prog-mode -1)
+;    		(ispell-kill-ispell 1)
+;    		(flyspell-prog-mode -1)
           ))
+#+end_src
 
+View mode vim/less
+#+begin_src emacs-lisp
 (use-package view
   :bind
   (("C-x v" . view-mode))
@@ -181,7 +308,10 @@
     'doc-view-next-line-or-next-page)
   (define-key doc-view-mode-map (kbd "k")
     'doc-view-previous-line-or-previous-page))
+#+end_src
 
+GOD MODE (remove the need to hold Ctrl or Meta keys)
+#+begin_src emacs-lisp
 (use-package god-mode
   :config
   (define-key god-local-mode-map (kbd "z") 
@@ -197,7 +327,10 @@
 (defun my-update-cursor ()
   (setq cursor-type 
         (if (or god-local-mode buffer-read-only) 'bar 'box)))
+#+end_src
 
+Dired
+#+begin_src emacs-lisp
 (defun my/dired-mode-hook ()
   (hl-line-mode t)
   (toggle-truncate-lines 1))
@@ -225,12 +358,18 @@
     (define-key dired-mode-map (kbd "C-M-u") 'dired-up-directory)
     (define-key dired-mode-map (kbd "C-x C-q") 'wdired-change-to-wdired-mode)
     (add-hook 'dired-mode-hook 'my/dired-mode-hook)))
+#+end_src
 
+save cursor in buffer
+#+begin_src emacs-lisp
 (use-package saveplace
   :init
   (setq-default save-place t)
   (setq save-place-file (expand-file-name "saved-places" user-emacs-directory)))
+#+end_src
 
+remember recent opened 2000 files, will start when emacs is idle not at restar
+#+begin_src emacs-lisp
 (use-package recentf
   :init
   (progn
@@ -279,7 +418,10 @@ file to write to."
             nil)
         (error
          (warn "recentf mode: %s" (error-message-string error)))))))
+#+end_src
 
+Turn on highlight and subword modes
+#+begin_src emacs-lisp
 (add-hook 'prog-mode-hook
           (lambda ()
             (use-package idle-highlight-mode
@@ -287,7 +429,11 @@ file to write to."
             (setq show-trailing-whitespace t)
             (hl-line-mode 1)
             (subword-mode t)))
+#+end_src
 
+Elisp programming configurations
+Eldoc settings
+#+begin_src emacs-lisp
 (use-package eldoc
   :config
   (progn
@@ -311,7 +457,10 @@ file to write to."
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm-other-window)
 (define-key lisp-interaction-mode-map (kbd "C-c C-z") 'ielm-other-window)
+#+end_src
 
+ORG-MODE
+#+begin_src emacs-lisp
 (use-package org
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
@@ -647,7 +796,10 @@ background of code to whatever theme I'm using's background"
     (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
 
     ))
+#+end_src
 
+Alert
+#+begin_src emacs-lisp
 (defun my/terminal-notifier-notify (title message)
   "Show a message with `terminal-notifier-command`."
   (interactive)
@@ -696,8 +848,14 @@ background of code to whatever theme I'm using's background"
                           ))
     (if (eq (window-system) 'ns)
         (setq alert-default-style 'terminal-notifier))))
+#+end_src
 
-(desktop-save-mode -1)                  ;; Save state of the desktop
+Desktop Session Managment. This code is very usefull. It wont work though with
+*Rnw files. It is thus better to close all knitr files before session-save.
+Sessions can be manually saved before exiting emacs. If problems occure with PID
+being already loaded. Delete all .emacs.desktop saves in ~/.emacs.d/ 
+#+begin_src emacs-lisp
+(desktop-save-mode -1)			;; Save state of the desktop
 (setq history-length 250)
     (add-to-list 'desktop-globals-to-save 'file-name-history)
 ;; use only one desktop
@@ -713,15 +871,15 @@ background of code to whatever theme I'm using's background"
   (interactive)
   (if (saved-session)
       (if (y-or-n-p "Overwrite existing desktop? ")
-          (desktop-save-in-desktop-dir)
-        (message "Session not saved."))
+	  (desktop-save-in-desktop-dir)
+	(message "Session not saved."))
   (desktop-save-in-desktop-dir)))
 ;; ask user whether to restore desktop at start-up 'Mx session-save'
 (add-hook 'after-init-hook
-          '(lambda ()
-             (if (saved-session)
-                 (if (y-or-n-p "Restore desktop? ")
-                     (session-restore)))))
+	  '(lambda ()
+	     (if (saved-session)
+		 (if (y-or-n-p "Restore desktop? ")
+		     (session-restore)))))
 ;; use session-restore to restore the desktop manually 'Mx session-restore'
 (defun session-restore ()
   "Restore a saved emacs session."
@@ -729,7 +887,10 @@ background of code to whatever theme I'm using's background"
   (if (saved-session)
       (desktop-read)
     (message "No desktop found.")))
+#+end_src
 
+Custom themes
+#+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 (load-theme 'zenburn t) 
 ;(load-theme 'monokai t) 
@@ -738,7 +899,10 @@ background of code to whatever theme I'm using's background"
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)
 ;(load-theme 'gruvbox t)
+#+end_src
 
+Miscelanious
+#+begin_src emacs-lisp
 ;(setq debug-on-error t) ;; debug-on-error
 ;(iswitchb-mode -1)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
 ;(setq-default transient-mark-mode t) ; highligh the marked region
@@ -746,12 +910,18 @@ background of code to whatever theme I'm using's background"
 ;(require 'uniquify) ; change title buffer
 ;(require 'ansi-color) ; translates ANSI SGR into emacs faces
 ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+#+end_src
 
+Window resize in linux
+#+begin_src emacs-lisp
 (global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-S-s-<down>") 'shrink-window)
 (global-set-key (kbd "M-S-s-<up>") 'enlarge-window)
+#+end_src
 
+Move line up or down (global)
+#+begin_src emacs-lisp
 (defun move-line (n)
   "Move the current line up or down by N lines."
   (interactive "p")
@@ -774,7 +944,10 @@ background of code to whatever theme I'm using's background"
   "Move the current line down by N lines."
   (interactive "p")
   (move-line (if (null n) 1 n)))
+#+end_src
 
+undo tree
+#+begin_src emacs-lisp
 (use-package undo-tree
   :idle (global-undo-tree-mode t)
   :diminish ""
@@ -782,32 +955,49 @@ background of code to whatever theme I'm using's background"
   (progn
     (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
     (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo)))
+#+end_src
 
+Autoindentation plugins are numerous. Either electric indent or aggressive
+indent with add-hooks. Both need further parametrization issues with the comment
+section.
+#+begin_src emacs-lisp
 (use-package auto-indent-mode
   :config
   (progn
     (setq auto-indent-key-for-end-of-line-then-newline "<M-return>"
         auto-indent-key-for-end-of-line-insert-char-then-newline "<M-S-return>"
         auto-indent-indent-style 'aggressive)))
+#+end_src
 
+ace jump mode
+#+begin_src emacs-lisp
 (use-package ace-jump-mode
   :bind (("C-c SPC" . ace-jump-mode)
          ("C-c M-SPC" . ace-jump-line-mode)
          ("C-x SPC" . ace-jump-mode-pop-mark)))
+#+end_src
 
+Keyfreq list
+#+begin_src emacs-lisp
 (use-package keyfreq
   :config
   (progn
     (setq keyfreq-mode 1
           keyfreq-autosave-mode 1)))
+#+end_src
 
+bookmark
+#+begin_src emacs-lisp
 (use-package bookmark+
   :config
   (progn
     (setq bookmark-version-control t
           ;; auto-save bookmarks
           bookmark-save-flag 1)))
+#+end_src
 
+Yasnippets
+#+begin_src emacs-lisp
 (use-package yasnippet
   :diminish ""
   :idle (yas-reload-all)
@@ -836,7 +1026,10 @@ background of code to whatever theme I'm using's background"
       (custom-set-variables '(yas/prompt-functions '(my-yas/prompt))))
 
 (global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
+#+end_src
 
+Samartparens
+#+begin_src emacs-lisp
 (smartparens-global-mode t)
 ;; different colors for parenthesis highlights
 (use-package highlight-parentheses
@@ -852,9 +1045,15 @@ background of code to whatever theme I'm using's background"
 ;;; darken parentheses
 (use-package paren-face
   :init (global-paren-face-mode))
+#+end_src
 
+A neat mode to show indention
+#+begin_src emacs-lisp
 (use-package indent-guide)
+#+end_src
 
+Smart mode line
+#+begin_src emacs-lisp
 (use-package smart-mode-line
   :init
   (sml/setup)
@@ -868,7 +1067,11 @@ background of code to whatever theme I'm using's background"
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/R" ":R:") t)
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t)
+#+end_src
 
+* Writing style
+WriteGood
+#+begin_src emacs-lisp
 (use-package writegood-mode
   :config
   (progn
@@ -882,9 +1085,16 @@ background of code to whatever theme I'm using's background"
      (interactive)
     (compile (format "style-check.rb -v %s" (buffer-file-name))))
 (global-set-key "\C-c\C-gs" 'my-action/style-check-file)
+#+end_src
 
+Discover my major mode keybindings
+#+begin_src emacs-lisp
 (global-set-key (kbd "C-h C-m") 'discover-my-major)
+#+end_src
 
+* sudo
+MAKE READONLY FILES WRITABLE FOR A FULL ROOT PERMISSION
+#+begin_src emacs-lisp
 (make-variable-buffer-local
  (defvar my-override-mode-on-save nil
    "Can be set to automatically ignore read-only mode of a file when saving."))
@@ -908,7 +1118,11 @@ background of code to whatever theme I'm using's background"
       (let ((buffer-file-name (format "/sudo::%s" buffer-file-name)))
     ad-do-it)
     ad-do-it))
+#+end_src
 
+* Grammar and LATEX
+Flycheck (perl latex)
+#+begin_src emacs-lisp
 (use-package flycheck
   :bind (("M-g M-n" . flycheck-next-error)
          ("M-g M-p" . flycheck-previous-error)
@@ -925,7 +1139,10 @@ background of code to whatever theme I'm using's background"
                 (lambda ()
                   (global-set-key (kbd "C-c C-n") 'flycheck-tip-cycle)
                   (global-set-key (kbd "C-c C-p") 'flycheck-tip-cycle-reverse))))))
+#+end_src
 
+Highlight symbol and jump to next symbol easily
+#+begin_src emacs-lisp
 (use-package highlight-symbol
   :bind (("M-n" . highlight-symbol-next)
          ("M-p" . highlight-symbol-prev)))
@@ -935,10 +1152,17 @@ background of code to whatever theme I'm using's background"
 ;;; highight escape sequences
 (use-package highlight-escape-sequences
   :init (add-to-list 'prog-mode-hook (lambda () (hes-mode t))))
+#+end_src
 
+easy kill
+#+begin_src emacs-lisp
 (use-package easy-kill
   :init (global-set-key [remap kill-ring-save] 'easy-kill))
+#+end_src
 
+* Helm package
+Helm
+#+begin_src emacs-lisp
 (use-package helm
   :bind
   (("C-M-z" . helm-resume)
@@ -1205,11 +1429,17 @@ background of code to whatever theme I'm using's background"
               helm-swoop-split-direction 'split-window-vertically
               ;; If nil, you can slightly boost invoke speed in exchange for text color
               helm-swoop-speed-or-color nil)))))
+#+end_src
 
+Automatically resizes windows to the golden ration (1.618)
+#+begin_src emacs-lisp
 (use-package golden-ratio
   :diminish golden-ratio-mode
   :defer t)
+#+end_src
 
+ESS (emacs and R)
+#+begin_src emacs-lisp
 (use-package ess-site
   :config
   (progn
@@ -1223,7 +1453,13 @@ background of code to whatever theme I'm using's background"
                 (define-key inferior-ess-mode-map [\C-x \t]
                   'comint-dynamic-complete-filename)
      ))))
+#+end_src
 
+LaTeX mode AucTex. Everything is working nicely. No problem with any package.
+Master files will be introduced in each nested tex files. Be carefull to chose
+correctly the master file. Once set, a master file can be corrected with "C-_".
+Compile using Latex. Ssometimes Tex is chosen automatically.It doesn't work.
+#+begin_src emacs-lisp
 (use-package AUCTeX
   :config
   (progn
@@ -1243,20 +1479,28 @@ background of code to whatever theme I'm using's background"
     ))
 
 ;(add-hook 'LaTeX-mode-hook
-;       (lambda ()
-;               (setq TeX-master (guess-TeX-master (buffer-file-name)))
-;               (auto-fill-mode -1)
-;               (setq fill-column 2000)
-;               (flyspell-mode -1)
+;	(lambda ()
+;		(setq TeX-master (guess-TeX-master (buffer-file-name)))
+;		(auto-fill-mode -1)
+;		(setq fill-column 2000)
+;		(flyspell-mode -1)
 ;))
+#+end_src
 
+Expand Region
+#+begin_src emacs-lisp
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
          ("C-M-=" . er/contract-region)))
+#+end_src
 
+Some configuration of keybindings. some are global, others are hooked to minor
+or major modes. Variables are declared earlier. Modes are declared throughout
+the file. This section holds a collection of keybindings grouped together.
+#+begin_src emacs-lisp
 (global-set-key "\C-xrs" 'bookmark-save)
 (global-set-key "\C-cc" 'reftex-citation)
-(global-set-key "\C-cl" 'org-store-link)        ; used in combination w/ Cc Cl 
+(global-set-key "\C-cl" 'org-store-link)	; used in combination w/ Cc Cl 
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 ;;(global-set-key (kbd "C-c m") 'mu4e)  ;; email
@@ -1275,7 +1519,15 @@ background of code to whatever theme I'm using's background"
 (global-set-key (kbd "C-x C-2") 'split-window-below)
 (global-set-key (kbd "C-x C-3") 'split-window-right)
 (global-set-key (kbd "C-x C-0") 'delete-window)
+#+end_src
 
+* Coding languages
+From here forth, scripts are not important for the workflow. Lisp code are that
+of coding languages. They are not essential for the running of previous major
+modes. 
+
+Markdown Mode
+#+begin_src emacs-lisp
 (use-package markdown-mode
   :config
   (progn
@@ -1299,7 +1551,10 @@ background of code to whatever theme I'm using's background"
         ("h5"     "^#####\\s-+\\(.+?\\)$" 1)
         ("h6"     "^######\\s-+\\(.+?\\)$" 1)
         ("fn"     "^\\[\\^\\(.+?\\)\\]" 1) ))))
+#+end_src
 
+Use cperl-mode instead of the default perl-mode
+#+begin_src emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
 (add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
@@ -1319,7 +1574,10 @@ background of code to whatever theme I'm using's background"
   (set-face-foreground 'cperl-hash-face "#656555")
   )
 (add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
+#+end_src
 
+Python
+#+begin_src emacs-lisp
 (setq py-install-directory "~/.emacs.d/python-mode.el-6.1.3/")
   (add-to-list 'load-path py-install-directory)
   (use-package python-mode)
@@ -1342,7 +1600,10 @@ background of code to whatever theme I'm using's background"
    (interactive)
    (py-mark-block nil 't)
    (back-to-indentation))
+#+end_src
 
+eldoc for org and python
+#+begin_src emacs-lisp
 ; activate it
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
      (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
@@ -1364,7 +1625,10 @@ background of code to whatever theme I'm using's background"
 
  (set (make-local-variable 'eldoc-documentation-function)
         'tal-eldoc-function)
+#+end_src
 
+autocompletion (only working in elisp). Debugging required.
+#+begin_src emacs-lisp
 (use-package auto-complete
   :config
   (progn
@@ -1374,10 +1638,14 @@ background of code to whatever theme I'm using's background"
     (global-auto-complete-mode +1)
     (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
     (use-package fuzzy)))
+#+end_src
 
+Fonts
+#+begin_src emacs-lisp
 (when (eq window-system 'x)
   ;; Font family
   (set-fontset-font "fontset-default" 'symbol "Inconsolata")
   (set-default-font "Inconsolata")
   ;; Font size
   (set-face-attribute 'default nil :height 113))
+#+end_src

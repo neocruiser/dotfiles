@@ -26,11 +26,9 @@
 (when (file-exists-p custom-file)
   (load custom-file))
 
-(load "~/.emacs.d/settings.el")
-;(require 'org)
-;(org-babel-load-file
-; (expand-file-name "settings.org"
-;                   user-emacs-directory))
+;(load "~/.emacs.d/settings.el")
+(require 'org)
+(org-babel-load-file "~/.emacs.d/settings.org")
 
 ;; Message how long it took to load everything (minus packages)
 (let ((elapsed (float-time (time-subtract (current-time)
