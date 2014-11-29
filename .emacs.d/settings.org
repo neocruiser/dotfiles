@@ -1,32 +1,23 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Sleiman Bassim, PhD
 #+EMAIL: slei.bass@gmail.com
-
-#+STARTUP: content
-#+STARTUP: hidestars
-#+OPTIONS: toc:3 H:3 num:2
-#+LANGUAGE: english
-#+LaTeX_HEADER: \usepackage[ttscale=.875]{libertine}
-#+LATEX_HEADER: \usepackage[T1]{fontenc}
-#+LaTeX_HEADER: \sectionfont{\normalfont\scshape}
-#+LaTeX_HEADER: \subsectionfont{\normalfont\itshape}
-#+LATEX_HEADER: \usepackage[innermargin=1.5cm,outermargin=1.25cm,vmargin=3cm]{geometry}
-#+LATEX_HEADER: \usepackage[hyperref,x11names]{xcolor}
-#+LATEX_HEADER: \usepackage[colorlinks=true,urlcolor=SteelBlue4,linkcolor=Firebrick4]{hyperref}
-#+LATEX_HEADER: \linespread{1}
-#+LATEX_HEADER: \setlength{\itemsep}{-30pt}
-#+LATEX_HEADER: \setlength{\parskip}{0pt}
-#+LATEX_HEADER: \setlength{\parsep}{-5pt}
+#+LANGUAGE: en
+#+PROPERTY: header-args :tangle yes
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+OPTIONS: H:4 num:nil toc:t \n:nil @:t ::t |:t ^:{} -:t f:t *:t
+#+OPTIONS: skip:nil d:(HIDE) tags:not-in-toc
+#+TODO: SOMEDAY(s) TODO(t) INPROGRESS(i) WAITING(w@/!) NEEDSREVIEW(n@/!) | DONE(d)
+#+TODO: WAITING(w@/!) HOLD(h@/!) | CANCELLED(c@/!)
+#+TAGS: export(e) noexport(n)
+#+STARTUP: align fold nodlcheck lognotestate content
 
 * Startup
  Set user credentials
   #+BEGIN_SRC emacs-lisp
-
 (setq user-full-name "Sleiman Bassim"
       user-mail-address "slei.bass@gmail.com")
-
   #+end_src
-
 
 use UTF8 for everything
 #+begin_src emacs-lisp
@@ -601,17 +592,14 @@ ORG-MODE
                                (org-agenda-files :maxlevel . 2)))
     ;; quick access to common tags
     (setq org-tag-alist
-          '(("@work" . ?w)
-            ("@home" . ?h)
-            ("perl" . ?p)
-            ("sysadmin" . ?y)
-            ("R" . ?r)
-            ("latex" . ?l)
+          '(("@WORK" . ?w)
+            ("@HOME" . ?h)
+            ("PERL" . ?p)
+            ("SYSADMIN" . ?s)
+            ("LATEX" . ?l)
             ("ML" . ?m)
-            ("rstat" ?t)
-            ("loisir" . ?i)
-            ("emacs" . ?c)
-            ("Table" . ?s)
+            ("RSTAT" ?r)
+            ("TABLE" . ?t)
             ("export" . ?e)
             ("noexport" . ?n)))
     ;; Custom agenda command definitions
@@ -1071,17 +1059,19 @@ Smart mode line
 
 * Writing style
 autocompletion (only working in elisp). Debugging required.
-#+begin_src emacs-lisp
-(use-package auto-complete
+#+BEGIN_SRC emacs-lisp
+(use-package company
   :config
   (progn
-    (setq ac-auto-show-menu nil
-          ac-quick-help-delay 0.5
-          ac-use-fuzzy t)
-    (global-auto-complete-mode +1)
-    (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
-    (use-package fuzzy)))
-#+end_src
+    (add-hook 'after-init-hook 'global-company-mode)))
+
+(use-package company-auctex
+  :init (company-auctex-init)
+  :config
+  (progn
+    (add-to-list 'company-backend 'company-math-symbols-unicode)
+    (setq company-tooltip-align-annotations t)))
+#+END_SRC
 
 WriteGood
 #+begin_src emacs-lisp
@@ -1134,6 +1124,15 @@ MAKE READONLY FILES WRITABLE FOR A FULL ROOT PERMISSION
 #+end_src
 
 * Grammar and LATEX
+Set an abbreviation file and save whenever emacs is closed. Hit C-x ag to add
+new abbreviations. M-x write-abbrev-file to create the abbrev file
+#+BEGIN_SRC emacs-lisp
+(quietly-read-abbrev-file)
+(setq-default abbrev-mode t)
+(setq save-abbrevs t)
+(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
+#+END_SRC
+
 Flycheck (perl latex)
 #+begin_src emacs-lisp
 (use-package flycheck

@@ -452,17 +452,14 @@ file to write to."
                                (org-agenda-files :maxlevel . 2)))
     ;; quick access to common tags
     (setq org-tag-alist
-          '(("@work" . ?w)
-            ("@home" . ?h)
-            ("perl" . ?p)
-            ("sysadmin" . ?y)
-            ("R" . ?r)
-            ("latex" . ?l)
+          '(("@WORK" . ?w)
+            ("@HOME" . ?h)
+            ("PERL" . ?p)
+            ("SYSADMIN" . ?s)
+            ("LATEX" . ?l)
             ("ML" . ?m)
-            ("rstat" ?t)
-            ("loisir" . ?i)
-            ("emacs" . ?c)
-            ("Table" . ?s)
+            ("RSTAT" ?r)
+            ("TABLE" . ?t)
             ("export" . ?e)
             ("noexport" . ?n)))
     ;; Custom agenda command definitions
@@ -869,15 +866,17 @@ background of code to whatever theme I'm using's background"
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t)
 
-(use-package auto-complete
+(use-package company
   :config
   (progn
-    (setq ac-auto-show-menu nil
-          ac-quick-help-delay 0.5
-          ac-use-fuzzy t)
-    (global-auto-complete-mode +1)
-    (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
-    (use-package fuzzy)))
+    (add-hook 'after-init-hook 'global-company-mode)))
+
+(use-package company-auctex
+  :init (company-auctex-init)
+  :config
+  (progn
+    (add-to-list 'company-backend 'company-math-symbols-unicode)
+    (setq company-tooltip-align-annotations t)))
 
 (use-package writegood-mode
   :config
@@ -918,6 +917,11 @@ background of code to whatever theme I'm using's background"
       (let ((buffer-file-name (format "/sudo::%s" buffer-file-name)))
     ad-do-it)
     ad-do-it))
+
+(quietly-read-abbrev-file)
+(setq-default abbrev-mode t)
+(setq save-abbrevs t)
+(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
 
 (use-package flycheck
   :bind (("M-g M-n" . flycheck-next-error)
