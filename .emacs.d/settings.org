@@ -1070,6 +1070,19 @@ Smart mode line
 #+end_src
 
 * Writing style
+autocompletion (only working in elisp). Debugging required.
+#+begin_src emacs-lisp
+(use-package auto-complete
+  :config
+  (progn
+    (setq ac-auto-show-menu nil
+          ac-quick-help-delay 0.5
+          ac-use-fuzzy t)
+    (global-auto-complete-mode +1)
+    (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
+    (use-package fuzzy)))
+#+end_src
+
 WriteGood
 #+begin_src emacs-lisp
 (use-package writegood-mode
@@ -1627,20 +1640,7 @@ eldoc for org and python
         'tal-eldoc-function)
 #+end_src
 
-autocompletion (only working in elisp). Debugging required.
-#+begin_src emacs-lisp
-(use-package auto-complete
-  :config
-  (progn
-    (setq ac-auto-show-menu nil
-          ac-quick-help-delay 0.5
-          ac-use-fuzzy t)
-    (global-auto-complete-mode +1)
-    (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
-    (use-package fuzzy)))
-#+end_src
-
-Fonts
+ Fonts
 #+begin_src emacs-lisp
 (when (eq window-system 'x)
   ;; Font family

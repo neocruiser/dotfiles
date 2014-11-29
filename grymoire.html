@@ -1,0 +1,2537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="english" xml:lang="english">
+<head>
+<title>Collection of information</title>
+<!-- 2014-11-28 Fri 23:51 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Sleiman Bassim, PhD" />
+<link rel="stylesheet" href="http://dakrone.github.io/org.css" type="text/css" /><style type="text/css">
+ pre.src {background-color: #3F3F3F; color: #DCDCCC;}</style>
+<style type="text/css">
+ pre.src {background-color: #3F3F3F; color: #DCDCCC;}</style>
+<style type="text/css">
+ pre.src {background-color: #3F3F3F; color: #DCDCCC;}</style>
+<style type="text/css">
+ pre.src {background-color: #3F3F3F; color: #DCDCCC;}</style>
+<style type="text/css">
+ pre.src {background-color: #3F3F3F; color: #DCDCCC;}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Collection of information</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Linux</a>
+<ul>
+<li><a href="#sec-1-1">1.1. UPDATE SYSTEM</a></li>
+<li><a href="#sec-1-2">1.2. REMOVE UNWANTED APPS</a></li>
+<li><a href="#sec-1-3">1.3. INSTALL EMACS 24</a>
+<ul>
+<li><a href="#sec-1-3-1">Markdown mode</a></li>
+<li><a href="#sec-1-3-2">Themes</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-4">1.4. INSTALL JAVA</a></li>
+<li><a href="#sec-1-5">1.5. INSTALL TEXLIVE</a>
+<ul>
+<li><a href="#sec-1-5-1">Create a dvi file</a></li>
+<li><a href="#sec-1-5-2">latex small2e  test if latex is installed</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-6">1.6. INSTALL R</a>
+<ul>
+<li><a href="#sec-1-6-1">Revolution R</a></li>
+<li><a href="#sec-1-6-2">(optional) Install/Update R in bash</a></li>
+<li><a href="#sec-1-6-3">Add the lsos() function</a></li>
+<li><a href="#sec-1-6-4">install packages</a></li>
+<li><a href="#sec-1-6-5">Update CRAN packages in R</a></li>
+<li><a href="#sec-1-6-6">install rgl package for R</a></li>
+<li><a href="#sec-1-6-7">set working env for GenePattern</a></li>
+<li><a href="#sec-1-6-8">R guide for code writing</a></li>
+<li><a href="#sec-1-6-9">installed packages</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-7">1.7. MIDNIGHT COMMANDER</a></li>
+<li><a href="#sec-1-8">1.8. INSTALL DROPBOX</a></li>
+<li><a href="#sec-1-9">1.9. INSTALL FLASH AND MP3 PLUGINS</a></li>
+<li><a href="#sec-1-10">1.10. AUTOMOUNT DRIVES</a></li>
+<li><a href="#sec-1-11">1.11. INSTALL GITHUB</a></li>
+<li><a href="#sec-1-12">1.12. INSTALL SWAN</a></li>
+<li><a href="#sec-1-13">1.13. Display hidden startup entries &lt;RUN ONLY ONCE&gt; in Elementary OS</a></li>
+<li><a href="#sec-1-14">1.14. BLAST+</a></li>
+<li><a href="#sec-1-15">1.15. INSTALL ARCHIVE FORMATS &lt;RUN ONLY ONCE&gt;</a></li>
+<li><a href="#sec-1-16">1.16. INSTALL JABREF</a></li>
+<li><a href="#sec-1-17">1.17. INSTALL CHROME</a></li>
+<li><a href="#sec-1-18">1.18. INSTALLED PACKAGES AND APPS</a></li>
+<li><a href="#sec-1-19">1.19. SCREEN (TERMINAL SESSION SAVE)</a></li>
+<li><a href="#sec-1-20">1.20. IRC COMMANDS</a>
+<ul>
+<li><a href="#sec-1-20-1">ADD NETWORK, SERVER, AND AUTOMATIC CHANNEL CONNECTION</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-21">1.21. SETUP A LOCAL WEB SERVER</a></li>
+<li><a href="#sec-1-22">1.22. CHECK GRAPHIC CARD</a></li>
+<li><a href="#sec-1-23">1.23. TWITTER</a></li>
+<li><a href="#sec-1-24">1.24. CITEULIKE</a></li>
+<li><a href="#sec-1-25">1.25. <span class="todo HOLD">HOLD</span> ARCHLINUX</a>
+<ul>
+<li><a href="#sec-1-25-1">PREINSTALLATION AND CONFIGURATION OF ARCHLINUX (EASY INSTALL)</a></li>
+<li><a href="#sec-1-25-2">Awesome</a></li>
+</ul>
+</li>
+<li><a href="#sec-1-26">1.26. <span class="todo HOLD">HOLD</span> ADDITIONAL LINUX APPS</a></li>
+<li><a href="#sec-1-27">1.27. SYSADMIN UTILITIES</a>
+<ul>
+<li><a href="#sec-1-27-1">PROCESS MANAGER</a></li>
+<li><a href="#sec-1-27-2">FIND</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Linux&#xa0;&#xa0;&#xa0;<span class="tag"><span class="sysadmin">sysadmin</span></span></h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> UPDATE SYSTEM</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get update &amp;&amp; sudo apt-get upgrade
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> REMOVE UNWANTED APPS</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get autoremove
+sudo apt-get autoclean
+sudo apt-get install -f
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> INSTALL EMACS 24</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+Latest version <a href="http://git.savannah.gnu.org/cgit/emacs.git/tree/">on git</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get update
+sudo apt-get install
+sudo apt-get purge emacs emacs-snapshot-common emacs-snapshot-bin-common emacs-snapshot emacs-snapshot-el emacs-snapshot-gtk emacs23 emacs23-bin-common emacs23-common emacs23-el emacs23-nox emacs23-lucid auctex apel emacs24 emacs24-bin-common emacs24-common emacs24-common-non-dfsg emacs24-el
+sudo add-apt-repository ppa:cassou/emacs
+sudo apt-get update
+sudo apt-get install emacs24 emacs24-el emacs24-common-non-dfsg
+</pre>
+</div>
+<p>
+[ESS] copy ESS/ to <i>usr/share/emacs24/site-lisp</i>
+</p>
+</div>
+<div id="outline-container-sec-1-3-1" class="outline-4">
+<h4 id="sec-1-3-1">Markdown mode</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ul class="org-ul">
+<li>install the package from melpa
+</li>
+<li>download a parser <a href="http://daringfireball.net/projects/markdown/">http://daringfireball.net/projects/markdown/</a>
+</li>
+<li>unzip it ~/
+</li>
+<li>in emacs Mx customize-mode RET
+</li>
+<li>add in Markdown command: ~/Markdown<sub>1</sub>.0.1/Markdown.pl
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-3-2" class="outline-4">
+<h4 id="sec-1-3-2">Themes</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+<a href="http://pawelbx.github.io/emacs-theme-gallery/">gallery</a> 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> INSTALL JAVA</h3>
+<div class="outline-text-3" id="text-1-4">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+java -version
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> INSTALL TEXLIVE</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Basic <a href="http://xmodulo.com/how-to-install-latex-on-ubuntu-or-debian.html">tutorial</a> also this <a href="http://tug.org/texlive/doc.html">documentation</a>
+</p>
+<ul class="org-ul">
+<li>Download <a href="http://ctan.cms.math.ca/tex-archive/systems/texlive/tlnet/">tl.unx.tar</a>
+</li>
+<li>untar, cd, then sudo su
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">perl install-tl
+</pre>
+</div>
+<ul class="org-ul">
+<li>configure size, follow the instructions
+</li>
+<li>Add to ~/.profile
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">PATH=/usr/local/texlive/2014/bin/x86_64-linux:$PATH; export PATH 
+MANPATH=/usr/local/texlive/2014/texmf-dist/doc/man:$MANPATH; export MANPATH 
+INFOPATH=/usr/local/texlive/2014/texmf-dist/doc/info:$INFOPATH; export INFOPATH
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-1-5-1" class="outline-4">
+<h4 id="sec-1-5-1">Create a dvi file</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<ul class="org-ul">
+<li>remove the following from the LATEX config files
+</li>
+</ul>
+<ul class="org-ul">
+<li>add:
+</li>
+</ul>
+<ul class="org-ul">
+<li>command line:
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">latex fileName.tex
+</pre>
+</div>
+<ul class="org-ul">
+<li>open dvi
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">xdvi fileName.dvi
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-5-2" class="outline-4">
+<h4 id="sec-1-5-2">latex small2e  test if latex is installed</h4>
+<div class="outline-text-4" id="text-1-5-2">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo texhash  refresh/rebuild the list of file name database after missing *.sty
+latex sample.tex
+latex sampleref.bib
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> INSTALL R</h3>
+<div class="outline-text-3" id="text-1-6">
+</div><div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1">Revolution R</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+<a href="http://mran.revolutionanalytics.com/documents/rro/installation/#sysreq">Tutorial</a>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2">(optional) Install/Update R in bash</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+Update cran mirror :
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo emacs /etc/apt/sources.list
+deb http://cran.stat.sfu.ca/bin/linux/ubuntu_precise/
+sudo apt-get update
+sudo apt-get install r-base r-base-dev
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3">Add the lsos() function</h4>
+<div class="outline-text-4" id="text-1-6-3">
+<div class="org-src-container">
+
+<pre class="src src-shell">locate Rprofile.site
+</pre>
+</div>
+<p>
+either vanilla R at /usr/lib/R/etc/Rprofile.site
+or RRO at /usr/lib64/RRO-8.0/R-3.1.1/lib/R/etc/Rprofile.site
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo su &amp;&amp; cat &gt;&gt; Rprofile.site
+</pre>
+</div>
+<p>
+Then add the lsos() function
+</p>
+<div class="org-src-container">
+
+<pre class="src src-R">.ls.objects &lt;- function (pos = 1, pattern, order.by,
+                        decreasing=FALSE, head=FALSE, n=5) {
+    # Function for listing ALL objects and size
+    # improved list of objects
+    napply &lt;- function(names, fn) sapply(names, function(x)
+                                         fn(get(x, pos = pos)))
+    names &lt;- ls(pos = pos, pattern = pattern)
+    obj.class &lt;- napply(names, function(x) as.character(class(x))[1])
+    obj.mode &lt;- napply(names, mode)
+    obj.type &lt;- ifelse(is.na(obj.class), obj.mode, obj.class)
+    obj.prettysize &lt;- napply(names, function(x) {
+                           capture.output(print(object.size(x), units = "auto")) })
+    obj.size &lt;- napply(names, object.size)
+    obj.dim &lt;- t(napply(names, function(x)
+                        as.numeric(dim(x))[1:2]))
+    vec &lt;- is.na(obj.dim)[, 1] &amp; (obj.type != "function")
+    obj.dim[vec, 1] &lt;- napply(names, length)[vec]
+    out &lt;- data.frame(obj.type, obj.size, obj.prettysize, obj.dim)
+    names(out) &lt;- c("Type", "Size", "PrettySize", "Rows", "Columns")
+    if (!missing(order.by))
+        out &lt;- out[order(out[[order.by]], decreasing=decreasing), ]
+    if (head)
+        out &lt;- head(out, n)
+    out
+}
+
+lsos &lt;- function(..., n=100) {
+    # shorthand
+    .ls.objects(..., decreasing=TRUE, head=TRUE, n=n)   # order.by="Size"
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-4" class="outline-4">
+<h4 id="sec-1-6-4">install packages</h4>
+<div class="outline-text-4" id="text-1-6-4">
+<div class="org-src-container">
+
+<pre class="src src-R">pkgs = c('doParallel', 'lattice', 'doSNOW', 'rJava', 'ggprot2', 'MASS', 'Matrix', 'Caret', 'nnet', 'plyr', 'dplyr', 'formatR', 'evaluate', 'foreach', 'Hmisc', 'RCurl', 'rbenchmark', 'RColorBrewer', 'reshape2', 'ROAuth', 'SnowballC', 'wordcloud', 'knitr', 'xlsx')
+lapply(pkgs, install.packages)
+lapply(pkgs, require, character.only = TRUE)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-5" class="outline-4">
+<h4 id="sec-1-6-5">Update CRAN packages in R</h4>
+<div class="outline-text-4" id="text-1-6-5">
+<div class="org-src-container">
+
+<pre class="src src-R">update.packages(checkBuilt=TRUE, ask=FALSE)
+update.packages(lib.loc = "/usr/local/lib/R/site-library")
+</pre>
+</div>
+
+<p>
+<b>old</b> 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get install xorg-dev; libX11-dev; r-base-dev; libreadline-dev; g++
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-6" class="outline-4">
+<h4 id="sec-1-6-6">install rgl package for R</h4>
+<div class="outline-text-4" id="text-1-6-6">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get install libX11-dev
+sudo apt-get install libglu1-mesa-dev
+sudo apt-get install mesa-common-dev
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-6-7" class="outline-4">
+<h4 id="sec-1-6-7">set working env for GenePattern</h4>
+<div class="outline-text-4" id="text-1-6-7">
+<ul class="org-ul">
+<li>I need to install the rJava package.
+</li>
+<li>If I have a problem installing it update the r-base-dev
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-6-8" class="outline-4">
+<h4 id="sec-1-6-8">R guide for code writing</h4>
+<div class="outline-text-4" id="text-1-6-8">
+<p>
+<a href="http://google-styleguide.googlecode.com/svn/trunk/Rguide.xml">GOOGLE
+instructions</a> 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-6-9" class="outline-4">
+<h4 id="sec-1-6-9">installed packages</h4>
+<div class="outline-text-4" id="text-1-6-9">
+<div class="org-src-container">
+
+<pre class="src src-R">ip = installed.packages(priority = "high")
+ip[, 1]
+ip[, 2]
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+
+<tr>
+<td class="left">/usr/lib64/RRO-8.0/R-3.1.1/lib/R/library</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> MIDNIGHT COMMANDER</h3>
+<div class="outline-text-3" id="text-1-7">
+<ul class="org-ul">
+<li>download or backup the skin "elite<sub>commander</sub>" <a href="https://sites.google.com/site/livibetter/blog-files/dotfiles/elite_commander.ini?attredirects=0">(From Here)</a>
+</li>
+<li>to change the skin go to 
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">cd ~/.config.d/mc/ini
+</pre>
+</div>
+<ul class="org-ul">
+<li>add the name of one of the skins to the ini file
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">/etc/share/mc/skins/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> INSTALL DROPBOX</h3>
+<div class="outline-text-3" id="text-1-8">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo dpkg -i Downloads/dropbox_1.6.2_amd64.deb
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> INSTALL FLASH AND MP3 PLUGINS</h3>
+<div class="outline-text-3" id="text-1-9">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get install adobe-flashplugin
+sudo apt-get install ubuntu-restricted-extras libavcodec-extra-53
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="section-number-3">1.10</span> AUTOMOUNT DRIVES</h3>
+<div class="outline-text-3" id="text-1-10">
+<ul class="org-ul">
+<li>Add lines in fstab file:
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo emacs /etc/fstab
+</pre>
+</div>
+<ul class="org-ul">
+<li>Add the following to mount the Data Partition for ext3 filesystem
+</li>
+</ul>
+<p>
+/dev/sda5          /media/Data        etx3      defaults        0      2
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11"><span class="section-number-3">1.11</span> INSTALL GITHUB</h3>
+<div class="outline-text-3" id="text-1-11">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get install git
+git clone git://github.com/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-12" class="outline-3">
+<h3 id="sec-1-12"><span class="section-number-3">1.12</span> INSTALL SWAN</h3>
+<div class="outline-text-3" id="text-1-12">
+<p>
+Download <a href="http://cs.joensuu.fi/swan/">http://cs.joensuu.fi/swan/</a>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">unzip SWAN
+bash Launch\ SWAN\ \(Linux\).sh
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-13" class="outline-3">
+<h3 id="sec-1-13"><span class="section-number-3">1.13</span> Display hidden startup entries &lt;RUN ONLY ONCE&gt; in Elementary OS</h3>
+<div class="outline-text-3" id="text-1-13">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-14" class="outline-3">
+<h3 id="sec-1-14"><span class="section-number-3">1.14</span> BLAST+</h3>
+<div class="outline-text-3" id="text-1-14">
+<ol class="org-ol">
+<li>Download from <a href="ftp://ftp.ncbi.nih.gov/blast/executables/blast+/2.2.29/">here</a>
+</li>
+<li>follow these instructions <a href="http://www.ncbi.nlm.nih.gov/books/NBK52640/">here</a>
+</li>
+<li>OR write the export lines in $HOME .profile 
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-shell">PATH=/home/neocruiser/ncbi-blast-2.2.29+/bin:$PATH; export PATH
+BLASTDB=/media/Passport/ncbi-blast-2.2.29+/db:$BLASTDB; export BLASTDB
+</pre>
+</div>
+<ul class="org-ul">
+<li>Set path (optional)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo su
+export PATH="$PATH:/home/neocruiser/ncbi-blast-2.2.29+/bin"
+echo $PATH
+export BLASTDB=”.../ncbi-blast-2.2.29+/db”
+</pre>
+</div>
+<ul class="org-ul">
+<li>mkdir db/ in a BIG Storage drive
+</li>
+<li>Download DBs
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get install ftp
+cd ncbiblast-2.2.29+/db
+ftp ftp.ncbi.nlm.nih.gov
+</pre>
+</div>
+<ul class="org-ul">
+<li><b>Login</b>: anonymous
+</li>
+<li><b>Email</b>: email@
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-shell">cd blast/db
+bin
+get refseq_rna.00.tar.gz
+bye
+</pre>
+</div>
+<ul class="org-ul">
+<li>untar in db/
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-15" class="outline-3">
+<h3 id="sec-1-15"><span class="section-number-3">1.15</span> INSTALL ARCHIVE FORMATS &lt;RUN ONLY ONCE&gt;</h3>
+<div class="outline-text-3" id="text-1-15">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo apt-get install unace rar unrar p7zip-rar p7zip sharutils uudeview mpack lha arj cabextract lzip lunzip
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-16" class="outline-3">
+<h3 id="sec-1-16"><span class="section-number-3">1.16</span> INSTALL JABREF</h3>
+<div class="outline-text-3" id="text-1-16">
+<ol class="org-ol">
+<li>Download <a href="http://sourceforge.net/projects/jabref/files/jabref/2.10/">http://sourceforge.net/projects/jabref/files/jabref/2.10/</a>
+</li>
+<li>untar into then launch
+</li>
+</ol>
+<div class="org-src-container">
+
+<pre class="src src-shell">tar xzvf &lt;name&gt; /usr/local/share/
+java -jar jabref.jar
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-17" class="outline-3">
+<h3 id="sec-1-17"><span class="section-number-3">1.17</span> INSTALL CHROME</h3>
+<div class="outline-text-3" id="text-1-17">
+<div class="org-src-container">
+
+<pre class="src src-shell">wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-18" class="outline-3">
+<h3 id="sec-1-18"><span class="section-number-3">1.18</span> INSTALLED PACKAGES AND APPS</h3>
+<div class="outline-text-3" id="text-1-18">
+<div class="org-src-container">
+
+<pre class="src src-shell">dpkg --get-selections
+dpkg --get-selections &gt; /backup/installed-software.log
+</pre>
+</div>
+<p>
+Restore installed software 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">dpkg --set-selections &lt; /backup/finstalled-software.log
+dselect
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-19" class="outline-3">
+<h3 id="sec-1-19"><span class="section-number-3">1.19</span> SCREEN (TERMINAL SESSION SAVE)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Table">Table</span></span></h3>
+<div class="outline-text-3" id="text-1-19">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Keystrokes</th>
+<th scope="col" class="left">C-a : Command</th>
+<th scope="col" class="left">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">C-a 0</td>
+<td class="left">select 0</td>
+<td class="left">Switch to window 0</td>
+</tr>
+
+<tr>
+<td class="left">C-a 9</td>
+<td class="left">select 9</td>
+<td class="left">Switch to window 9</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-a</td>
+<td class="left">other</td>
+<td class="left">Toggle to the window displayed previously.</td>
+</tr>
+
+<tr>
+<td class="left">C-a a</td>
+<td class="left">meta</td>
+<td class="left">Send the command character (C-a) to window. See escape command.</td>
+</tr>
+
+<tr>
+<td class="left">C-a A</td>
+<td class="left">title</td>
+<td class="left">Allow the user to enter a name for the current window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a c</td>
+<td class="left">screen</td>
+<td class="left">Create a new window with a shell and switch to that window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-c</td>
+<td class="left">screen</td>
+<td class="left">Create a new window with a shell and switch to that window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C</td>
+<td class="left">clear</td>
+<td class="left">Clear the screen.</td>
+</tr>
+
+<tr>
+<td class="left">C-a d</td>
+<td class="left">detach</td>
+<td class="left">Detach screen from this terminal.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-d</td>
+<td class="left">detach</td>
+<td class="left">Detach screen from this terminal.</td>
+</tr>
+
+<tr>
+<td class="left">C-a D D</td>
+<td class="left">pow detach</td>
+<td class="left">Detach and logout.</td>
+</tr>
+
+<tr>
+<td class="left">C-a k</td>
+<td class="left">kill</td>
+<td class="left">Destroy current window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-k</td>
+<td class="left">kill</td>
+<td class="left">Destroy current window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a space</td>
+<td class="left">next</td>
+<td class="left">Switch to the next window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a n</td>
+<td class="left">next</td>
+<td class="left">Switch to the next window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-n</td>
+<td class="left">next</td>
+<td class="left">Switch to the next window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a x</td>
+<td class="left">lockscreen</td>
+<td class="left">Lock this terminal.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-x</td>
+<td class="left">lockscreen</td>
+<td class="left">Lock this terminal.</td>
+</tr>
+
+<tr>
+<td class="left">C-a w</td>
+<td class="left">windows</td>
+<td class="left">Show a list of window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a C-w</td>
+<td class="left">windows</td>
+<td class="left">Show a list of window.</td>
+</tr>
+
+<tr>
+<td class="left">C-a ?</td>
+<td class="left">help</td>
+<td class="left">Show key bindings.</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-1-20" class="outline-3">
+<h3 id="sec-1-20"><span class="section-number-3">1.20</span> IRC COMMANDS&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Table">Table</span></span></h3>
+<div class="outline-text-3" id="text-1-20">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> Usefull instructions can be found <a href="http://quadpoint.org/articles/irssi/">here</a></caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Command</th>
+<th scope="col" class="left">Alias</th>
+<th scope="col" class="left">Info</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">/ban</td>
+<td class="left">/bans, /b</td>
+<td class="left">Sets or List bans for a channel</td>
+</tr>
+
+<tr>
+<td class="left">/clear</td>
+<td class="left">/c, /cl</td>
+<td class="left">Clears a channel buffer</td>
+</tr>
+
+<tr>
+<td class="left">/join</td>
+<td class="left">/j</td>
+<td class="left">Joins a channel</td>
+</tr>
+
+<tr>
+<td class="left">/kick</td>
+<td class="left">/k</td>
+<td class="left">Kicks a user</td>
+</tr>
+
+<tr>
+<td class="left">/kickban</td>
+<td class="left">/kb</td>
+<td class="left">Kickban a user</td>
+</tr>
+
+<tr>
+<td class="left">/msg</td>
+<td class="left">/m</td>
+<td class="left">Send a private message to a user</td>
+</tr>
+
+<tr>
+<td class="left">/unban*</td>
+<td class="left">/mub</td>
+<td class="left">Clears the unbanlist (unbans everyone) in a channel</td>
+</tr>
+
+<tr>
+<td class="left">/names</td>
+<td class="left">/n</td>
+<td class="left">Lists the users in the current channel</td>
+</tr>
+
+<tr>
+<td class="left">/query</td>
+<td class="left">/q</td>
+<td class="left">Open a query window with a user, or close current query window</td>
+</tr>
+
+<tr>
+<td class="left">/topic</td>
+<td class="left">/t</td>
+<td class="left">Displays/edits current topic.</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">Tip: use /t[space][tab] to automatically fill in existing topi.</td>
+</tr>
+
+<tr>
+<td class="left">/window close</td>
+<td class="left">/wc</td>
+<td class="left">Force closure of a window.</td>
+</tr>
+
+<tr>
+<td class="left">/whois</td>
+<td class="left">/wi</td>
+<td class="left">WHOIS a user. Displays user information</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Setting up an IRC config file.
+First, copy original config file
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo cp /etc/irssi.conf ~/.irssi
+sudo chmod +r ~/.irssi/irssi.conf
+mv irssi.conf config
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-1-20-1" class="outline-4">
+<h4 id="sec-1-20-1">ADD NETWORK, SERVER, AND AUTOMATIC CHANNEL CONNECTION&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Table">Table</span></span></h4>
+<div class="outline-text-4" id="text-1-20-1">
+<div class="org-src-container">
+
+<pre class="src src-shell">/network add -auto -nick neocruiser -autosendcmd "/msg NickServ identify helloworld ;wait 2000" fn
+/channel add -auto #freenode fn
+/server add -auto -network fn irc.freenode.net 6667
+/server add -auto -network fn chat.freenode.net
+</pre>
+</div>
+<p>
+&#x2026; add other networks, channels, and servers then &#x2026;
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">/connect irc.unixporn.net
+</pre>
+</div>
+<p>
+(hint) look in the section "See also" of archlinux <a href="https://wiki.archlinux.org/index.php/Irssi">tutorial</a>
+(tip) connect to Freenode using SSL (<a href="https://pthree.org/2010/02/02/irssis-channel-network-server-and-connect-what-it-means/">basic tutorial</a>)
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 2:</span> Important commands for irssi</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Command</th>
+<th scope="col" class="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">/set theme &lt;theme&gt;</td>
+<td class="left">change theme</td>
+</tr>
+
+<tr>
+<td class="left">/save</td>
+<td class="left">save to config</td>
+</tr>
+
+<tr>
+<td class="left">/layout save</td>
+<td class="left">remember windows layout</td>
+</tr>
+
+<tr>
+<td class="left">/ignore * joins</td>
+<td class="left">ignores showing joins</td>
+</tr>
+
+<tr>
+<td class="left">/ignore * parts</td>
+<td class="left">ignores showing parts</td>
+</tr>
+
+<tr>
+<td class="left">/ignore * quits</td>
+<td class="left">ignores showing quits</td>
+</tr>
+
+<tr>
+<td class="left">/ignore * ALL -PUBLIC -ACTIONS</td>
+<td class="left">ignore all the above</td>
+</tr>
+
+<tr>
+<td class="left">/ignore -time 3600 &lt;nick&gt;</td>
+<td class="left">ignore someone</td>
+</tr>
+
+<tr>
+<td class="left">/wc</td>
+<td class="left">close window</td>
+</tr>
+
+<tr>
+<td class="left">/w 1</td>
+<td class="left">switch to window 1</td>
+</tr>
+
+<tr>
+<td class="left">/w move 1</td>
+<td class="left">move current window to position 1</td>
+</tr>
+
+<tr>
+<td class="left">/help</td>
+<td class="left">show commands</td>
+</tr>
+
+<tr>
+<td class="left">/set</td>
+<td class="left">show current settings</td>
+</tr>
+
+<tr>
+<td class="left">/set nick &lt;nick&gt;</td>
+<td class="left">set your nickname <a href="http://www.wikihow.com/Register-a-User-Name-on-Freenode">freenode tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left">/msg nickserv register &lt;pass&gt;&lt;email&gt;</td>
+<td class="left">step 1</td>
+</tr>
+
+<tr>
+<td class="left">/msg NickServ VERIFY REGISTER &#x2026;</td>
+<td class="left">step 2 (email attached)</td>
+</tr>
+
+<tr>
+<td class="left">/msg nickserv set hidemail on</td>
+<td class="left">step 3 (hide email)</td>
+</tr>
+
+<tr>
+<td class="left">/msg nickserv identify &lt;pass&gt;</td>
+<td class="left">step 4 (login)</td>
+</tr>
+
+<tr>
+<td class="left">/server add -auto -network &#x2026;</td>
+<td class="left">add automatic server connection</td>
+</tr>
+
+<tr>
+<td class="left">/network add -nick &lt;nick&gt;&lt;server&gt;</td>
+<td class="left">add nickname to a server</td>
+</tr>
+
+<tr>
+<td class="left">/channel add -auto &lt;channel&gt;&lt;server&gt;</td>
+<td class="left">connect automatically to a channel</td>
+</tr>
+
+<tr>
+<td class="left">/alias</td>
+<td class="left">create own aliases</td>
+</tr>
+
+<tr>
+<td class="left">/s</td>
+<td class="left">server</td>
+</tr>
+
+<tr>
+<td class="left">/c</td>
+<td class="left">connect to a server</td>
+</tr>
+
+<tr>
+<td class="left">/dc</td>
+<td class="left">disconnect from a server</td>
+</tr>
+
+<tr>
+<td class="left">/j</td>
+<td class="left">join a channel</td>
+</tr>
+
+<tr>
+<td class="left">/leave</td>
+<td class="left">leave a channel</td>
+</tr>
+
+<tr>
+<td class="left">/reload</td>
+<td class="left">reload saved configs</td>
+</tr>
+
+<tr>
+<td class="left">/q &lt;nick&gt;</td>
+<td class="left">query; send a private msg</td>
+</tr>
+
+<tr>
+<td class="left">/network</td>
+<td class="left">step 1: setup a network <a href="https://pthree.org/2010/02/02/irssis-channel-network-server-and-connect-what-it-means/">(tutorial)</a></td>
+</tr>
+
+<tr>
+<td class="left">/channel</td>
+<td class="left">step 2: add channels</td>
+</tr>
+
+<tr>
+<td class="left">/server</td>
+<td class="left">step 3: connect through a server</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-21" class="outline-3">
+<h3 id="sec-1-21"><span class="section-number-3">1.21</span> SETUP A LOCAL WEB SERVER</h3>
+<div class="outline-text-3" id="text-1-21">
+<div class="org-src-container">
+
+<pre class="src src-shell">cd &lt;project_dir&gt;
+python -m http.server 8888 &amp;
+google-chrome http://localhost:8888/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-22" class="outline-3">
+<h3 id="sec-1-22"><span class="section-number-3">1.22</span> CHECK GRAPHIC CARD</h3>
+<div class="outline-text-3" id="text-1-22">
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo update-pciids
+lspci \vert grep -E "VGA\vert3D"
+sudo lspci -v -s 00:02.0
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-23" class="outline-3">
+<h3 id="sec-1-23"><span class="section-number-3">1.23</span> TWITTER&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Table">Table</span></span></h3>
+<div class="outline-text-3" id="text-1-23">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 3:</span> Scripts for ttytter</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Command</th>
+<th scope="col" class="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">~/ttytter</td>
+<td class="left">launch</td>
+</tr>
+
+<tr>
+<td class="left">/set ansi 1</td>
+<td class="left">color coded</td>
+</tr>
+
+<tr>
+<td class="left">/trends</td>
+<td class="left">trends</td>
+</tr>
+
+<tr>
+<td class="left">/set notimeline 1</td>
+<td class="left">stop updating my timeline</td>
+</tr>
+
+<tr>
+<td class="left">/tron</td>
+<td class="left">attach a #search to my timeline</td>
+</tr>
+
+<tr>
+<td class="left">/troff</td>
+<td class="left">detach a #</td>
+</tr>
+
+<tr>
+<td class="left">/print track</td>
+<td class="left">print attached #s</td>
+</tr>
+
+<tr>
+<td class="left">/search #</td>
+<td class="left">search for a #</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-1-24" class="outline-3">
+<h3 id="sec-1-24"><span class="section-number-3">1.24</span> CITEULIKE</h3>
+<div class="outline-text-3" id="text-1-24">
+<p>
+Download the BibTeX file for a given library using wget:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo wget -O /dev/null --keep-session-cookies --save-cookies cookies.txt --post-data="username=neocruiser&amp;password=jd4ER-RT4ED&amp;perm=1" http://www.citeulike.org/login.do
+wget -O export.bib --load-cookies cookies.txt http://www.citeulike.org/search/all\?q\=gwas++year:2014
+</pre>
+</div>
+
+<p>
+From this site <a href="http://wiki.citeulike.org/index.php/Importing_and_Exporting">here</a>
+</p>
+</div>
+</div>
+<div id="outline-container-sec-1-25" class="outline-3">
+<h3 id="sec-1-25"><span class="section-number-3">1.25</span> <span class="todo HOLD">HOLD</span> ARCHLINUX&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Table">Table</span>&#xa0;<span class="HOLD">HOLD</span></span></h3>
+<div class="outline-text-3" id="text-1-25">
+</div><div id="outline-container-sec-1-25-1" class="outline-4">
+<h4 id="sec-1-25-1">PREINSTALLATION AND CONFIGURATION OF ARCHLINUX (<a href="//xmodulo.com/install-arch-linux-easy-way-evolution.html">EASY INSTALL</a>)</h4>
+<div class="outline-text-4" id="text-1-25-1">
+<p>
+Keyboard layout. List layouts and choose French layout.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">less /usr/share/kbd/keymaps/
+localectl list-keymaps
+loadkeys fr
+</pre>
+</div>
+
+<p>
+GPT partitions
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">gdisk /dev/sda
+</pre>
+</div>
+<p>
+create partitions using p:print, d:delete, w:write
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Description of partitions</th>
+<th scope="col" class="left">Partitions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">BIOS boot partition +84K (code ef02)</td>
+<td class="left">sda1</td>
+</tr>
+
+<tr>
+<td class="left">Boot partition +350M</td>
+<td class="left">sda2</td>
+</tr>
+
+<tr>
+<td class="left">Swap +2-4G (code 8200)</td>
+<td class="left">sda3</td>
+</tr>
+
+<tr>
+<td class="left">/var +8G</td>
+<td class="left">sda4</td>
+</tr>
+
+<tr>
+<td class="left">/home +40G</td>
+<td class="left">sda5</td>
+</tr>
+
+<tr>
+<td class="left">/root +60G</td>
+<td class="left">sda6</td>
+</tr>
+</tbody>
+</table>
+<p>
+Formatting Boot. But should <b>leave BIOS untouched</b>. ext2 dont have journalling
+which is why ext4 is better for root.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">mkfs.ext2 /dev/sda2
+mkfs.ext4 /dev/sda6
+mkfs.xfs /dev/sda5
+mkswap /dev/sda3
+swapon /dev/sda3
+mkreiserfs /dev/sda4
+</pre>
+</div>
+
+<p>
+Mounting, mount root. <b>mount root before mkdir</b>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">mount /dev/sda6 /mnt
+cd /mnt &amp;&amp; mkdir home boot var
+mount /dev/sda2 /mnt/boot
+mount /dev/sda4 /mnt/var
+mount /dev/sda5 /mnt/home
+</pre>
+</div>
+
+<p>
+Tree visualization of sdas
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">lsblk -f
+</pre>
+</div>
+
+<p>
+Install Arch
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">pacstrap -i /mnt base base-devel
+</pre>
+</div>
+<p>
+generate fstab file
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">genfstab -L -p /mnt &gt;&gt; /mnt/etc/fstab
+nano /mnt/etc/fstab
+</pre>
+</div>
+<p>
+change root
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">arch-chroot /mnt /bin/bash
+</pre>
+</div>
+<p>
+setup and test the internet after drivers configuration. Generate file for customizations.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">pacman -S net-tools iw wireless_tools
+pacman -S dialog wpa_actiond ifplugd wpa_suppicant sudo zsh
+ping -c 3 www.google.com
+systemctl enable dhcpcd.service
+</pre>
+</div>
+<p>
+install emacs
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">pacman -S emacs
+</pre>
+</div>
+
+<p>
+Language. <b>uncomment en<sub>US</sub></b> and generate file for configuations.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">emacs /etc/locale.gen
+locale-gen
+echo LANG=en_US.UTF-8 &gt; /etc/locale.conf
+export LANG=en_US.UTF-8
+</pre>
+</div>
+
+<p>
+Create user
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">useradd -m -g users -G wheel,audio,video,optical,storage,power,lp,locate -s /usr/bin/zsh neo
+</pre>
+</div>
+<p>
+uncomment "# %wheel ALL=(ALL) ALL" from sudo, and make zsh the default shell for
+root too
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">emacs sudo
+chsh -s /usr/bin/zsh
+</pre>
+</div>
+<p>
+TimeZone. Set to US vermont and the configure the hardware clock.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">ls /usr/share/zoneinfo
+ln -sf /usr/share/zoneinfo/US/eastern /etc/localtime
+hwclock --systohc --utc
+</pre>
+</div>
+
+<p>
+Hostname, <b>Replace hostname-domain with arch</b> after the nano command
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">echo arch &gt; /etc/hostname
+PC ID:arch1
+nano /etc/hosts
+</pre>
+</div>
+
+<p>
+Fix configs and set user password
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">mkinitcpio -p linux
+passwd neo
+</pre>
+</div>
+<p>
+GRUB, <b>Download / install GRUB</b>. Customize grub: <b>Replace "quiet" with vga=791
+quiet</b> then <b>uncomment GRUB<sub>COLOR</sub><sub>NORMAL</sub>, GRUB<sub>COLOR</sub><sub>HIGHLIGHT</sub>, GRUB<sub>INIT</sub><sub>TUNE</sub></b>.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">pacman -S grub
+grub-install --target=i386-pc --recheck /dev/sda
+emacs /etc/default/grub
+grub-mkconfig /dev/sda -o /boot/grub/grub.cfg
+</pre>
+</div>
+<p>
+Finish
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">exit
+reboot
+</pre>
+</div>
+
+<p>
+install terminal, yaourt or visit the <a href="https://wiki.archlinux.org/index.php/installation_guide#Post-installation">basic installation guide</a> for
+<a href="https://wiki.archlinux.org/index.php/General_recommendations">recommendations</a> or a <a href="https://wiki.archlinux.org/index.php/List_of_applications">list of apps</a>. View <a href="http://tutos.readthedocs.org/en/latest/source/Arch.html">more tutorial</a>s.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">pacman -S rxvt-unicode rxvt-unicode-terminfo
+
+pacman -S base-devel wget
+wget https://aur.archlinux.org/packages/pa/package-query/package-query.tar.gz
+wget https://aur.archlinux.org/packages/ya/yaourt/yaourt.tar.gz
+tar xvf package-query.tar.gz
+cd package-query
+makepkg -s
+pacman -U package-query*
+tar xvf yaourt.tar.gz
+cd yaourt
+makepkg -s
+pacman -U yaourt*
+</pre>
+</div>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 4:</span> Postinstallation (<a href="https://wiki.archlinux.org/index.php/General_recommendations">Recommendations</a>)</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Function</th>
+<th scope="col" class="left">Application</th>
+<th scope="col" class="left">Command</th>
+<th scope="col" class="left">Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">Desktop</td>
+<td class="left">xorg xorg-utils xorg-server xorg-server-utils</td>
+<td class="left">pacman -S</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/Window_manager#List_of_window_managers">window managers</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">xorg-xinit xorg-twm xorg-xclock</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/Desktop_Environment#List_of_desktop_environments">desktop environment</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">xf86-input-keyboard</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/List_of_applications#Work_environment">work environment</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">slim slim-themes archlinux-themes-slim</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">cinnamon</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">Repos</td>
+<td class="left">&#xa0;</td>
+<td class="left">emacs -nw /etc/pacman.conf</td>
+<td class="left"><b>uncomment mulitlib repos</b></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">pacman -Syu</td>
+<td class="left"><b>update repos to add multi</b></td>
+</tr>
+
+<tr>
+<td class="left">.xinitrc</td>
+<td class="left">&#xa0;</td>
+<td class="left">cp <i>etc/skel</i>.xinitrc /home/neo</td>
+<td class="left"><a href="http://blog.z3bra.org/2013/10/home-sweet-home.html#setup">example xinit</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">chown neo:users <i>home/neo</i>.xinitrc</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">emacs <i>home/neo</i>.xinitrc</td>
+<td class="left"><b>insert exec $1</b></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">systemctl enable slim</td>
+<td class="left"><b>activate slim</b></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">emacs /etc/slim.conf</td>
+<td class="left"><b>configure slim</b></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/SLiM">SLim</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ls /usr/share/slim/themes</td>
+<td class="left"><b>choose=archlinux</b></td>
+</tr>
+
+<tr>
+<td class="left">Keyboard layout</td>
+<td class="left">localectl set-x11-keymap fr pc105 ,fr grp:alt<sub>shift</sub><sub>toggle</sub></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">Sound</td>
+<td class="left">alsa-firmware alsa-utils alsa-plugins pulseaudio-alsa pulseaudio</td>
+<td class="left">ps aux / grep pulse</td>
+<td class="left"><b>check if pulse is running</b></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">pavucontrol</td>
+<td class="left">&#xa0;</td>
+<td class="left">for graphical control of sound</td>
+</tr>
+
+<tr>
+<td class="left">Acceleration</td>
+<td class="left">xf86-video-intel lib32-mesa-libgl libva-intel-driver libva</td>
+<td class="left">Dual monitor, mouse, keyboard</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/Intel_Graphics">Intel Graphics</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">install graphic card drivers</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/Xorg">Xorg</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">Application</td>
+<td class="left">ncdu (disk usage), centrim (chat), taskwarrior (taskmanager),</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/List_of_applications#Terminal_emulators">Teminal emulators</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">git, gpicview, p7zip, elinks (browser),</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/List_of_applications">List of applications</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">java (jre), texlive-core, <a href="http://crawl-ref.sourceforge.net/">rogue</a>, zathura, geany (tex editor),</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://kmandla.wordpress.com/software/">Software</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">ttf-dejavu ttf-inconsolata,</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">End</td>
+<td class="left">&#xa0;</td>
+<td class="left">umount -R /mnt</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">reboot</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-1-25-2" class="outline-4">
+<h4 id="sec-1-25-2">Awesome</h4>
+<div class="outline-text-4" id="text-1-25-2">
+<p>
+<a href="http://awesome.naquadah.org/">http://awesome.naquadah.org/</a>
+<a href="http://awesome.naquadah.org/wiki/My_first_awesome">http://awesome.naquadah.org/wiki/My_first_awesome</a>
+change wallpaper in the following file (change path to wallpaper)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">sudo emacs /usr/share/awesome/themes/default/theme.lua
+</pre>
+</div>
+<p>
+configuration
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">mkdir -p ~/.config/awesome/
+    cp /etc/xdg/awesome/rc.lua ~/.config/awesome/
+</pre>
+</div>
+<p>
+autorun at startup
+add to rc.lua 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-shell">function run_once(prg)
+      awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+    end
+    run_once("urxvt")
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-26" class="outline-3">
+<h3 id="sec-1-26"><span class="section-number-3">1.26</span> <span class="todo HOLD">HOLD</span> ADDITIONAL LINUX APPS&#xa0;&#xa0;&#xa0;<span class="tag"><span class="Table">Table</span>&#xa0;<span class="HOLD">HOLD</span></span></h3>
+<div class="outline-text-3" id="text-1-26">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 5:</span> Theming linux</caption>
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="left">Function</th>
+<th scope="col" class="left">Command</th>
+<th scope="col" class="left">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="left">datascience soft</td>
+<td class="left">&#xa0;</td>
+<td class="left">Mega Imagemagick clustalX2 Cytoscape</td>
+</tr>
+
+<tr>
+<td class="left"><b>bioconductor</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">and R</td>
+</tr>
+
+<tr>
+<td class="left">gimp</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>inkscape</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>evince</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>shotwell</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>gv</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">gparted</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>vlc</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">glipper</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>hamster</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">and hamster indicator</td>
+</tr>
+
+<tr>
+<td class="left"><b>htop</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left"><b>locate</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">Run in a terminal</td>
+<td class="left">screenfetch</td>
+<td class="left">Get a summary of the PC credentials</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">archinfo</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">archey</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">xmodmap</td>
+<td class="left">~/.xsession</td>
+<td class="left"><a href="http://www.emacswiki.org/emacs/MovingTheCtrlKey#toc5">reconfigure key bindings</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">~/.xinitrc</td>
+<td class="left">.xsession has the role of .xinitrc</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">~/.profile</td>
+<td class="left">and .profile combined</td>
+</tr>
+
+<tr>
+<td class="left"><b>urxvt/rxvt-unicode</b></td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/Urxvt#">archlinux configs</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">with xclip</td>
+<td class="left"><a href="https://github.com/muennich/urxvt-perls">copy/paste</a> +</td>
+</tr>
+
+<tr>
+<td class="left">liquidprompt</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://github.com/nojhan/liquidprompt">easy install</a></td>
+</tr>
+
+<tr>
+<td class="left">bash</td>
+<td class="left">chsh -s /bin/bash</td>
+<td class="left">use bash</td>
+</tr>
+
+<tr>
+<td class="left"><b>zsh</b></td>
+<td class="left">chsh -s /bin/zsh</td>
+<td class="left">use zsh + <a href="http://zsh.sourceforge.net/Guide/">userguide</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">echo $SHELL</td>
+<td class="left">see what shell used</td>
+</tr>
+
+<tr>
+<td class="left"><b>oh-my-zsh</b></td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/themes">themes</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins">plugins</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://github.com/zsh-users/zsh-syntax-highlighting">Fish-highlighting</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">~/.oh-my/custom/alias</td>
+<td class="left">create alias <a href="http://alias.sh/most-popular/usage">URL1</a> <a href="http://www.commandlinefu.com/commands/browse">URL2</a></td>
+</tr>
+
+<tr>
+<td class="left">PKGBUILD (arch)</td>
+<td class="left">tar xzvf</td>
+<td class="left">untar the tarball</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">makepkg</td>
+<td class="left">copy PKGBUILD in the untared dir</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">makepkg -s &#x2013;asroot</td>
+<td class="left">build dependecies and install</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">pacman -U tar.gz</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">i3</td>
+<td class="left">dmenu</td>
+<td class="left">install it</td>
+</tr>
+
+<tr>
+<td class="left">bpswm</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://www.reddit.com/r/unixporn/comments/2ldfmw/bspwm_beginner_panel_bar_question/">reddit comment 1</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>ncdu</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">disk usage display</td>
+</tr>
+
+<tr>
+<td class="left">centerim</td>
+<td class="left">&#xa0;</td>
+<td class="left">chat app</td>
+</tr>
+
+<tr>
+<td class="left">gpicview</td>
+<td class="left">&#xa0;</td>
+<td class="left">picture</td>
+</tr>
+
+<tr>
+<td class="left">p7zip</td>
+<td class="left">7za x</td>
+<td class="left">zip</td>
+</tr>
+
+<tr>
+<td class="left">alpine + aspell (C-t)</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://blog.binarymist.net/2011/11/27/centerim-irssi-alpine-on-screen/">email client</a></td>
+</tr>
+
+<tr>
+<td class="left">Sendmail</td>
+<td class="left">&#xa0;</td>
+<td class="left">email for alpine</td>
+</tr>
+
+<tr>
+<td class="left">irssi</td>
+<td class="left">/channel list</td>
+<td class="left"><a href="https://pthree.org/2010/02/02/irssis-channel-network-server-and-connect-what-it-means/">irc commands</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">mv .pl ~/.irssi/scripts</td>
+<td class="left"><a href="http://scripts.irssi.org/">irc perl plugins</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">/save</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">/layout save</td>
+<td class="left"><a href="http://quadpoint.org/articles/irssi/">Beginner guide</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&lt;add freenode&gt;</td>
+<td class="left"><a href="https://freenode.net/certfp/makecert.shtml">guide</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&lt;SSL connection&gt;&gt;</td>
+<td class="left"><a href="https://freenode.net/certfp/certfp-irssi.shtml">guide</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">elinks</td>
+<td class="left">&#xa0;</td>
+<td class="left">browser in console</td>
+</tr>
+
+<tr>
+<td class="left">rogue</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://www.rots.net/rogue/guide.txt">game</a></td>
+</tr>
+
+<tr>
+<td class="left">nethack</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://www.nethack.org/">game</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>perldoc</b></td>
+<td class="left">perl-doc</td>
+<td class="left">documentation for perl</td>
+</tr>
+
+<tr>
+<td class="left"><b>ttytter</b></td>
+<td class="left">$ wget</td>
+<td class="left"><a href="http://www.floodgap.com/software/ttytter/ttytter.txt">get it from here</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ chmod +x ~/ttytter.txt</td>
+<td class="left">make it executable <a href="http://www.floodgap.com/software/ttytter/">website</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ mv ttytter.txt ttytter</td>
+<td class="left">remove .txt</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">/set ansi 1, /set notimeline 1</td>
+<td class="left">enable colors</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">/trends or</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://www.floodgap.com/software/ttytter/copts.html">command line options</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>tmux</b></td>
+<td class="left">tmux new -s &lt;name&gt;</td>
+<td class="left"><a href="http://xmodulo.com/improve-productivity-terminal-environment-tmux.html">tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">tmux attach-session -t &#x2026;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">scrot</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://xmodulo.com/take-screenshot-command-line-linux.html">tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>cheat sheet</b></td>
+<td class="left">cheat -e emacs &amp;</td>
+<td class="left"><a href="http://xmodulo.com/access-linux-command-cheat-sheets-command-line.html">tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left">ack</td>
+<td class="left">community/ack (arch)</td>
+<td class="left"><a href="http://xmodulo.com/search-text-files-patterns-efficiently.html">tutorial</a> or <a href="http://beyondgrep.com/install/">official site</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>ag</b> Silver Searcher</td>
+<td class="left">pacman -S the<sub>silver</sub><sub>searcher</sub></td>
+<td class="left"><a href="https://github.com/ggreer/the_silver_searcher">git official site</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>acpi</b></td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://calummacrae.blogspot.fr/2012/12/dropping-status-bars-for-tmux-as-im.html">battery</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>transmission-cli</b></td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://xmodulo.com/download-iso-image-bittorrent-command-line.html">tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left">ruby</td>
+<td class="left">&#xa0;</td>
+<td class="left">to use with style-check</td>
+</tr>
+
+<tr>
+<td class="left">style-check.rb</td>
+<td class="left">$style-check.rb *.tex</td>
+<td class="left"><a href="http://www.cs.umd.edu/~nspring/software/style-check-readme.html">official site</a></td>
+</tr>
+
+<tr>
+<td class="left"><b>diction</b></td>
+<td class="left">$ diction -sbq *.txt</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="left">pdftk</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://xmodulo.com/how-to-edit-pdf-file-for-free.html">description</a></td>
+</tr>
+
+<tr>
+<td class="left">cpanm</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="https://metacpan.org/pod/App::cpanminus#INSTALLATION">here</a> module installer</td>
+</tr>
+
+<tr>
+<td class="left"><b>firefox</b></td>
+<td class="left">$ mkdir ~/.fonts</td>
+<td class="left"><a href="https://github.com/lucy/tewi-font">tewi-font</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ ~/.mozilla&#x2026;/chrome</td>
+<td class="left"><a href="http://1drv.ms/1ubbEIi">userChrome.css</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="file:///home/neocruiser/startpage/index.html">file:///home/neocruiser/startpage/index.html</a></td>
+<td class="left">startpage</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">vimpirator</td>
+</tr>
+
+<tr>
+<td class="left"><b>FONTS</b></td>
+<td class="left">$ pacman -S</td>
+<td class="left"><a href="https://wiki.archlinux.org/index.php/Infinality#Installation_2">Try these</a> don't set xorg-fonts</td>
+</tr>
+
+<tr>
+<td class="left"><b>gzip</b></td>
+<td class="left">&#xa0;</td>
+<td class="left">*vcf.gz files need an index *gz.tbi</td>
+</tr>
+
+<tr>
+<td class="left"><b>tabix</b></td>
+<td class="left">$ tabix -p vcf file.vcf.gz</td>
+<td class="left">generate an index file</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ bgzip -c file.vcf &gt; file.vcf.gz</td>
+<td class="left">compress</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ bgzip -d file.vcf.gz</td>
+<td class="left">decompress</td>
+</tr>
+
+<tr>
+<td class="left"><b>mu4e</b></td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://wenshanren.org/?p=111">tutorial for gmail</a>  <a href="http://www.djcbsoftware.nl/code/mu/mu4e/index.html"><b>official tutorial</b></a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html#Multiple-accounts">different setup tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ install offlineimap</td>
+<td class="left">offlineimap &amp; .offlineimaprc</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><b>maybe</b> mbsync instead of offlineimap</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left"><a href="http://www.djcbsoftware.nl/code/mu/mu4e/Multiple-accounts.html#Multiple-accounts">Multiple accounts</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">$ install if necessary</td>
+<td class="left">html2text view html emails</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">setup smtp</td>
+<td class="left"><a href="http://email.about.com/od/accessinggmail/f/Gmail_SMTP_Settings.htm">tutorial for gmail</a></td>
+</tr>
+
+<tr>
+<td class="left">pem</td>
+<td class="left">$ pem name $$</td>
+<td class="left"><a href="http://xmodulo.com/manage-personal-expenses-command-line.html">tutorial</a></td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-sec-1-27" class="outline-3">
+<h3 id="sec-1-27"><span class="section-number-3">1.27</span> SYSADMIN UTILITIES</h3>
+<div class="outline-text-3" id="text-1-27">
+</div><div id="outline-container-sec-1-27-1" class="outline-4">
+<h4 id="sec-1-27-1">PROCESS MANAGER</h4>
+<div class="outline-text-4" id="text-1-27-1">
+<div class="org-src-container">
+
+<pre class="src src-shell">top
+htop
+ps fauxwww
+ps aux | grep &lt;pattern&gt;
+parted &lt;print free&gt;
+df -h
+</pre>
+</div>
+</div>
+<ul class="org-ul"><li><a id="sec-1-27-1-1" name="sec-1-27-1-1"></a>SWAP FREE<br  /><div class="outline-text-5" id="text-1-27-1-1">
+<div class="org-src-container">
+
+<pre class="src src-shell">free -m
+sudo su
+swapoff -a &amp;&amp; swapon -a
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-1-27-1-2" name="sec-1-27-1-2"></a>MONITOR FREE MEMORY<br  /><div class="outline-text-5" id="text-1-27-1-2">
+<div class="org-src-container">
+
+<pre class="src src-shell">watch -n 1 -d free -m
+</pre>
+</div>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-sec-1-27-2" class="outline-4">
+<h4 id="sec-1-27-2">FIND</h4>
+<div class="outline-text-4" id="text-1-27-2">
+<div class="org-src-container">
+
+<pre class="src src-shell">find &lt;where&gt; -name &lt;what&gt;
+find / -name &lt;what&gt; 2&gt;/dev/null (redirect the error messages)
+find / -mtime +60
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Sleiman Bassim, PhD</p>
+<p class="date">Created: 2014-11-28 Fri 23:51</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

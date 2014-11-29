@@ -869,6 +869,16 @@ background of code to whatever theme I'm using's background"
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
 (add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t)
 
+(use-package auto-complete
+  :config
+  (progn
+    (setq ac-auto-show-menu nil
+          ac-quick-help-delay 0.5
+          ac-use-fuzzy t)
+    (global-auto-complete-mode +1)
+    (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
+    (use-package fuzzy)))
+
 (use-package writegood-mode
   :config
   (progn
@@ -1364,16 +1374,6 @@ background of code to whatever theme I'm using's background"
 
  (set (make-local-variable 'eldoc-documentation-function)
         'tal-eldoc-function)
-
-(use-package auto-complete
-  :config
-  (progn
-    (setq ac-auto-show-menu nil
-          ac-quick-help-delay 0.5
-          ac-use-fuzzy t)
-    (global-auto-complete-mode +1)
-    (add-hook 'LaTeX-mode-hook 'ac-latex-mode-setup)
-    (use-package fuzzy)))
 
 (when (eq window-system 'x)
   ;; Font family
