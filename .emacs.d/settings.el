@@ -83,6 +83,8 @@
 
 (setq diff-switches "-u")
 
+(setq-default indent-tabs-mode nil)
+
 (setq initial-major-mode 'r-mode
       initial-scratch-message "\
 # This buffer is for notes you don't want to save, and for R code.
@@ -132,11 +134,6 @@
   :init
   (progn
     (diminish 'flyspell-mode "FS")))
-
-(dolist (hook '(text-mode-hook org-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
-(dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode -1))))
 
 (add-hook 'ess-mode-hook        ;; flyspell disable
           (lambda ()
@@ -288,6 +285,43 @@ file to write to."
             (hl-line-mode 1)
             (subword-mode t)))
 
+(setq scroll-step 1)
+(setq scroll-conservatively 5)
+(global-set-key [delete] 'delete-char)
+
+(desktop-save-mode -1)                  ;; Save state of the desktop
+(setq history-length 250)
+    (add-to-list 'desktop-globals-to-save 'file-name-history)
+;; use only one desktop
+(setq desktop-path '("~/.emacs.d"))
+(setq desktop-dirname "~/.emacs.d")
+(setq desktop-base-file-name ".emacs.desktop")
+
+;; use session-save to save the desktop manually
+(defun saved-session ()
+  (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
+(defun session-save ()
+  "Save an emacs session."
+  (interactive)
+  (if (saved-session)
+      (if (y-or-n-p "Overwrite existing desktop? ")
+          (desktop-save-in-desktop-dir)
+        (message "Session not saved."))
+  (desktop-save-in-desktop-dir)))
+;; ask user whether to restore desktop at start-up 'Mx session-save'
+(add-hook 'after-init-hook
+          '(lambda ()
+             (if (saved-session)
+                 (if (y-or-n-p "Restore desktop? ")
+                     (session-restore)))))
+;; use session-restore to restore the desktop manually 'Mx session-restore'
+(defun session-restore ()
+  "Restore a saved emacs session."
+  (interactive)
+  (if (saved-session)
+      (desktop-read)
+    (message "No desktop found.")))
+
 (use-package eldoc
   :config
   (progn
@@ -312,6 +346,11 @@ file to write to."
 (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm-other-window)
 (define-key lisp-interaction-mode-map (kbd "C-c C-z") 'ielm-other-window)
 
+(dolist (hook '(text-mode-hook org-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+
 (use-package org
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
@@ -329,16 +368,6 @@ file to write to."
     (use-package org-latex)
     (unless (boundp 'org-export-latex-classes)
       (setq org-export-latex-classes nil))
-    ;; Koma-class
-    ;; initialize with #+LaTeX_CLASS: koma-article
-    (add-to-list 'org-export-latex-classes
-          '("koma-article"
-             "\\documentclass{scrartcl}"
-             ("\\section{%s}" . "\\section*{%s}")
-             ("\\subsection{%s}" . "\\subsection*{%s}")
-             ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-             ("\\paragraph{%s}" . "\\paragraph*{%s}")
-             ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
     (setq org-directory "/media/Data/Dropbox/Private/org"
           org-startup-indented t
           org-return-follows-link t
@@ -410,7 +439,7 @@ file to write to."
     (add-hook 'org-mode-hook
               '(lambda ()
                  (delete '("\\.pdf\\'" . default) org-file-apps)
-                 (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
+                 (add-to-list 'org-file-apps '("\\.pdf\\'" . "zathura %s"))))
 
     (use-package org-toc
       :disabled t
@@ -645,88 +674,6 @@ background of code to whatever theme I'm using's background"
 
     ))
 
-(defun my/terminal-notifier-notify (title message)
-  "Show a message with `terminal-notifier-command`."
-  (interactive)
-  (start-process "terminal-notifier"
-                 "*terminal-notifier*"
-                 "terminal-notifier"
-                 "-title" title
-                 "-message" message))
-
-(use-package alert
-  :config
-  (progn
-    (alert-define-style 'terminal-notifier
-                        :title "terminal-notifier"
-                        :notifier
-                        (lambda (info)
-                          (my/terminal-notifier-notify
-                           (plist-get info :title)
-                           (plist-get info :message))
-                          ;; The :category of the alert
-                          (plist-get info :category)
-                          ;; The major-mode this alert relates to
-                          (plist-get info :mode)
-                          ;; The buffer the alert relates to
-                          (plist-get info :buffer)
-                          ;; Severity of the alert.  It is one of:
-                          ;;   `urgent'
-                          ;;   `high'
-                          ;;   `moderate'
-                          ;;   `normal'
-                          ;;   `low'
-                          ;;   `trivial'
-                          (plist-get info :severity)
-                          ;; Whether this alert should persist, or fade away
-                          (plist-get info :persistent)
-                          ;; Data which was passed to `alert'.  Can be
-                          ;; anything.
-                          (plist-get info :data))
-
-                        ;; Removers are optional.  Their job is to remove
-                        ;; the visual or auditory effect of the alert.
-                        :remover
-                        (lambda (info)
-                          ;; It is the same property list that was passed to
-                          ;; the notifier function.
-                          ))
-    (if (eq (window-system) 'ns)
-        (setq alert-default-style 'terminal-notifier))))
-
-(desktop-save-mode -1)                  ;; Save state of the desktop
-(setq history-length 250)
-    (add-to-list 'desktop-globals-to-save 'file-name-history)
-;; use only one desktop
-(setq desktop-path '("~/.emacs.d"))
-(setq desktop-dirname "~/.emacs.d")
-(setq desktop-base-file-name ".emacs.desktop")
-
-;; use session-save to save the desktop manually
-(defun saved-session ()
-  (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
-(defun session-save ()
-  "Save an emacs session."
-  (interactive)
-  (if (saved-session)
-      (if (y-or-n-p "Overwrite existing desktop? ")
-          (desktop-save-in-desktop-dir)
-        (message "Session not saved."))
-  (desktop-save-in-desktop-dir)))
-;; ask user whether to restore desktop at start-up 'Mx session-save'
-(add-hook 'after-init-hook
-          '(lambda ()
-             (if (saved-session)
-                 (if (y-or-n-p "Restore desktop? ")
-                     (session-restore)))))
-;; use session-restore to restore the desktop manually 'Mx session-restore'
-(defun session-restore ()
-  "Restore a saved emacs session."
-  (interactive)
-  (if (saved-session)
-      (desktop-read)
-    (message "No desktop found.")))
-
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 (load-theme 'zenburn t) 
 ;(load-theme 'monokai t) 
@@ -737,17 +684,31 @@ background of code to whatever theme I'm using's background"
 ;(load-theme 'gruvbox t)
 
 ;(setq debug-on-error t) ;; debug-on-error
-;(iswitchb-mode -1)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
+(iswitchb-mode -1)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
 ;(setq-default transient-mark-mode t) ; highligh the marked region
 ;(set-face-attribute 'region nil :background "#666")
 ;(require 'uniquify) ; change title buffer
-;(require 'ansi-color) ; translates ANSI SGR into emacs faces
-;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 (global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-S-s-<down>") 'shrink-window)
 (global-set-key (kbd "M-S-s-<up>") 'enlarge-window)
+
+(defun vsplit-last-buffer ()
+  (interactive)
+  (split-window-vertically)
+  (other-window 1 nil)
+  (switch-to-next-buffer)
+  )
+(defun hsplit-last-buffer ()
+  (interactive)
+   (split-window-horizontally)
+  (other-window 1 nil)
+  (switch-to-next-buffer)
+  )
+
+(global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
+(global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
 (defun move-line (n)
   "Move the current line up or down by N lines."
@@ -775,6 +736,7 @@ background of code to whatever theme I'm using's background"
 (use-package undo-tree
   :idle (global-undo-tree-mode t)
   :diminish ""
+  :bind ("M-/" . undo-tree-redo)
   :config
   (progn
     (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
@@ -850,26 +812,11 @@ background of code to whatever theme I'm using's background"
 (use-package paren-face
   :init (global-paren-face-mode))
 
-(use-package indent-guide)
-
-(use-package smart-mode-line
-  :init
-  (sml/setup)
-  (sml/apply-theme 'dark))
-;(sml/apply-theme 'light)
-;(sml/apply-theme 'respectful)
-;(sml/apply-theme 'automatic)
-(add-to-list 'sml/replacer-regexp-list '("^~/.emacs.d/configs/" ":ED:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Bibliography" ":bib:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Latex" ":LaTeX:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/R" ":R:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t)
-
 (use-package company
   :config
   (progn
-    (add-hook 'after-init-hook 'global-company-mode)))
+    (add-hook 'after-init-hook 'global-company-mode)
+    (setq company-idle-delay 0)))
 
 (use-package company-auctex
   :init (company-auctex-init)
@@ -877,6 +824,33 @@ background of code to whatever theme I'm using's background"
   (progn
     (add-to-list 'company-backend 'company-math-symbols-unicode)
     (setq company-tooltip-align-annotations t)))
+
+(use-package company-ess)
+
+;; yasnippet integration, resolve issue
+(defun check-expansion ()
+    (save-excursion
+      (if (looking-at "\\_>") t
+        (backward-char 1)
+        (if (looking-at "\\.") t
+          (backward-char 1)
+          (if (looking-at "->") t nil)))))
+
+  (defun do-yas-expand ()
+    (let ((yas/fallback-behavior 'return-nil))
+      (yas/expand)))
+
+  (defun tab-indent-or-complete ()
+    (interactive)
+    (if (minibufferp)
+        (minibuffer-complete)
+      (if (or (not yas/minor-mode)
+              (null (do-yas-expand)))
+          (if (check-expansion)
+              (company-complete-common)
+            (indent-for-tab-command)))))
+
+  (global-set-key [tab] 'tab-indent-or-complete)
 
 (use-package writegood-mode
   :config
@@ -891,8 +865,6 @@ background of code to whatever theme I'm using's background"
      (interactive)
     (compile (format "style-check.rb -v %s" (buffer-file-name))))
 (global-set-key "\C-c\C-gs" 'my-action/style-check-file)
-
-(global-set-key (kbd "C-h C-m") 'discover-my-major)
 
 (make-variable-buffer-local
  (defvar my-override-mode-on-save nil
@@ -974,8 +946,7 @@ background of code to whatever theme I'm using's background"
    ;;("C-x b" . helm-buffers-list)
    ("C-x C-f" . helm-find-files)
    ("C-x b" . helm-mini)
-   ("C-h t" . helm-world-time)
-   ("C-h s" . helm-simple-call-tree))
+   ("C-h t" . helm-world-time))
   ;;:idle (helm-mode 1)
   :config
   (progn
@@ -1024,7 +995,7 @@ background of code to whatever theme I'm using's background"
           helm-bibtex-pdf-symbol "P")
     (setq helm-bibtex-pdf-open-function    ;; Open PDF in Evince
       (lambda (fpath) (shell-command-to-string
-                       (concat "/usr/bin/evince " fpath " &"))))
+                       (concat "/usr/bin/zathura " fpath " &"))))
     (setq display-time-world-list '(("America/Vermont" "Vermont")
                                     ("America/Denver" "Denver")
                                     ("EST5EDT" "Boston")
@@ -1199,8 +1170,7 @@ background of code to whatever theme I'm using's background"
 
     (use-package helm-descbinds
       :init (helm-descbinds-mode t))
-    (use-package helm-ag
-      :bind ("C-M-s" . helm-ag-this-file))
+    (use-package helm-ag)
     (use-package helm-swoop
       :bind (("M-i" . helm-swoop)
              ("M-I" . helm-swoop-back-to-last-point)
@@ -1239,9 +1209,8 @@ background of code to whatever theme I'm using's background"
      ))))
 
 (use-package AUCTeX
-  :config
-  (progn
-    (setq TeX-parse-self t ; Enable parse on load.
+  :init
+  (setq TeX-parse-self t ; Enable parse on load.
           TeX-auto-save t ; Enable parse on save
           TeX-auto-untabify t ; convert tab to spaces (Parsing Files section of the manual)
           tex-dvi-view-command "xdvi"
@@ -1254,15 +1223,7 @@ background of code to whatever theme I'm using's background"
     ; Table of content activation in menubar
     (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
     (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
-    ))
-
-;(add-hook 'LaTeX-mode-hook
-;       (lambda ()
-;               (setq TeX-master (guess-TeX-master (buffer-file-name)))
-;               (auto-fill-mode -1)
-;               (setq fill-column 2000)
-;               (flyspell-mode -1)
-;))
+    )
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
