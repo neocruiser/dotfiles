@@ -85,31 +85,10 @@
 
 (setq-default indent-tabs-mode nil)
 
-(setq initial-major-mode 'r-mode
-      initial-scratch-message "\
-# This buffer is for notes you don't want to save, and for R code.
-# If you want to create an *.Rnw file, run ~/perls/knitr.pl
-# then enter the file's and project's name.
-")
-;;; Burry the scratch buffer but dont kill it
-(defadvice kill-buffer (around kill-buffer-around-advice activate)
-  (let ((buffer-to-kill (ad-get-arg 0)))
-    (if (equal buffer-to-kill "*scratch*")
-        (bury-buffer)
-      ad-do-it)))
-
-(use-package vlf-integrate
-  :bind ("C-c v" . vlf))
-;; warn when opening files bigger than 100MB
-(setq large-file-warning-threshold 100000000)
-
-(when (functionp 'set-fringe-style)
-  (set-fringe-style 0))
+;(when (functionp 'set-fringe-style)
+;  (set-fringe-style 0))
 
 (global-auto-revert-mode 1)
-
-(when (window-system)
-  (setenv "EMACS_GUI" "t"))
 
 ;; savehist
 (setq savehist-additional-variables
@@ -122,6 +101,24 @@
 (setq delete-auto-save-files t)
 (setq backup-directory-alist
       '(("." . "~/.emacs_backups")))
+
+(use-package vlf-integrate
+  :bind ("C-c v" . vlf))
+;; warn when opening files bigger than 100MB
+(setq large-file-warning-threshold 100000000)
+
+(setq initial-major-mode 'r-mode
+      initial-scratch-message "\
+# This buffer is for notes you don't want to save, and for R code.
+# If you want to create an *.Rnw file, run ~/perls/knitr.pl
+# then enter the file's and project's name.
+")
+;;; Burry the scratch buffer but dont kill it
+(defadvice kill-buffer (around kill-buffer-around-advice activate)
+  (let ((buffer-to-kill (ad-get-arg 0)))
+    (if (equal buffer-to-kill "*scratch*")
+        (bury-buffer)
+      ad-do-it)))
 
 (setq ispell-personal-dictionary "~/.dictionary.txt")
 ;; flyspell
@@ -179,6 +176,29 @@
   (define-key doc-view-mode-map (kbd "k")
     'doc-view-previous-line-or-previous-page))
 
+(defun move-line (n)
+  "Move the current line up or down by N lines."
+  (interactive "p")
+  (setq col (current-column))
+  (beginning-of-line) (setq start (point))
+  (end-of-line) (forward-char) (setq end (point))
+  (let ((line-text (delete-and-extract-region start end)))
+    (forward-line n)
+    (insert line-text)
+    ;; restore point to original column in moved line
+    (forward-line -1)
+    (forward-char col)))
+
+(defun move-line-up (n)
+  "Move the current line up by N lines."
+  (interactive "p")
+  (move-line (if (null n) -1 (- n))))
+
+(defun move-line-down (n)
+  "Move the current line down by N lines."
+  (interactive "p")
+  (move-line (if (null n) 1 n)))
+
 (use-package god-mode
   :config
   (define-key god-local-mode-map (kbd "z") 
@@ -223,60 +243,6 @@
     (define-key dired-mode-map (kbd "C-x C-q") 'wdired-change-to-wdired-mode)
     (add-hook 'dired-mode-hook 'my/dired-mode-hook)))
 
-(use-package saveplace
-  :init
-  (setq-default save-place t)
-  (setq save-place-file (expand-file-name "saved-places" user-emacs-directory)))
-
-(use-package recentf
-  :init
-  (progn
-    (setq recentf-max-saved-items 300
-          recentf-exclude '("/auto-install/" ".recentf" "/repos/" "/elpa/"
-                            "\\.mime-example" "\\.ido.last" "COMMIT_EDITMSG"
-                            ".gz"
-                            "~$" "/tmp/" "/ssh:" "/sudo:" "/scp:")
-          recentf-auto-cleanup 600)
-    (when (not noninteractive) (recentf-mode 1))
-
-    (defun recentf-save-list ()
-      "Save the recent list.
-Load the list from the file specified by `recentf-save-file',
-merge the changes of your current session, and save it back to
-the file."
-      (interactive)
-      (let ((instance-list (copy-list recentf-list)))
-        (recentf-load-list)
-        (recentf-merge-with-default-list instance-list)
-        (recentf-write-list-to-file)))
-
-    (defun recentf-merge-with-default-list (other-list)
-      "Add all items from `other-list' to `recentf-list'."
-      (dolist (oitem other-list)
-        ;; add-to-list already checks for equal'ity
-        (add-to-list 'recentf-list oitem)))
-
-    (defun recentf-write-list-to-file ()
-      "Write the recent files list to file.
-Uses `recentf-list' as the list and `recentf-save-file' as the
-file to write to."
-      (condition-case error
-          (with-temp-buffer
-            (erase-buffer)
-            (set-buffer-file-coding-system recentf-save-file-coding-system)
-            (insert (format recentf-save-file-header (current-time-string)))
-            (recentf-dump-variable 'recentf-list recentf-max-saved-items)
-            (recentf-dump-variable 'recentf-filter-changer-current)
-            (insert "\n \n;;; Local Variables:\n"
-                    (format ";;; coding: %s\n" recentf-save-file-coding-system)
-                    ";;; End:\n")
-            (write-file (expand-file-name recentf-save-file))
-            (when recentf-save-file-modes
-              (set-file-modes recentf-save-file recentf-save-file-modes))
-            nil)
-        (error
-         (warn "recentf mode: %s" (error-message-string error)))))))
-
 (add-hook 'prog-mode-hook
           (lambda ()
             (use-package idle-highlight-mode
@@ -289,62 +255,14 @@ file to write to."
 (setq scroll-conservatively 5)
 (global-set-key [delete] 'delete-char)
 
-(desktop-save-mode -1)                  ;; Save state of the desktop
-(setq history-length 250)
-    (add-to-list 'desktop-globals-to-save 'file-name-history)
-;; use only one desktop
-(setq desktop-path '("~/.emacs.d"))
-(setq desktop-dirname "~/.emacs.d")
-(setq desktop-base-file-name ".emacs.desktop")
+(use-package saveplace
+  :init
+  (setq-default save-place t)
+  (setq save-place-file (expand-file-name "saved-places" user-emacs-directory)))
 
-;; use session-save to save the desktop manually
-(defun saved-session ()
-  (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
-(defun session-save ()
-  "Save an emacs session."
-  (interactive)
-  (if (saved-session)
-      (if (y-or-n-p "Overwrite existing desktop? ")
-          (desktop-save-in-desktop-dir)
-        (message "Session not saved."))
-  (desktop-save-in-desktop-dir)))
-;; ask user whether to restore desktop at start-up 'Mx session-save'
-(add-hook 'after-init-hook
-          '(lambda ()
-             (if (saved-session)
-                 (if (y-or-n-p "Restore desktop? ")
-                     (session-restore)))))
-;; use session-restore to restore the desktop manually 'Mx session-restore'
-(defun session-restore ()
-  "Restore a saved emacs session."
-  (interactive)
-  (if (saved-session)
-      (desktop-read)
-    (message "No desktop found.")))
-
-(use-package eldoc
-  :config
-  (progn
-    (use-package diminish
-      :init
-      (progn (diminish 'eldoc-mode "ed")))
-    (setq eldoc-idle-delay 0.2)
-    (set-face-attribute 'eldoc-highlight-function-argument nil
-                        :underline t :foreground "green"
-                        :weight 'bold)))
-;;; elisp regex grouping
-(set-face-foreground 'font-lock-regexp-grouping-backslash "#ff1493")
-(set-face-foreground 'font-lock-regexp-grouping-construct "#ff8c00")
-;;; ielm buffer
-(defun ielm-other-window ()
-  "Run ielm on other window"
-  (interactive)
-  (switch-to-buffer-other-window
-   (get-buffer-create "*ielm*"))
-  (call-interactively 'ielm))
-
-(define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm-other-window)
-(define-key lisp-interaction-mode-map (kbd "C-c C-z") 'ielm-other-window)
+(use-package golden-ratio
+  :diminish golden-ratio-mode
+  :defer t)
 
 (dolist (hook '(text-mode-hook org-mode-hook))
   (add-hook hook (lambda () (flyspell-mode 1))))
@@ -375,10 +293,10 @@ file to write to."
           org-use-fast-todo-selection t
           org-src-fontify-natively t
           org-fontify-whole-heading-line t
-          org-completion-use-ido t
+         ;; org-completion-use-ido t
           org-edit-src-content-indentation 0
           ;; Imenu should use 3 depth instead of 2
-          org-imenu-depth 3
+          ;;org-imenu-depth 3
           org-agenda-start-on-weekday nil
           ;; Use sticky agenda's so they persist
           org-agenda-sticky t
@@ -397,8 +315,8 @@ file to write to."
           ;; Allow refile to create parent tasks with confirmation
           org-refile-allow-creating-parent-nodes (quote confirm)
           ;; Use IDO for both buffer and file completion and ido-everywhere to t
-          ido-everywhere t
-          ido-max-directory-size 100000
+          ;;ido-everywhere t
+          ;;ido-max-directory-size 100000
           ;; always enable noweb, results as code and exporting both
           org-babel-default-header-args
           (cons '(:noweb . "yes")
@@ -449,6 +367,7 @@ file to write to."
     (setq org-agenda-files
           '("/media/Data/Dropbox/Private/org/grymoire.org"
             "/media/Data/Dropbox/Private/org/human/human.org"
+            "/media/Data/Dropbox/Private/org/todo.org"
             ))
     ;; Org todo keywords
     (setq org-todo-keywords
@@ -529,7 +448,7 @@ file to write to."
                      (org-agenda-skip-function 'my/skip-non-archivable-tasks))))
              nil))))
 
-    (ido-mode (quote both))
+;;    (ido-mode (quote both))
 
     ;; Exclude DONE state tasks from refile targets
     (defun my/verify-refile-target ()
@@ -683,12 +602,6 @@ background of code to whatever theme I'm using's background"
 ;(load-theme 'molokai t)
 ;(load-theme 'gruvbox t)
 
-;(setq debug-on-error t) ;; debug-on-error
-(iswitchb-mode -1)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
-;(setq-default transient-mark-mode t) ; highligh the marked region
-;(set-face-attribute 'region nil :background "#666")
-;(require 'uniquify) ; change title buffer
-
 (global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-S-s-<down>") 'shrink-window)
@@ -710,44 +623,19 @@ background of code to whatever theme I'm using's background"
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
-(defun move-line (n)
-  "Move the current line up or down by N lines."
-  (interactive "p")
-  (setq col (current-column))
-  (beginning-of-line) (setq start (point))
-  (end-of-line) (forward-char) (setq end (point))
-  (let ((line-text (delete-and-extract-region start end)))
-    (forward-line n)
-    (insert line-text)
-    ;; restore point to original column in moved line
-    (forward-line -1)
-    (forward-char col)))
-
-(defun move-line-up (n)
-  "Move the current line up by N lines."
-  (interactive "p")
-  (move-line (if (null n) -1 (- n))))
-
-(defun move-line-down (n)
-  "Move the current line down by N lines."
-  (interactive "p")
-  (move-line (if (null n) 1 n)))
-
 (use-package undo-tree
   :idle (global-undo-tree-mode t)
   :diminish ""
   :bind ("M-/" . undo-tree-redo)
   :config
-  (progn
     (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
-    (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo)))
+    (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo))
 
 (use-package auto-indent-mode
-  :config
-  (progn
+  :init
     (setq auto-indent-key-for-end-of-line-then-newline "<M-return>"
         auto-indent-key-for-end-of-line-insert-char-then-newline "<M-S-return>"
-        auto-indent-indent-style 'aggressive)))
+        auto-indent-indent-style 'aggressive))
 
 (use-package ace-jump-mode
   :bind (("C-c SPC" . ace-jump-mode)
@@ -755,77 +643,29 @@ background of code to whatever theme I'm using's background"
          ("C-x SPC" . ace-jump-mode-pop-mark)))
 
 (use-package keyfreq
-  :config
-  (progn
+  :init
     (setq keyfreq-mode 1
-          keyfreq-autosave-mode 1)))
+          keyfreq-autosave-mode 1))
 
 (use-package bookmark+
-  :config
-  (progn
+  :init
     (setq bookmark-version-control t
           ;; auto-save bookmarks
-          bookmark-save-flag 1)))
-
-(use-package yasnippet
-  :diminish ""
-  :idle (yas-reload-all)
-  :config
-  (setq yas-snippet-dirs "~/.emacs.d/snippets/"
-        yas-load-directory "~/.emacs.d/elpa/"
-        yas-use-menu nil)
-  (yas-global-mode 1))
-;;; Chose snippets using Helm
-(progn
-      (defun my-yas/prompt (prompt choices &optional display-fn)
-      (let* ((names (loop for choice in choices
-                          collect (or (and display-fn
-                                           (funcall display-fn choice))
-                                      coice)))
-             (selected (helm-other-buffer
-                        `(((name . ,(format "%s" prompt))
-                           (candidates . names)
-                           (action . (("Insert snippet" . (lambda (arg)
-                                                            arg))))))
-                        "*helm yas/prompt*")))
-        (if selected
-            (let ((n (position selected names :test 'equal)))
-              (nth n choices))
-          (signal 'quit "user quit!"))))
-      (custom-set-variables '(yas/prompt-functions '(my-yas/prompt))))
-
-(global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
-
-(smartparens-global-mode t)
-;; different colors for parenthesis highlights
-(use-package highlight-parentheses
-  :init
-  (setq hl-paren-colors '("gold" "IndianRed" "cyan" "green" "orange" "magenta")))
-
-(defun hpm-on ()
-  (highlight-parentheses-mode t))
-(add-hook 'ess-mode-hook 'hpm-on)
-(add-hook 'inferior-ess-mode-hook 'hpm-on)
-(add-hook 'latex-mode-hook 'hpm-on)
-
-;;; darken parentheses
-(use-package paren-face
-  :init (global-paren-face-mode))
+          bookmark-save-flag 1))
 
 (use-package company
+  :diminish "Co"
   :config
-  (progn
     (add-hook 'after-init-hook 'global-company-mode)
-    (setq company-idle-delay 0)))
+    (setq company-idle-delay 0))
 
 (use-package company-auctex
-  :init (company-auctex-init)
   :config
-  (progn
-    (add-to-list 'company-backend 'company-math-symbols-unicode)
-    (setq company-tooltip-align-annotations t)))
+  (company-auctex-init)
+  (add-to-list 'company-backend 'company-math-symbols-unicode)
+  (setq company-tooltip-align-annotations t))
 
-(use-package company-ess)
+;(use-package company-ess)
 
 ;; yasnippet integration, resolve issue
 (defun check-expansion ()
@@ -853,11 +693,10 @@ background of code to whatever theme I'm using's background"
   (global-set-key [tab] 'tab-indent-or-complete)
 
 (use-package writegood-mode
-  :config
-  (progn
-    (global-set-key "\C-cs" 'writegood-mode)
-    (global-set-key "\C-c\C-gg" 'writegood-grade-level)
-    (global-set-key "\C-c\C-ge" 'writegood-reading-ease)))
+  :bind
+    ("\C-cs" . writegood-mode)
+    ("\C-c\C-gg" . writegood-grade-level)
+    ("\C-c\C-ge" . writegood-reading-ease))
 ;(writegood-mode 1)
 ;;; Style-check
 ; source http://www.cs.umd.edu/~nspring/software/style-check-readme.html
@@ -924,6 +763,206 @@ background of code to whatever theme I'm using's background"
 
 (use-package easy-kill
   :init (global-set-key [remap kill-ring-save] 'easy-kill))
+
+(use-package markdown-mode
+  :config
+  (progn
+    (define-key markdown-mode-map (kbd "C-M-f") 'forward-symbol)
+    (define-key markdown-mode-map (kbd "C-M-b") 'backward-symbol)
+    (define-key markdown-mode-map (kbd "C-M-u") 'my/backward-up-list)
+
+    (define-key markdown-mode-map (kbd "C-c C-n") 'outline-next-visible-heading)
+    (define-key markdown-mode-map (kbd "C-c C-p") 'outline-previous-visible-heading)
+    (define-key markdown-mode-map (kbd "C-c C-f") 'outline-forward-same-level)
+    (define-key markdown-mode-map (kbd "C-c C-b") 'outline-backward-same-level)
+    (define-key markdown-mode-map (kbd "C-c C-u") 'outline-up-heading)
+
+    (defvar markdown-imenu-generic-expression
+      '(("title"  "^\\(.+?\\)[\n]=+$" 1)
+        ("h2-"    "^\\(.+?\\)[\n]-+$" 1)
+        ("h1"     "^#\\s-+\\(.+?\\)$" 1)
+        ("h2"     "^##\\s-+\\(.+?\\)$" 1)
+        ("h3"     "^###\\s-+\\(.+?\\)$" 1)
+        ("h4"     "^####\\s-+\\(.+?\\)$" 1)
+        ("h5"     "^#####\\s-+\\(.+?\\)$" 1)
+        ("h6"     "^######\\s-+\\(.+?\\)$" 1)
+        ("fn"     "^\\[\\^\\(.+?\\)\\]" 1) ))))
+
+(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
+(add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
+
+;; special Perl indentation
+(defun n-cperl-mode-hook ()
+  (setq cperl-indent-level 4)
+  (setq cperl-continued-statement-offset 4)
+  (setq cperl-extra-newline-before-brace t)
+  (setq cperl-close-paren-offset -4)
+  (setq cperl-indent-parens-as-block t)
+  (setq cperl-tab-always-indent t)
+  (set-face-background 'cperl-array-face "#5c888b")
+  (set-face-foreground 'cperl-array-face "#656555")
+  (set-face-background 'cperl-hash-face "#9c6363")
+  (set-face-foreground 'cperl-hash-face "#656555")
+  )
+(add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
+
+(setq py-install-directory "~/.emacs.d/python-mode.el-6.1.3/")
+  (add-to-list 'load-path py-install-directory)
+  (use-package python-mode)
+
+;; Browse the Python Documentation using Info (C-h S)
+(use-package info-look)
+
+(info-lookup-add-help
+ :mode 'python-mode
+ :regexp "[[:alnum:]_]+"
+ :doc-spec
+ '(("(python)Index" nil "")))
+
+;; enable code autocompletion
+  (setq py-load-pymacs-p t)
+
+; command
+(defun py-next-block ()
+   "go to the next block.  Cf. `forward-sexp' for lisp-mode"
+   (interactive)
+   (py-mark-block nil 't)
+   (back-to-indentation))
+
+; activate it
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+     (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+     (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
+
+(autoload 'eldoc-in-minibuffer-mode "eldoc-eval")
+   (eldoc-in-minibuffer-mode 1)
+
+(defun ted-frob-eldoc-argument-list (string)
+   "Upcase and fontify STRING for use with `eldoc-mode'."
+   (propertize (upcase string)
+               'face 'font-lock-variable-name-face))
+ (setq eldoc-argument-case 'ted-frob-eldoc-argument-list)
+
+(org-eldoc-hook-setup) ;; have org-eldoc add itself to `org-mode-hook'
+; for python
+(add-hook 'python-mode-hook
+          '(lambda () (eldoc-mode 1)) t)
+
+ (set (make-local-variable 'eldoc-documentation-function)
+        'tal-eldoc-function)
+
+(when (eq window-system 'x)
+  ;; Font family
+  (set-fontset-font "fontset-default" 'symbol "Inconsolata")
+  (set-default-font "Inconsolata")
+  ;; Font size
+  (set-face-attribute 'default nil :height 113))
+
+(use-package eldoc
+  :config
+  (progn
+    (use-package diminish
+      :init
+      (progn (diminish 'eldoc-mode "ed")))
+    (setq eldoc-idle-delay 0.2)
+    (set-face-attribute 'eldoc-highlight-function-argument nil
+                        :underline t :foreground "green"
+                        :weight 'bold)))
+;;; elisp regex grouping
+(set-face-foreground 'font-lock-regexp-grouping-backslash "#ff1493")
+(set-face-foreground 'font-lock-regexp-grouping-construct "#ff8c00")
+;;; ielm buffer
+(defun ielm-other-window ()
+  "Run ielm on other window"
+  (interactive)
+  (switch-to-buffer-other-window
+   (get-buffer-create "*ielm*"))
+  (call-interactively 'ielm))
+
+(define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm-other-window)
+(define-key lisp-interaction-mode-map (kbd "C-c C-z") 'ielm-other-window)
+
+(use-package ess-site
+  :config
+  (progn
+   (put 'upcase-region 'disabled nil)
+   (add-hook 'inferior-ess-mode-hook
+             '(lambda nil
+                (define-key inferior-ess-mode-map [\C-up]
+                  'comint-previous-matching-input-from-input)
+                (define-key inferior-ess-mode-map [\C-down]
+                  'comint-next-matching-input-from-input)
+                (define-key inferior-ess-mode-map [\C-x \t]
+                  'comint-dynamic-complete-filename)
+     ))))
+
+(use-package AUCTeX
+  :init
+  (setq TeX-parse-self t ; Enable parse on load.
+          TeX-auto-save t ; Enable parse on save
+          TeX-auto-untabify t ; convert tab to spaces (Parsing Files section of the manual)
+          tex-dvi-view-command "xdvi"
+          reftex-plug-into-AUCTeX t)
+    (setq-default TeX-master nil)
+    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    ; Table of content activation in menubar
+    (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
+    (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
+    )
+
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)
+         ("C-M-=" . er/contract-region)))
+
+(use-package yasnippet
+  :diminish ""
+  :idle (yas-reload-all)
+  :config
+  (setq yas-snippet-dirs "~/.emacs.d/snippets/"
+        yas-load-directory "~/.emacs.d/elpa/"
+        yas-use-menu nil)
+  (yas-global-mode 1))
+;;; Chose snippets using Helm
+(progn
+      (defun my-yas/prompt (prompt choices &optional display-fn)
+      (let* ((names (loop for choice in choices
+                          collect (or (and display-fn
+                                           (funcall display-fn choice))
+                                      coice)))
+             (selected (helm-other-buffer
+                        `(((name . ,(format "%s" prompt))
+                           (candidates . names)
+                           (action . (("Insert snippet" . (lambda (arg)
+                                                            arg))))))
+                        "*helm yas/prompt*")))
+        (if selected
+            (let ((n (position selected names :test 'equal)))
+              (nth n choices))
+          (signal 'quit "user quit!"))))
+      (custom-set-variables '(yas/prompt-functions '(my-yas/prompt))))
+
+(global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
+
+(smartparens-global-mode t)
+;; different colors for parenthesis highlights
+(use-package highlight-parentheses
+  :init
+  (setq hl-paren-colors '("gold" "IndianRed" "cyan" "green" "orange" "magenta")))
+
+(defun hpm-on ()
+  (highlight-parentheses-mode t))
+(add-hook 'ess-mode-hook 'hpm-on)
+(add-hook 'inferior-ess-mode-hook 'hpm-on)
+(add-hook 'latex-mode-hook 'hpm-on)
+
+;;; darken parentheses
+(use-package paren-face
+  :init (global-paren-face-mode))
 
 (use-package helm
   :bind
@@ -1069,104 +1108,6 @@ background of code to whatever theme I'm using's background"
     ;; Save current position to mark ring
     (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 
-    (defvar helm-httpstatus-source
-      '((name . "HTTP STATUS")
-        (candidates . (("100 Continue") ("101 Switching Protocols")
-                       ("102 Processing") ("200 OK")
-                       ("201 Created") ("202 Accepted")
-                       ("203 Non-Authoritative Information") ("204 No Content")
-                       ("205 Reset Content") ("206 Partial Content")
-                       ("207 Multi-Status") ("208 Already Reported")
-                       ("300 Multiple Choices") ("301 Moved Permanently")
-                       ("302 Found") ("303 See Other")
-                       ("304 Not Modified") ("305 Use Proxy")
-                       ("307 Temporary Redirect") ("400 Bad Request")
-                       ("401 Unauthorized") ("402 Payment Required")
-                       ("403 Forbidden") ("404 Not Found")
-                       ("405 Method Not Allowed") ("406 Not Acceptable")
-                       ("407 Proxy Authentication Required") ("408 Request Timeout")
-                       ("409 Conflict") ("410 Gone")
-                       ("411 Length Required") ("412 Precondition Failed")
-                       ("413 Request Entity Too Large")
-                       ("414 Request-URI Too Large")
-                       ("415 Unsupported Media Type")
-                       ("416 Request Range Not Satisfiable")
-                       ("417 Expectation Failed") ("418 I'm a teapot")
-                       ("422 Unprocessable Entity") ("423 Locked")
-                       ("424 Failed Dependency") ("425 No code")
-                       ("426 Upgrade Required") ("428 Precondition Required")
-                       ("429 Too Many Requests")
-                       ("431 Request Header Fields Too Large")
-                       ("449 Retry with") ("500 Internal Server Error")
-                       ("501 Not Implemented") ("502 Bad Gateway")
-                       ("503 Service Unavailable") ("504 Gateway Timeout")
-                       ("505 HTTP Version Not Supported")
-                       ("506 Variant Also Negotiates")
-                       ("507 Insufficient Storage") ("509 Bandwidth Limit Exceeded")
-                       ("510 Not Extended")
-                       ("511 Network Authentication Required")))
-        (action . message)))
-
-    (defvar helm-clj-http-source
-      '((name . "clj-http options")
-        (candidates
-         .
-         ((":accept - keyword for content type to accept")
-          (":as - output coercion: :json, :json-string-keys, :clojure, :stream, :auto or string")
-          (":basic-auth - string or vector of basic auth creds")
-          (":body - body of request")
-          (":body-encoding - encoding type for body string")
-          (":client-params - apache http client params")
-          (":coerce - when to coerce response body: :always, :unexceptional, :exceptional")
-          (":conn-timeout - timeout for connection")
-          (":connection-manager - connection pooling manager")
-          (":content-type - content-type for request")
-          (":cookie-store - CookieStore object to store/retrieve cookies")
-          (":cookies - map of cookie name to cookie map")
-          (":debug - boolean to print info to stdout")
-          (":debug-body - boolean to print body debug info to stdout")
-          (":decode-body-headers - automatically decode body headers")
-          (":decompress-body - whether to decompress body automatically")
-          (":digest-auth - vector of digest authentication")
-          (":follow-redirects - boolean whether to follow HTTP redirects")
-          (":form-params - map of form parameters to send")
-          (":headers - map of headers")
-          (":ignore-unknown-host? - whether to ignore inability to resolve host")
-          (":insecure? - boolean whether to accept invalid SSL certs")
-          (":json-opts - map of json options to be used for form params")
-          (":keystore - file path to SSL keystore")
-          (":keystore-pass - password for keystore")
-          (":keystore-type - type of SSL keystore")
-          (":length - manually specified length of body")
-          (":max-redirects - maximum number of redirects to follow")
-          (":multipart - vector of multipart options")
-          (":oauth-token - oauth token")
-          (":proxy-host - hostname of proxy server")
-          (":proxy-ignore-hosts - set of hosts to ignore for proxy")
-          (":proxy-post - port for proxy server")
-          (":query-params - map of query parameters")
-          (":raw-headers - boolean whether to return raw headers with response")
-          (":response-interceptor - function called for each redirect")
-          (":retry-handler - function to handle HTTP retries on IOException")
-          (":save-request? - boolean to return original request with response")
-          (":socket-timeout - timeout for establishing socket")
-          (":throw-entire-message? - whether to throw the entire response on errors")
-          (":throw-exceptions - boolean whether to throw exceptions on 5xx & 4xx")
-          (":trust-store - file path to trust store")
-          (":trust-store-pass - password for trust store")
-          (":trust-store-type - type of trust store")))
-        (action . message)))
-
-    (defun helm-httpstatus ()
-      (interactive)
-      (helm-other-buffer '(helm-httpstatus-source) "*helm httpstatus*"))
-
-    (defun helm-clj-http ()
-      (interactive)
-      (helm-other-buffer '(helm-clj-http-source) "*helm clj-http flags*"))
-
-    (global-set-key (kbd "C-c M-C-h") 'helm-httpstatus)
-    (global-set-key (kbd "C-c M-h") 'helm-clj-http)
 
     (use-package helm-descbinds
       :init (helm-descbinds-mode t))
@@ -1190,50 +1131,78 @@ background of code to whatever theme I'm using's background"
               ;; If nil, you can slightly boost invoke speed in exchange for text color
               helm-swoop-speed-or-color nil)))))
 
-(use-package golden-ratio
-  :diminish golden-ratio-mode
-  :defer t)
-
-(use-package ess-site
-  :config
-  (progn
-   (put 'upcase-region 'disabled nil)
-   (add-hook 'inferior-ess-mode-hook
-             '(lambda nil
-                (define-key inferior-ess-mode-map [\C-up]
-                  'comint-previous-matching-input-from-input)
-                (define-key inferior-ess-mode-map [\C-down]
-                  'comint-next-matching-input-from-input)
-                (define-key inferior-ess-mode-map [\C-x \t]
-                  'comint-dynamic-complete-filename)
-     ))))
-
-(use-package AUCTeX
+(use-package auto-capitalize
+  :disabled t
   :init
-  (setq TeX-parse-self t ; Enable parse on load.
-          TeX-auto-save t ; Enable parse on save
-          TeX-auto-untabify t ; convert tab to spaces (Parsing Files section of the manual)
-          tex-dvi-view-command "xdvi"
-          reftex-plug-into-AUCTeX t)
-    (setq-default TeX-master nil)
-    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-    ; Table of content activation in menubar
-    (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
-    (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
-    )
+  (progn
+  (autoload 'auto-capitalize-mode "auto-capitalize"
+"Toggle `auto-capitalize' minor mode in this buffer." t)
+(autoload 'turn-on-auto-capitalize-mode "auto-capitalize"
+"Turn on `auto-capitalize' minor mode in this buffer." t)
+(autoload 'enable-auto-capitalize-mode "auto-capitalize"
+"Enable `auto-capitalize' minor mode in this buffer." t)
+(add-hook 'text-mode-hook 'turn-on-auto-capitalize-mode)
+; add apostrophe as a symbol to enable contraction
+(modify-syntax-entry ?' ". " text-mode-syntax-table)
 
-(use-package expand-region
-  :bind (("C-=" . er/expand-region)
-         ("C-M-=" . er/contract-region)))
+; a fix for org heading auto-capitalization
+(defun org-auto-capitalize-headings-and-lists ()
+"Create a buffer-local binding of sentence-end to auto-capitalize
+section headings and list items."
+(make-local-variable 'sentence-end)
+(setq sentence-end (concat (rx (or
+;; headings
+(seq line-start (1+ "*") (1+ space))
+;; list and checklist items
+(seq line-start (0+ space) "-" (1+ space) (? (or "[ ]" "[X]") (1+ space)))))
+"\\|" (sentence-end))))
+ 
+(add-hook 'org-mode-hook #'org-auto-capitalize-headings-and-lists)))
+
+;(setq debug-on-error t) ;; debug-on-error
+(iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
+;(setq-default transient-mark-mode t) ; highligh the marked region
+;(set-face-attribute 'region nil :background "#666")
+;(require 'uniquify) ; change title buffer
+
+(desktop-save-mode -1)                  ;; Save state of the desktop
+(setq history-length 250)
+    (add-to-list 'desktop-globals-to-save 'file-name-history)
+;; use only one desktop
+(setq desktop-path '("~/.emacs.d"))
+(setq desktop-dirname "~/.emacs.d")
+(setq desktop-base-file-name ".emacs.desktop")
+
+;; use session-save to save the desktop manually
+(defun saved-session ()
+  (file-exists-p (concat desktop-dirname "/" desktop-base-file-name)))
+(defun session-save ()
+  "Save an emacs session."
+  (interactive)
+  (if (saved-session)
+      (if (y-or-n-p "Overwrite existing desktop? ")
+          (desktop-save-in-desktop-dir)
+        (message "Session not saved."))
+  (desktop-save-in-desktop-dir)))
+;; ask user whether to restore desktop at start-up 'Mx session-save'
+(add-hook 'after-init-hook
+          '(lambda ()
+             (if (saved-session)
+                 (if (y-or-n-p "Restore desktop? ")
+                     (session-restore)))))
+;; use session-restore to restore the desktop manually 'Mx session-restore'
+(defun session-restore ()
+  "Restore a saved emacs session."
+  (interactive)
+  (if (saved-session)
+      (desktop-read)
+    (message "No desktop found.")))
 
 (global-set-key "\C-xrs" 'bookmark-save)
 (global-set-key "\C-cc" 'reftex-citation)
 (global-set-key "\C-cl" 'org-store-link)        ; used in combination w/ Cc Cl 
 (global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
+;;(global-set-key "\C-cb" 'org-iswitchb)
 ;;(global-set-key (kbd "C-c m") 'mu4e)  ;; email
 (global-set-key (kbd "C-c p") 'speedbar)  ;; speedbar
 (global-set-key (kbd "C-c e") 'ecb-activate)  ;; ECB
@@ -1250,99 +1219,3 @@ background of code to whatever theme I'm using's background"
 (global-set-key (kbd "C-x C-2") 'split-window-below)
 (global-set-key (kbd "C-x C-3") 'split-window-right)
 (global-set-key (kbd "C-x C-0") 'delete-window)
-
-(use-package markdown-mode
-  :config
-  (progn
-    (define-key markdown-mode-map (kbd "C-M-f") 'forward-symbol)
-    (define-key markdown-mode-map (kbd "C-M-b") 'backward-symbol)
-    (define-key markdown-mode-map (kbd "C-M-u") 'my/backward-up-list)
-
-    (define-key markdown-mode-map (kbd "C-c C-n") 'outline-next-visible-heading)
-    (define-key markdown-mode-map (kbd "C-c C-p") 'outline-previous-visible-heading)
-    (define-key markdown-mode-map (kbd "C-c C-f") 'outline-forward-same-level)
-    (define-key markdown-mode-map (kbd "C-c C-b") 'outline-backward-same-level)
-    (define-key markdown-mode-map (kbd "C-c C-u") 'outline-up-heading)
-
-    (defvar markdown-imenu-generic-expression
-      '(("title"  "^\\(.+?\\)[\n]=+$" 1)
-        ("h2-"    "^\\(.+?\\)[\n]-+$" 1)
-        ("h1"     "^#\\s-+\\(.+?\\)$" 1)
-        ("h2"     "^##\\s-+\\(.+?\\)$" 1)
-        ("h3"     "^###\\s-+\\(.+?\\)$" 1)
-        ("h4"     "^####\\s-+\\(.+?\\)$" 1)
-        ("h5"     "^#####\\s-+\\(.+?\\)$" 1)
-        ("h6"     "^######\\s-+\\(.+?\\)$" 1)
-        ("fn"     "^\\[\\^\\(.+?\\)\\]" 1) ))))
-
-(add-to-list 'auto-mode-alist '("\\.\\([pP][Llm]\\|al\\)\\'" . cperl-mode))
-(add-to-list 'interpreter-mode-alist '("perl" . cperl-mode))
-(add-to-list 'interpreter-mode-alist '("perl5" . cperl-mode))
-(add-to-list 'interpreter-mode-alist '("miniperl" . cperl-mode))
-
-;; special Perl indentation
-(defun n-cperl-mode-hook ()
-  (setq cperl-indent-level 4)
-  (setq cperl-continued-statement-offset 4)
-  (setq cperl-extra-newline-before-brace t)
-  (setq cperl-close-paren-offset -4)
-  (setq cperl-indent-parens-as-block t)
-  (setq cperl-tab-always-indent t)
-  (set-face-background 'cperl-array-face "#5c888b")
-  (set-face-foreground 'cperl-array-face "#656555")
-  (set-face-background 'cperl-hash-face "#9c6363")
-  (set-face-foreground 'cperl-hash-face "#656555")
-  )
-(add-hook 'cperl-mode-hook 'n-cperl-mode-hook t)
-
-(setq py-install-directory "~/.emacs.d/python-mode.el-6.1.3/")
-  (add-to-list 'load-path py-install-directory)
-  (use-package python-mode)
-
-;; Browse the Python Documentation using Info (C-h S)
-(use-package info-look)
-
-(info-lookup-add-help
- :mode 'python-mode
- :regexp "[[:alnum:]_]+"
- :doc-spec
- '(("(python)Index" nil "")))
-
-;; enable code autocompletion
-  (setq py-load-pymacs-p t)
-
-; command
-(defun py-next-block ()
-   "go to the next block.  Cf. `forward-sexp' for lisp-mode"
-   (interactive)
-   (py-mark-block nil 't)
-   (back-to-indentation))
-
-; activate it
-(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
-     (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
-     (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-
-(autoload 'eldoc-in-minibuffer-mode "eldoc-eval")
-   (eldoc-in-minibuffer-mode 1)
-
-(defun ted-frob-eldoc-argument-list (string)
-   "Upcase and fontify STRING for use with `eldoc-mode'."
-   (propertize (upcase string)
-               'face 'font-lock-variable-name-face))
- (setq eldoc-argument-case 'ted-frob-eldoc-argument-list)
-
-(org-eldoc-hook-setup) ;; have org-eldoc add itself to `org-mode-hook'
-; for python
-(add-hook 'python-mode-hook
-          '(lambda () (eldoc-mode 1)) t)
-
- (set (make-local-variable 'eldoc-documentation-function)
-        'tal-eldoc-function)
-
-(when (eq window-system 'x)
-  ;; Font family
-  (set-fontset-font "fontset-default" 'symbol "Inconsolata")
-  (set-default-font "Inconsolata")
-  ;; Font size
-  (set-face-attribute 'default nil :height 113))
