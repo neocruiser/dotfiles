@@ -1,4 +1,4 @@
-personal_ws-1.1 en 99 
+personal_ws-1.1 en 104 
 postlarvae
 api
 devtools
@@ -17,8 +17,8 @@ timepoints
 rjson
 dev
 sleiman
-SNPs
 snps
+SNPs
 GWAS
 MapReduce
 noindent
@@ -32,8 +32,9 @@ LD
 marginnote
 microarray
 resampling
-Archlinux
 exonic
+Archlinux
+parallelizes
 benthic
 oxidative
 arachidonic
@@ -48,8 +49,8 @@ overfit
 resequencing
 timeline
 mortalities
-exome
 canevas
+exome
 english
 epistatic
 DVI
@@ -63,6 +64,8 @@ INDELS
 wordcloud
 biomarkers
 PDF
+workflow
+beamertemplatenavigationsymbolsempty
 Hadoop
 macronutrients
 username
@@ -73,6 +76,7 @@ GWASs
 uvm
 eicosanoid
 getTrends
+workflows
 unialgal
 ROAuth
 searchTwitter
@@ -81,6 +85,7 @@ biomolecules
 haplotype
 maketitle
 microalgae
+worflows
 github
 mutlimarker
 extarticle
