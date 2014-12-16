@@ -904,7 +904,9 @@ background of code to whatever theme I'm using's background"
           TeX-auto-save t ; Enable parse on save
           TeX-auto-untabify t ; convert tab to spaces (Parsing Files section of the manual)
           tex-dvi-view-command "xdvi"
-          reftex-plug-into-AUCTeX t)
+          reftex-plug-into-AUCTeX t
+          TeX-save-query nil
+          TeX-PDF-mode t)
     (setq-default TeX-master nil)
     (add-hook 'LaTeX-mode-hook 'visual-line-mode)
     (add-hook 'LaTeX-mode-hook 'flyspell-mode)
@@ -913,6 +915,7 @@ background of code to whatever theme I'm using's background"
     ; Table of content activation in menubar
     (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
     (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
+    (add-hook 'doc-view-mode-hook 'auto-revert-mode)
     )
 
 (use-package expand-region
@@ -1209,7 +1212,7 @@ section headings and list items."
 (global-set-key (kbd "M-<up>") 'move-line-up)
 (global-set-key (kbd "M-<down>") 'move-line-down)
 (global-set-key [f11] 'fullscreen)
-
+(global-set-key (kbd "C-=") 'reftex-toc)
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-set-key [down-mouse-3] 'imenu)  ; TOC activation right-mouse click

@@ -1,4 +1,4 @@
-personal_ws-1.1 en 104 
+personal_ws-1.1 en 117 
 postlarvae
 api
 devtools
@@ -7,6 +7,7 @@ postlarval
 regulomes
 linenumbers
 preprocess
+methylation
 ectotherms
 dplyr
 dataframe
@@ -38,16 +39,21 @@ parallelizes
 benthic
 oxidative
 arachidonic
+endophenotypes
 twitteR
 emacs
 documentclass
 subsec
+biogeographical
 availableTrendLocations
 setwd
+phenotypically
+intronic
 phenotypic
 overfit
 resequencing
 timeline
+Epistasis
 mortalities
 canevas
 exome
@@ -63,21 +69,27 @@ mailto
 INDELS
 wordcloud
 biomarkers
+phenotypical
 PDF
 workflow
 beamertemplatenavigationsymbolsempty
+Plink
 Hadoop
 macronutrients
 username
 GenePattern
+neuroimaging
 MySQL
 spatfall
 GWASs
 uvm
+datasets
 eicosanoid
 getTrends
 workflows
 unialgal
+SNPTEST
+HapMap
 ROAuth
 searchTwitter
 genotyping
@@ -97,6 +109,7 @@ apoptotic
 Mytilus
 haplotypes
 keypoints
+endophenotype
 CRAN
 emph
 formatR

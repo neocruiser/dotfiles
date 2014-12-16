@@ -99,3 +99,11 @@ alias open='xdg-open'
 
 # take screenshot with scrot
 alias scrot_="scrot '%Y-%m-%d_scrot.png' -q '100'"
+
+## PLINK
+#=======
+# get the number of rows and columns in a file
+dim(){
+        cat $1 | wc -l && awk '{ if(NF>max) max=NF } END {print max}' $1
+}
+
