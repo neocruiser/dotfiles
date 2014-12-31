@@ -2,6 +2,12 @@
 (setq user-full-name "Sleiman Bassim"
       user-mail-address "slei.bass@gmail.com")
 
+;;;; Clipboard settings in Linux
+(setq x-select-enable-clipboard t)
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setq save-interprogram-paste-before-kill t)
+
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
@@ -48,7 +54,7 @@
 
 (setq make-pointer-invisible t)
 
-(setq-default fill-column 80)
+(setq-default fill-column 800)
 (setq-default default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 
@@ -357,7 +363,7 @@
     (add-hook 'org-mode-hook
               '(lambda ()
                  (delete '("\\.pdf\\'" . default) org-file-apps)
-                 (add-to-list 'org-file-apps '("\\.pdf\\'" . "zathura %s"))))
+                 (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
     (use-package org-toc
       :disabled t
@@ -1030,14 +1036,14 @@ background of code to whatever theme I'm using's background"
           "grep -a -d recurse %e -n%cH -e %p %f"
           )
     (setq helm-bibtex-bibliography '(
-                                     "/media/Data/Bibliography/deeplearninggpu2014.bib"
+                   ;;                  "/media/Data/Bibliography/deeplearninggpu2014.bib"
                                      "/media/Data/Bibliography/humanGenetics.bib"))
     (setq helm-bibtex-library-path "/media/Data/Bibliography/Bibliography2017/"
           helm-bibtex-notes-path "/media/Data/Bibliography/notes/"
           helm-bibtex-pdf-symbol "P")
     (setq helm-bibtex-pdf-open-function    ;; Open PDF in Evince
       (lambda (fpath) (shell-command-to-string
-                       (concat "/usr/bin/zathura " fpath " &"))))
+                       (concat "/usr/bin/evince " fpath " &"))))
     (setq display-time-world-list '(("America/Vermont" "Vermont")
                                     ("America/Denver" "Denver")
                                     ("EST5EDT" "Boston")
@@ -1200,6 +1206,25 @@ section headings and list items."
   (if (saved-session)
       (desktop-read)
     (message "No desktop found.")))
+
+(use-package smart-mode-line
+  :init
+  (sml/setup)
+  (sml/apply-theme 'dark)
+  )
+ 
+(add-to-list 'sml/replacer-regexp-list '("^~/.emacs.d/configs/" ":ED:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Bibliography" ":bib:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Latex" ":LaTeX:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/R" ":R:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t)
+
+(use-package smart-cursor-color
+  :init
+  (hl-line-mode -1)
+  (smart-cursor-color-mode 1)
+  )
 
 (global-set-key "\C-xrs" 'bookmark-save)
 (global-set-key "\C-cc" 'reftex-citation)

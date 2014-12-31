@@ -107,3 +107,6 @@ dim(){
         cat $1 | wc -l && awk '{ if(NF>max) max=NF } END {print max}' $1
 }
 
+# Quiet R
+alias R='R --quiet'
+alias sR='sudo R --quiet'

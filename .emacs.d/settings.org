@@ -16,6 +16,16 @@
       user-mail-address "slei.bass@gmail.com")
   #+end_src
 
+Customize clipboard for linux
+#+BEGIN_SRC emacs-lisp
+;;;; Clipboard settings in Linux
+(setq x-select-enable-clipboard t)
+;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setq save-interprogram-paste-before-kill t)
+#+END_SRC
+
+
 use UTF8 for everything
 #+begin_src emacs-lisp
 (set-terminal-coding-system 'utf-8)
@@ -103,7 +113,7 @@ Hide the mouse when typing
 
 Set fill column
 #+begin_src emacs-lisp
-(setq-default fill-column 80)
+(setq-default fill-column 800)
 (setq-default default-tab-width 2)
 (setq-default indent-tabs-mode nil)
 #+end_src
@@ -505,7 +515,7 @@ remove/activate spelling in org-mode
     (add-hook 'org-mode-hook
               '(lambda ()
                  (delete '("\\.pdf\\'" . default) org-file-apps)
-                 (add-to-list 'org-file-apps '("\\.pdf\\'" . "zathura %s"))))
+                 (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
 
     (use-package org-toc
       :disabled t
@@ -1284,7 +1294,7 @@ Helm
           helm-bibtex-pdf-symbol "P")
     (setq helm-bibtex-pdf-open-function    ;; Open PDF in Evince
       (lambda (fpath) (shell-command-to-string
-                       (concat "/usr/bin/zathura " fpath " &"))))
+                       (concat "/usr/bin/evince " fpath " &"))))
     (setq display-time-world-list '(("America/Vermont" "Vermont")
                                     ("America/Denver" "Denver")
                                     ("EST5EDT" "Boston")
@@ -1461,6 +1471,30 @@ being already loaded. Delete all .emacs.desktop saves in ~/.emacs.d/
       (desktop-read)
     (message "No desktop found.")))
 #+end_src
+* POWERLINE
+Some customization for the powerline. Adding full path and removing non necessary mail modes entries.
+#+BEGIN_SRC emacs-lisp
+(use-package smart-mode-line
+  :init
+  (sml/setup)
+  (sml/apply-theme 'dark)
+  )
+ 
+(add-to-list 'sml/replacer-regexp-list '("^~/.emacs.d/configs/" ":ED:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Bibliography" ":bib:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Latex" ":LaTeX:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/R" ":R:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
+(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t) 
+#+END_SRC
+* CURSOR
+#+BEGIN_SRC emacs-lisp
+(use-package smart-cursor-color
+  :init
+  (hl-line-mode -1)
+  (smart-cursor-color-mode 1)
+  )
+#+END_SRC
 * KEYBINDINGS
 Some configuration of keybindings. some are global, others are hooked to minor
 or major modes. Variables are declared earlier. Modes are declared throughout

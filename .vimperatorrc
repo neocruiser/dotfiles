@@ -1,28 +1,39 @@
 "3.8.3 (created: 2014/11/09 13:19:01)
 
-highlight Bell border: 0 none; background-color: #2f2f2f;
-highlight Boolean color: #f6e9e9;
-highlight CmdLine font-family: Sans; padding: 1px;
-highlight CompDesc color: #77a8c1; width: 50%;
-highlight CompResult width: 45%; overfloaw: hidden;
-highlight CompTitle color: #9acd32; background: #2f2f2f; font-weight: bold;
-highlight CompTitle>* padding: 0 .5ex;
-highlight ErrorMsg color: green; background: #2f2f2f; font-weight: bold;
-highlight Filter font-weight: bold;
-highlight FrameIndicator background-color: #2f2f2f; opacity: 0.5; z-index: 999; position: fixed; top: 0; bottom: 0; left: 0; right: 0;
-highlight Hint font-family: Sans; font-size: 10px; font-weight: bold; color: #f6e9e9; background-color: red; border-color: ButtonShadow; border-width: 0px; border-style: solid; padding 0px 1px 0px 1px;
-highlight HintActive background: #2f2f2f; color: #f6e9e9;
-highlight HintElem background-color: #2f2f2f; color: #f6e9e9;
-highlight InfoMsg color: green; background: #2f2f2f;
-highlight LineNr color: green; background: #2f2f2f;
-highlight ModeMsg color: #8ade8e; background: #2f2f2f;
-highlight MoreMsg color: #8ade8e; background: #2f2f2f;
-highlight Normal color: #8ade8e; background: #2f2f2f;
-highlight Question color: #8ade8e; background: green; font-weight: bold;
-highlight StatusLine color: #9acd32; background: #2f2f2f;
-highlight Title color: green; background: #2f2f2f; font-weight: bold;
-highlight URL text-decoration: none; color: green; background: inherit;
-highlight WarningMsg color: red; background: #2f2f2f;
+highlight Boolean color: #f00;
+highlight CmdLine color: #aaa; background: #333; font-family: Inconsolata; font-size: 12px; padding: 0px; vertical-align: middle; border: none;
+highlight CompDesc color: #999; width: 50%;
+highlight CompItem[selected] background: #666;
+highlight CompResult color: #aaa; width: 45%; overflow: hidden;
+highlight CompTitle color: #ddc; background: #333; font-weight: bold;
+highlight CompTitle>* color: #aaa; font-weight: bold; border-top: 1px solid gray; border-bottom: 1px solid #BBB; padding: 1px 0.5ex;
+highlight ContentSeparator border:none;
+highlight ErrorMsg color: #c22; background-color: #333; font-weight: bold; 
+highlight Function color: #04c;
+highlight Hint color: white; background-color: #800; border-color: ButtonShadow; font-family: Inconsolata; font-size: 12px; border-width: 0px; border-style: solid; padding 0 1px;
+highlight HintActive color: black; background: #480;
+highlight HintElem color: black; background-color: #880; 
+highlight InfoMsg color: #ddc; background: #333;
+highlight Keyword color: #CC0;
+highlight LineNr color: orange; background-color: #333;
+highlight ModeMsg color: #ddc; background: #333;
+highlight MoreMsg color: #080; background: #222; font-weight: bold; -moz-border-radius: 5px; padding-left: 5px;
+highlight Normal color: #ddc; background: #333;
+highlight Null color: #00c;
+highlight Number color: #00c;
+highlight Object color: #c40;
+highlight Question color: #080; background: #222; font-weight: bold; -moz-border-radius: 5px; padding-left: 5px;
+highlight StatusLine color: #ddc; background: #333; font-family: Inconsolata; font-size: 14px; margin-top: 1px;
+highlight String color: #0c0;
+highlight TabNumber color: #ddc; font-weight: bold; margin: 0; padding-right: .3ex; text-shadow: #000 -1px 0 0, #000 0 1px 0, #000 1px 0 0, #000 0 -1px 0;
+highlight Tag color: #0CC;
+highlight Title color: #ddc; background: #333; font-weight: bold;
+highlight URL color: #080; text-decoration: none; padding: 0 2px;
+highlight URL:hover color: #880; background-color: #222; -moz-border-radius: 5px; cursor: pointer;
+style! -name=statusbar chrome://* <<EOF
+#status-bar statusbarpanel { padding: 0 1px !important; }
+statusbarpanel > * { margin: 0 !important; padding: 0 2px 0 0 !important; }
+EOF
 source! /home/neocruiser/.vimperatorrc.local
 
 " vim: set ft=vimperator:
