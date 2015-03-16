@@ -8,6 +8,10 @@
 
 ## MISCELLEANEOUS
 #=================
+# updates & cleans
+alias update="sudo apt-get update && sudo apt-get upgrade"
+alias clean="sudo apt-get autoremove && sudo apt-get autoclean"
+
 # Watch updated every second for free
  alias wn="watch -n 1 -d free -m"
 
@@ -15,7 +19,7 @@
 alias c='clear'
 
 # download TORRENT
-alias torrent="transmission-cli -ep -D -u 50 -w /media/Data/Videos -f ~/transmission-cli/finish.sh"
+alias torrent="transmission-cli -ep -D -u 50 -w /home/neo/Downloads"
 #alias torrent="transmission-cli -ep -D -u 50 "
 
 # untar multiple files
@@ -100,8 +104,7 @@ alias open='xdg-open'
 # take screenshot with scrot
 alias scrot_="scrot '%Y-%m-%d_scrot.png' -q '100'"
 
-## PLINK
-#=======
+
 # get the number of rows and columns in a file
 dim(){
         cat $1 | wc -l && awk '{ if(NF>max) max=NF } END {print max}' $1
@@ -110,3 +113,19 @@ dim(){
 # Quiet R
 alias R='R --quiet'
 alias sR='sudo R --quiet'
+
+## download data from bluemoon
+alias sblue='sftp sbassim@bluemoon-user1'
+
+## upload data to bluemoon
+upblue(){ # path to the file
+        scp $1 sbassim@bluemoon-user1:/users/s/b/sbassim/
+}
+
+## stream torrent with peerflix and vlc
+peer(){
+peerflix $1 --vlc -- --fullscreen
+}
+
+## autoclean and autoremove
+alias autoclean='sudo apt-get autoclean && sudo apt-get autoremove'

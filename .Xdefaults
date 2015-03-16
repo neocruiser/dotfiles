@@ -14,7 +14,8 @@ URxvt*tintColor:        white
 
 Xft*dpi:                96
 urxvt*termName:         rxvt
-URxvt.depth: 256 !! true transparency
+URxvt.depth: 32 !true transparency
+URxvt.background: rgba:1111/1111/1111/dddd
 urxvt.transparent:    false
 urxvt*allow_bold:    true
 URxvt*font: xft:monospace:pixelsize=12:antialias=true:hinting=full
@@ -80,7 +81,14 @@ URxvt.matcher.button: 1
 URxvt.colorUL: #4682B4
 
 !! clipboard
-URxvt.perl-ext-common: clipboard,url-select,keyboard-select
+URxvt.perl-lib: /home/neo/.urxvt/ext
+URxvt.perl-ext-common: clipboard,url-select,keyboard-select,tabbedex
+! tabs
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 3
+URxvt.tabbed.tab-bg: 0
+! mode selection
 URxvt.keysym.M-a: perl:keyboard-select:activate
 URxvt.keysym.M-s: perl:keyboard-select:search
 URxvt.keysym.M-u: perl:url-select:select_next

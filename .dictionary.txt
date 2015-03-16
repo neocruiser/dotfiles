@@ -1,4 +1,4 @@
-personal_ws-1.1 en 117 
+personal_ws-1.1 en 120 
 postlarvae
 api
 devtools
@@ -17,6 +17,7 @@ config
 timepoints
 rjson
 dev
+symlinked
 sleiman
 snps
 SNPs
@@ -40,6 +41,8 @@ benthic
 oxidative
 arachidonic
 endophenotypes
+genomics
+bioinformatics
 twitteR
 emacs
 documentclass
@@ -82,8 +85,8 @@ neuroimaging
 MySQL
 spatfall
 GWASs
-uvm
 datasets
+uvm
 eicosanoid
 getTrends
 workflows

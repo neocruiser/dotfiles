@@ -292,7 +292,7 @@
     (use-package org-latex)
     (unless (boundp 'org-export-latex-classes)
       (setq org-export-latex-classes nil))
-    (setq org-directory "/media/Data/Dropbox/Private/org"
+    (setq org-directory "~/data/Dropbox/Private/org"
           org-startup-indented t
           org-return-follows-link t
           ;; allow changing between todo stats directly by hotkey
@@ -371,9 +371,9 @@
 
     ;; Agenda org-mode files
     (setq org-agenda-files
-          '("/media/Data/Dropbox/Private/org/grymoire.org"
-            "/media/Data/Dropbox/Private/org/human/human.org"
-            "/media/Data/Dropbox/Private/org/todo.org"
+          '("~/data/Dropbox/Private/org/grymoire.org"
+            "~/data/Dropbox/Private/org/human/human.org"
+            "~/data/Dropbox/Private/org/todo.org"
             ))
     ;; Org todo keywords
     (setq org-todo-keywords
@@ -1036,10 +1036,11 @@ background of code to whatever theme I'm using's background"
           "grep -a -d recurse %e -n%cH -e %p %f"
           )
     (setq helm-bibtex-bibliography '(
-                   ;;                  "/media/Data/Bibliography/deeplearninggpu2014.bib"
-                                     "/media/Data/Bibliography/humanGenetics.bib"))
-    (setq helm-bibtex-library-path "/media/Data/Bibliography/Bibliography2017/"
-          helm-bibtex-notes-path "/media/Data/Bibliography/notes/"
+                   ;;                  "~/data/Bibliography/deeplearninggpu2014.bib"
+                                      "~/data/Bibliography/articlev11.bib"
+                                     "~/data/Bibliography/humanGenetics.bib"))
+    (setq helm-bibtex-library-path "~/data/Bibliography/Bibliography2017/"
+          helm-bibtex-notes-path "~/data/Bibliography/notes/"
           helm-bibtex-pdf-symbol "P")
     (setq helm-bibtex-pdf-open-function    ;; Open PDF in Evince
       (lambda (fpath) (shell-command-to-string
@@ -1168,6 +1169,18 @@ section headings and list items."
  
 (add-hook 'org-mode-hook #'org-auto-capitalize-headings-and-lists)))
 
+(use-package web-beautify
+  :init
+    (eval-after-load 'js2-mode
+      '(define-key js2-mode-map (kbd "C-c b") 'web-beautify-js))
+    (eval-after-load 'json-mode
+      '(define-key json-mode-map (kbd "C-c b") 'web-beautify-js))
+    (eval-after-load 'sgml-mode
+      '(define-key html-mode-map (kbd "C-c b") 'web-beautify-html))
+    (eval-after-load 'css-mode
+      '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
+    )
+
 ;(setq debug-on-error t) ;; debug-on-error
 (iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
 ;(setq-default transient-mark-mode t) ; highligh the marked region
@@ -1214,11 +1227,11 @@ section headings and list items."
   )
  
 (add-to-list 'sml/replacer-regexp-list '("^~/.emacs.d/configs/" ":ED:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Bibliography" ":bib:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Latex" ":LaTeX:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/R" ":R:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox/Private/org" ":org:") t)
-(add-to-list 'sml/replacer-regexp-list '("^/media/Data/Dropbox" ":dropbox:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Bibliography" ":bib:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Latex" ":LaTeX:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/R" ":R:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Private/org" ":org:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox" ":dropbox:") t)
 
 (use-package smart-cursor-color
   :init
