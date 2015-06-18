@@ -3,6 +3,7 @@
 /*
 
 # exclude
+!.profile
 !.gitignore
 !README.md
 !.emacs
