@@ -1,4 +1,4 @@
-personal_ws-1.1 en 120 
+personal_ws-1.1 en 123 
 postlarvae
 api
 devtools
@@ -17,10 +17,11 @@ config
 timepoints
 rjson
 dev
+exomes
 symlinked
 sleiman
-snps
 SNPs
+snps
 GWAS
 MapReduce
 noindent
@@ -30,6 +31,7 @@ interpretability
 edulis
 edu
 OMIM
+VCFTools
 LD
 marginnote
 microarray
@@ -58,9 +60,10 @@ resequencing
 timeline
 Epistasis
 mortalities
-canevas
 exome
+canevas
 english
+transcriptomes
 epistatic
 DVI
 rstats

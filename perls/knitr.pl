@@ -1,1 +1,1 @@
-/media/Data/Dropbox/Perl/mining/knitr.pl
+/home/neo/data/Dropbox/Perl/mining/knitr.pl

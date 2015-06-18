@@ -13,7 +13,7 @@
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
-(global-font-lock-mode t)
+;(global-font-lock-mode t)
 
 (setq gc-cons-threshold 20000000)
 
@@ -222,7 +222,7 @@
         (if (or god-local-mode buffer-read-only) 'bar 'box)))
 
 (defun my/dired-mode-hook ()
-  (hl-line-mode t)
+  (hl-line-mode -1)
   (toggle-truncate-lines 1))
 
 (use-package dired
@@ -254,7 +254,7 @@
             (use-package idle-highlight-mode
               :init (idle-highlight-mode t))
             (setq show-trailing-whitespace t)
-            (hl-line-mode 1)
+            (hl-line-mode -1)
             (subword-mode t)))
 
 (setq scroll-step 1)
@@ -297,8 +297,8 @@
           org-return-follows-link t
           ;; allow changing between todo stats directly by hotkey
           org-use-fast-todo-selection t
-          org-src-fontify-natively t
-          org-fontify-whole-heading-line t
+;          org-src-fontify-natively t
+;          org-fontify-whole-heading-line t
          ;; org-completion-use-ido t
           org-edit-src-content-indentation 0
           ;; Imenu should use 3 depth instead of 2
@@ -600,13 +600,21 @@ background of code to whatever theme I'm using's background"
     ))
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
-(load-theme 'zenburn t) 
-;(load-theme 'monokai t) 
+;(load-theme 'zenburn t) 
+;(load-theme 'monokai t)
+
 ;(load-theme 'gotham t)
 ;(load-theme 'leuven t) ;; best for org-mode
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)
 ;(load-theme 'gruvbox t)
+
+(require 'moe-theme)
+(setq moe-theme-highlight-buffer-id nil)
+     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
+     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
+     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
+     (moe-dark)
 
 (global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
@@ -630,7 +638,7 @@ background of code to whatever theme I'm using's background"
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 
 (use-package undo-tree
-  :idle (global-undo-tree-mode t)
+;  :idle (global-undo-tree-mode t)
   :diminish ""
   :bind ("M-/" . undo-tree-redo)
   :config
@@ -744,7 +752,7 @@ background of code to whatever theme I'm using's background"
   :bind (("M-g M-n" . flycheck-next-error)
          ("M-g M-p" . flycheck-previous-error)
          ("M-g M-=" . flycheck-list-errors))
-  :idle (global-flycheck-mode)
+;  :idle (global-flycheck-mode)
   :diminish "fc"
   :config
   (progn
@@ -859,12 +867,12 @@ background of code to whatever theme I'm using's background"
  (set (make-local-variable 'eldoc-documentation-function)
         'tal-eldoc-function)
 
-(when (eq window-system 'x)
+;(when (eq window-system 'x)
   ;; Font family
-  (set-fontset-font "fontset-default" 'symbol "Inconsolata")
-  (set-default-font "Inconsolata")
+;  (set-fontset-font "fontset-default" 'symbol "Inconsolata")
+;  (set-default-font "Inconsolata")
   ;; Font size
-  (set-face-attribute 'default nil :height 113))
+;  (set-face-attribute 'default nil :height 113))
 
 (use-package eldoc
   :config
@@ -929,8 +937,8 @@ background of code to whatever theme I'm using's background"
          ("C-M-=" . er/contract-region)))
 
 (use-package yasnippet
-  :diminish ""
-  :idle (yas-reload-all)
+;  :diminish ""
+;  :idle (yas-reload-all)
   :config
   (setq yas-snippet-dirs "~/.emacs.d/snippets/"
         yas-load-directory "~/.emacs.d/elpa/"
@@ -1035,6 +1043,17 @@ background of code to whatever theme I'm using's background"
           ;;"ggrep -a -d recurse %e -n%cH -e %p %f"
           "grep -a -d recurse %e -n%cH -e %p %f"
           )
+    ;; Disable the header line
+    (setq helm-display-header-line nil) ;; t by default
+    ;; Turn off the source header line
+    (set-face-attribute 'helm-source-header nil :height 0.1)
+    ;; activate autoresize mode in helm
+    (helm-autoresize-mode 1)
+    (setq helm-autoresize-max-height 30)
+    (setq helm-autoresize-min-height 30)
+    ;; open helm in lower half of current buffer
+    (setq helm-split-window-in-side-p t)
+    ;; Bibliographie
     (setq helm-bibtex-bibliography '(
                    ;;                  "~/data/Bibliography/deeplearninggpu2014.bib"
                                       "~/data/Bibliography/articlev11.bib"
@@ -1181,6 +1200,8 @@ section headings and list items."
       '(define-key css-mode-map (kbd "C-c b") 'web-beautify-css))
     )
 
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+
 ;(setq debug-on-error t) ;; debug-on-error
 (iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
 ;(setq-default transient-mark-mode t) ; highligh the marked region
@@ -1236,6 +1257,7 @@ section headings and list items."
 (use-package smart-cursor-color
   :init
   (hl-line-mode -1)
+  (remove-hook 'coding-hook 'turn-on-hl-line-mode)
   (smart-cursor-color-mode 1)
   )
 
