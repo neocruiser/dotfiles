@@ -14,7 +14,7 @@ URxvt*tintColor:        white
 
 Xft*dpi:                96
 urxvt*termName:         rxvt
-URxvt.depth: 32 !true transparency
+!URxvt.depth: 32 !true transparency
 URxvt.background: rgba:1111/1111/1111/dddd
 urxvt.transparent:    false
 urxvt*allow_bold:    true
@@ -32,44 +32,53 @@ URxvt*scrollWithBuffer: true ! scroll in relation to buffer (with mouse scroll o
 URxvt*scrollTtyKeypress: true ! scroll back to the bottom on keypress
 !! scrollback buffer in secondary screen (like less)
 
+*colorIT:                             #E3AB8D
+*colorBD:                             #F0E5DF
+*colorUL:                             #cd546c
+*VT100.colorBDMode:                   true
+*VT100.colorBD:                       red
+*VT100.colorULMode:                   true
+*VT100.colorUL:                       magenta
+*VT100.veryBoldColors:                6
 
-! special
-*.foreground:   #bea492
-*.background:   #181512
-*.cursorColor:  #bea492
-*.colorBD:  	#bea492
 
 ! black
-*.color0:       #33302e
-*.color8:       #81776f
+*.color0:       #282a2e
+*.color8:       #373b41
 
 ! red
-*.color1:       #8c4c4c
-*.color9:       #9f5555
+*.color1:       #bd3737
+*.color9:       #d64444
 
 ! green
-*.color2:       #746c48
-*.color10:      #857b52
+*.color2:       #98a04b
+*.color10:      #a3aa5e
 
 ! yellow
-*.color3:       #907245
-*.color11:      #9c7e53
+*.color3:       #e5a458
+*.color11:      #d1aa68
 
 ! blue
-*.color4:       #4c626d
-*.color12:      #5b707a
+*.color4:       #4b7598
+*.color12:      #588fbd
 
 ! magenta
-*.color5:       #604c5f
-*.color13:      #625665
+*.color5:       #b890c5
+*.color13:      #d1b7d8
 
 ! cyan
-*.color6:       #4b5e57
-*.color14:      #557067
+*.color6:       #73ada5
+*.color14:      #8abeb7
 
 ! white
-*.color7:       #a69181
-*.color15:      #e8dfcd
+*.color7:       #959595
+*.color15:      #b9b9b9
+
+!special
+*background: #262729
+*foreground: #CECECE
+*cursorColor: #a0a0a0
+
 
 !! open URLs
 urxvt.underlineURLs: false
