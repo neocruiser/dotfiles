@@ -1536,12 +1536,12 @@ Some customization for the powerline. Adding full path and removing non necessar
 #+END_SRC
 * CURSOR
 #+BEGIN_SRC emacs-lisp
-(use-package smart-cursor-color
-  :init
-  (hl-line-mode -1)
-  (remove-hook 'coding-hook 'turn-on-hl-line-mode)
-  (smart-cursor-color-mode 1)
-  )
+;(use-package smart-cursor-color
+;  :init
+;  (hl-line-mode -1)
+;  (remove-hook 'coding-hook 'turn-on-hl-line-mode)
+;  (smart-cursor-color-mode 1)
+;  )
 #+END_SRC
 * KEYBINDINGS
 Some configuration of keybindings. some are global, others are hooked to minor

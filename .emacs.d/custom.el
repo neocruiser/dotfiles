@@ -26,7 +26,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Source Code Pro" :foundry "adobe" :slant normal :height 98 :width normal :weight normal))))
+ '(default ((t (:family "Truetypewriter PolyglOTT" :foundry "unknown" :slant normal :height 128 :width normal :weight normal))))
  '(cursor ((t (:background "tan" :foreground "black"))))
  '(flyspell-duplicate ((t (:foreground "Gold3"))))
  '(flyspell-incorrect ((t (:foreground "light salmon"))))

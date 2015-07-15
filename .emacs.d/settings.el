@@ -1254,12 +1254,12 @@ section headings and list items."
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Private/org" ":org:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox" ":dropbox:") t)
 
-(use-package smart-cursor-color
-  :init
-  (hl-line-mode -1)
-  (remove-hook 'coding-hook 'turn-on-hl-line-mode)
-  (smart-cursor-color-mode 1)
-  )
+;(use-package smart-cursor-color
+;  :init
+;  (hl-line-mode -1)
+;  (remove-hook 'coding-hook 'turn-on-hl-line-mode)
+;  (smart-cursor-color-mode 1)
+;  )
 
 (global-set-key "\C-xrs" 'bookmark-save)
 (global-set-key "\C-cc" 'reftex-citation)
