@@ -1,4 +1,4 @@
-personal_ws-1.1 en 123 
+personal_ws-1.1 en 124 
 postlarvae
 api
 devtools
@@ -20,8 +20,8 @@ dev
 exomes
 symlinked
 sleiman
-SNPs
 snps
+SNPs
 GWAS
 MapReduce
 noindent
@@ -60,8 +60,8 @@ resequencing
 timeline
 Epistasis
 mortalities
-exome
 canevas
+exome
 english
 transcriptomes
 epistatic
@@ -116,6 +116,7 @@ Mytilus
 haplotypes
 keypoints
 endophenotype
+Bioinformatic
 CRAN
 emph
 formatR

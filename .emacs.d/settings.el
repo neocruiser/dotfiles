@@ -651,15 +651,13 @@ background of code to whatever theme I'm using's background"
         auto-indent-key-for-end-of-line-insert-char-then-newline "<M-S-return>"
         auto-indent-indent-style 'aggressive))
 
-(use-package ace-jump-mode
-  :bind (("C-c SPC" . ace-jump-mode)
-         ("C-c M-SPC" . ace-jump-line-mode)
-         ("C-x SPC" . ace-jump-mode-pop-mark)))
-
 (use-package keyfreq
   :init
     (setq keyfreq-mode 1
           keyfreq-autosave-mode 1))
+
+(global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
+(global-set-key (kbd "C-:") 'avy-goto-char)
 
 (use-package bookmark+
   :init

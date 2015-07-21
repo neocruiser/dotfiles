@@ -751,6 +751,8 @@ background of code to whatever theme I'm using's background"
 
     ))
 #+end_src
+
+
 * COLOR THEMES
 Custom themes
 #+begin_src emacs-lisp
@@ -822,14 +824,6 @@ section.
         auto-indent-indent-style 'aggressive))
 #+end_src
 
-ace jump mode
-#+begin_src emacs-lisp
-(use-package ace-jump-mode
-  :bind (("C-c SPC" . ace-jump-mode)
-         ("C-c M-SPC" . ace-jump-line-mode)
-         ("C-x SPC" . ace-jump-mode-pop-mark)))
-#+end_src
-
 Keyfreq list
 #+begin_src emacs-lisp
 (use-package keyfreq
@@ -837,6 +831,13 @@ Keyfreq list
     (setq keyfreq-mode 1
           keyfreq-autosave-mode 1))
 #+end_src
+
+Avy. Package like ace-jump for jumping to visible text using a char-based decision tree.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-c j") 'avy-goto-word-or-subword-1)
+(global-set-key (kbd "C-:") 'avy-goto-char)
+#+end_src
+
 
 bookmark
 #+begin_src emacs-lisp
