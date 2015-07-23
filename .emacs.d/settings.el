@@ -145,6 +145,12 @@
 ;               (flyspell-prog-mode -1)
           ))
 
+(use-package evil
+  :config
+  (progn
+    (evil-mode 1)
+    ))
+
 (use-package view
   :bind
   (("<escape>" . view-mode))
