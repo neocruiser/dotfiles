@@ -147,7 +147,7 @@
 
 (use-package view
   :bind
-  (("C-x v" . view-mode))
+  (("<escape>" . view-mode))
   :config
   (progn
     ;; When in view-mode, the buffer is read-only:
@@ -204,22 +204,6 @@
   "Move the current line down by N lines."
   (interactive "p")
   (move-line (if (null n) 1 n)))
-
-(use-package god-mode
-  :config
-  (define-key god-local-mode-map (kbd "z") 
-    'repeat)
-  (define-key god-local-mode-map (kbd "i") 
-    'god-local-mode)
-  :bind ("<escape>" . god-mode-all))
-
-;(add-to-list 'god-exempt-major-modes 'dired-mode)
-(add-hook 'god-mode-enabled-hook 'my-update-cursor)
-(add-hook 'god-mode-disabled-hook 'my-update-cursor)
-; change cursor style between God-mode and regular
-(defun my-update-cursor ()
-  (setq cursor-type 
-        (if (or god-local-mode buffer-read-only) 'bar 'box)))
 
 (defun my/dired-mode-hook ()
   (hl-line-mode -1)
