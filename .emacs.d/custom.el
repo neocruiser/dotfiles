@@ -16,6 +16,7 @@
  '(inhibit-startup-echo-area-message nil)
  '(markdown-command "/home/neocruiser/Markdown_1.0.1/Markdown.pl")
  '(menu-bar-mode nil)
+ '(safe-local-variable-values (quote ((require-final-newline))))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tool-bar-mode nil)
