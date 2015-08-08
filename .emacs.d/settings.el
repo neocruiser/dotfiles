@@ -1008,6 +1008,7 @@ background of code to whatever theme I'm using's background"
     (setq helm-bibtex-bibliography '(
                    ;;                  "~/data/Bibliography/deeplearninggpu2014.bib"
                                       "~/data/Bibliography/articlev11.bib"
+                                      "~/data/Bibliography/genomicsMarine.bib"
                                      "~/data/Bibliography/humanGenetics.bib"))
     (setq helm-bibtex-library-path "~/data/Bibliography/Bibliography2017/"
           helm-bibtex-notes-path "~/data/Bibliography/notes/"
