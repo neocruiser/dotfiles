@@ -47,5 +47,5 @@ PATH=/home/neo/blat:$PATH; export PATH
 PATH=/home/neo/hmmer/bin:$PATH; export PATH
 
 # VCFTOOLS
-PERL5LIB=/home/neo/vcftools/perl:$PATH; export PATH
+PERL5LIB=/home/neo/vcftools/perl:$PERL5LIB; export PERL5LIB
 PATH=/home/neo/vcftools/bin:$PATH; export PATH

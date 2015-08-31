@@ -1,4 +1,4 @@
-personal_ws-1.1 en 134 
+personal_ws-1.1 en 136 
 postlarvae
 api
 devtools
@@ -20,10 +20,11 @@ rjson
 nucleobase
 dev
 exomes
+orthologous
 symlinked
 sleiman
-snps
 SNPs
+snps
 GWAS
 MapReduce
 pathogenicity
@@ -65,9 +66,10 @@ resequencing
 timeline
 Epistasis
 mortalities
-canevas
 exome
+canevas
 english
+orthologs
 transcriptomes
 epistatic
 DVI
@@ -112,8 +114,8 @@ haplotype
 maketitle
 microalgae
 worflows
-github
 GitHub
+github
 mutlimarker
 extarticle
 GWA

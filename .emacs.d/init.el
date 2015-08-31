@@ -22,7 +22,7 @@
   (load custom-file))
 
 ;(load "~/.emacs.d/settings.el")
-(require 'org)
+;(require 'org)
 (org-babel-load-file "~/.emacs.d/settings.org")
 
 
