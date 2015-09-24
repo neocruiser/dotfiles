@@ -2,17 +2,17 @@
       user-mail-address "slei.bass@gmail.com")
 
 ;;;; Clipboard settings in Linux
-;(setq x-select-enable-clipboard t)
+(setq x-select-enable-clipboard t)
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-;(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-;(setq save-interprogram-paste-before-kill t)
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setq save-interprogram-paste-before-kill t)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
-;(global-font-lock-mode t)
+(global-font-lock-mode t)
 
 (setq gc-cons-threshold 20000000)
 
@@ -71,8 +71,8 @@
 
 (whitespace-mode t)
 
-(set-default 'indicate-empty-lines t)
-(setq show-trailing-whitespace t)
+;(set-default 'indicate-empty-lines t)
+;(setq show-trailing-whitespace t)
 
 (random t)
 
@@ -1155,6 +1155,50 @@ section headings and list items."
 
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)1
+
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-markup-indent-offset 2)
+
+(setq web-mode-comment-style 2)
+
+(setq web-mode-enable-block-face t)
+
+(add-hook 'local-write-file-hooks
+            (lambda ()
+               (delete-trailing-whitespace)
+               nil))
+
+; with smartparenthesis
+(defun my-web-mode-hook ()
+  (setq web-mode-enable-auto-pairing nil))
+
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+
+(defun sp-web-mode-is-code-context (id action context)
+  (when (and (eq action 'insert)
+             (not (or (get-text-property (point) 'part-side)
+                      (get-text-property (point) 'block-side))))
+
+    t))
+
+(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
+
 ;(setq debug-on-error t) ;; debug-on-error
 (iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
 ;(setq-default transient-mark-mode t) ; highligh the marked region
@@ -1181,11 +1225,11 @@ section headings and list items."
         (message "Session not saved."))
   (desktop-save-in-desktop-dir)))
 ;; ask user whether to restore desktop at start-up 'Mx session-save'
-(add-hook 'after-init-hook
-          '(lambda ()
-             (if (saved-session)
-                 (if (y-or-n-p "Restore desktop? ")
-                     (session-restore)))))
+;(add-hook 'after-init-hook
+;         '(lambda ()
+;            (if (saved-session)
+;                (if (y-or-n-p "Restore desktop? ")
+;                    (session-restore)))))
 ;; use session-restore to restore the desktop manually 'Mx session-restore'
 (defun session-restore ()
   "Restore a saved emacs session."

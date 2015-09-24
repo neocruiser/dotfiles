@@ -18,6 +18,7 @@
  '(inhibit-startup-echo-area-message nil)
  '(markdown-command "/home/neocruiser/Markdown_1.0.1/Markdown.pl")
  '(menu-bar-mode nil)
+ '(nxhtml-autoload-web nil t)
  '(safe-local-variable-values (quote ((require-final-newline))))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
@@ -30,7 +31,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :height 113 :width normal :weight normal))))
+ '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :height 98 :width normal :weight bold))))
  '(cursor ((t (:background "tan" :foreground "black"))))
  '(flyspell-duplicate ((t (:foreground "Gold3"))))
  '(flyspell-incorrect ((t (:foreground "light salmon"))))

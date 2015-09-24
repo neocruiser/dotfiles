@@ -18,10 +18,10 @@
 Customize clipboard for linux
 #+BEGIN_SRC emacs-lisp
 ;;;; Clipboard settings in Linux
-;(setq x-select-enable-clipboard t)
+(setq x-select-enable-clipboard t)
 ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
-;(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
-;(setq save-interprogram-paste-before-kill t)
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+(setq save-interprogram-paste-before-kill t)
 #+END_SRC
 
 
@@ -35,7 +35,7 @@ use UTF8 for everything
 
 synthax highlighting for all buffers
 #+begin_src emacs-lisp
-;(global-font-lock-mode t)
+(global-font-lock-mode t)
 #+end_src
 
 Garbage collect reduced
@@ -148,8 +148,8 @@ Activate whitespace mode
 
 Indicate trailing empty lines
 #+begin_src emacs-lisp
-(set-default 'indicate-empty-lines t)
-(setq show-trailing-whitespace t)
+;(set-default 'indicate-empty-lines t)
+;(setq show-trailing-whitespace t)
 #+end_src
 
 seed the number generator
@@ -1423,6 +1423,53 @@ Activate major mode of =js2-mode=
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 #+END_SRC
 
+Synthax highlighting. more [[http://web-mode.org/][customization]]
+#+BEGIN_SRC emacs-lisp
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-markup-indent-offset 2)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)1
+
+(setq web-mode-code-indent-offset 2)
+(setq web-mode-css-indent-offset 2)
+(setq web-mode-markup-indent-offset 2)
+
+(setq web-mode-comment-style 2)
+
+(setq web-mode-enable-block-face t)
+
+(add-hook 'local-write-file-hooks
+            (lambda ()
+               (delete-trailing-whitespace)
+               nil))
+
+; with smartparenthesis
+(defun my-web-mode-hook ()
+  (setq web-mode-enable-auto-pairing nil))
+
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+
+(defun sp-web-mode-is-code-context (id action context)
+  (when (and (eq action 'insert)
+             (not (or (get-text-property (point) 'part-side)
+                      (get-text-property (point) 'block-side))))
+
+    t))
+
+(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
+#+END_SRC
+
 * MISCELLANEOUS
 #+begin_src emacs-lisp
 ;(setq debug-on-error t) ;; debug-on-error
@@ -1458,11 +1505,11 @@ being already loaded. Delete all .emacs.desktop saves in ~/.emacs.d/
 	(message "Session not saved."))
   (desktop-save-in-desktop-dir)))
 ;; ask user whether to restore desktop at start-up 'Mx session-save'
-(add-hook 'after-init-hook
-	  '(lambda ()
-	     (if (saved-session)
-		 (if (y-or-n-p "Restore desktop? ")
-		     (session-restore)))))
+;(add-hook 'after-init-hook
+;	  '(lambda ()
+;	     (if (saved-session)
+;		 (if (y-or-n-p "Restore desktop? ")
+;		     (session-restore)))))
 ;; use session-restore to restore the desktop manually 'Mx session-restore'
 (defun session-restore ()
   "Restore a saved emacs session."
@@ -1471,6 +1518,10 @@ being already loaded. Delete all .emacs.desktop saves in ~/.emacs.d/
       (desktop-read)
     (message "No desktop found.")))
 #+end_src
+
+#+RESULTS:
+: session-restore
+
 * POWERLINE
 Some customization for the powerline. Adding full path and removing non necessary mail modes entries.
 #+BEGIN_SRC emacs-lisp
