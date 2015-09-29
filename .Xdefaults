@@ -18,7 +18,7 @@ urxvt*termName:         rxvt
 URxvt.background: rgba:1111/1111/1111/dddd
 urxvt.transparent:    false
 urxvt*allow_bold:    true
-URxvt*font: xft:monospace:pixelsize=12:antialias=true:hinting=full
+URxvt*font: xft:monospace:pixelsize=14:antialias=true:hinting=full
 URxvt*boldFont: xft:monospace:bold:pixelsize=12:antialias=true:hinting=full
 URxvt.letterSpace: -2 !! letter spacing
 
