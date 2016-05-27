@@ -32,6 +32,13 @@ alias ftp_ncbi="ftp ftp.ncbi.nlm.nih.gov"
 #
 #
 
+#
+# READ DOCX FILES 
+#
+docx(){
+        unzip -p $1 word/document.xml | sed -e 's/<\/w:p>/\n/g; s/<[^>]\{1,\}>//g; s/[^[:print:]\n]\{1,\}//g' | less
+}
+
 ## DIRECTORY WORK
 #=================
 # List top ten largest files/directories in current directory
@@ -89,7 +96,6 @@ alias aghs='history | ag '
 #======
 # git log output in color
 alias gl="git log --graph --full-history --pretty=format:'%Cred%h%Creset -%Cgreen%d%Creset %s %Cblue(%cr)%Creset ' --abbrev-commit --date=relative"
-
 #
 #
 

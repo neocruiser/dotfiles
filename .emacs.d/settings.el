@@ -227,6 +227,11 @@
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 
+(use-package org-bullets
+:ensure t
+:config
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 (use-package org
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
@@ -555,20 +560,20 @@ ackground of code to whatever theme I'm using's background"
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 ;(load-theme 'zenburn t) 
-(load-theme 'monokai t)
-
+;(load-theme 'monokai t)
+;(load-theme 'darkokai t)
 ;(load-theme 'gotham t)
 ;(load-theme 'leuven t) ;; best for org-mode
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)
 ;(load-theme 'gruvbox t)
 
-;(require 'moe-theme)
-;(setq moe-theme-highlight-buffer-id nil)
-;     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
-;     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
-;     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
-;     (moe-dark)
+(require 'moe-theme)
+(setq moe-theme-highlight-buffer-id nil)
+     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
+     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
+     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
+     (moe-dark)
 
 (global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
 (global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)

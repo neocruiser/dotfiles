@@ -6,10 +6,12 @@
 
 ;; initalize all ELPA packages
 (require 'package)
-
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(when (< emacs-major-version 24)
+  ;; For important compatibility libraries like cl-lib
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-(setq package-enable-at-startup nil)
 
 ;; Dvorak nicety, regardless of loading settings
 ;(define-key key-translation-map "\C-t" "\C-x")
