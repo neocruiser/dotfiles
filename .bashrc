@@ -136,3 +136,7 @@ PS1='\[\e[0;36m\]┌─\[\e[1;37m\][\u@\h]\[\e[0m\]\[\e[0;36m\]─\[\e[0;93m\](\
 
 # http://bashrcgenerator.com/
 # ^ this site automate PS1 configuration
+
+
+# adds a timestamp to history
+export HISTTIMEFORMAT="%F %T "
