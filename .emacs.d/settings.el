@@ -1,3 +1,4 @@
+
 (setq user-full-name "Sleiman Bassim"
       user-mail-address "slei.bass@gmail.com")
 
@@ -90,6 +91,10 @@
 
 (setq-default indent-tabs-mode nil)
 
+(setq scroll-step 1)
+(setq scroll-conservatively 5)
+(global-set-key [delete] 'delete-char)
+
 ;(when (functionp 'set-fringe-style)
 ;  (set-fringe-style 0))
 
@@ -107,48 +112,10 @@
 (setq backup-directory-alist
       '(("." . "~/.emacs_backups")))
 
-(use-package vlf-integrate
-  :bind ("C-c v" . vlf))
-;; warn when opening files bigger than 100MB
-(setq large-file-warning-threshold 100000000)
-
-(setq initial-major-mode 'r-mode
-      initial-scratch-message "\
-# This buffer is for notes you don't want to save, and for R code.
-# If you want to create an *.Rnw file, run ~/perls/knitr.pl
-# then enter the file's and project's name.
-")
-;;; Burry the scratch buffer but dont kill it
-(defadvice kill-buffer (around kill-buffer-around-advice activate)
-  (let ((buffer-to-kill (ad-get-arg 0)))
-    (if (equal buffer-to-kill "*scratch*")
-        (bury-buffer)
-      ad-do-it)))
-
-(setq ispell-personal-dictionary "~/.dictionary.txt")
-;; flyspell
-(use-package flyspell
-  :config
-  (define-key flyspell-mode-map (kbd "M-n") 'flyspell-goto-next-error)
-  (define-key flyspell-mode-map (kbd "M-p") 'ispell-word))
-
-(use-package diminish
-  :init
-  (progn
-    (diminish 'flyspell-mode "FS")))
-
-(add-hook 'ess-mode-hook        ;; flyspell disable
-          (lambda ()
-            (flyspell-mode -1)
-;               (ispell-kill-ispell 1)
-;               (flyspell-prog-mode -1)
-          ))
-
-;(use-package evil
-;  :config
-;  (progn
-;    (evil-mode 1)
-;    ))
+(use-package bm
+  :bind (("<C-f2>" . bm-toggle)
+         ("<f2>" . bm-next)
+         ("<S-f2>" . bm-previous)))
 
 (defun move-line (n)
   "Move the current line up or down by N lines."
@@ -172,6 +139,12 @@
   "Move the current line down by N lines."
   (interactive "p")
   (move-line (if (null n) 1 n)))
+
+;(setq ido-enable-flex-matching t)
+;(setq ido-everywhere t)
+;(ido-mode 1)
+
+;(setq ido-file-extensions-order '(".org" ".Rnw" ".R" ".tex" ".Tex" ".txt"))
 
 (defun my/dired-mode-hook ()
   (hl-line-mode -1)
@@ -201,22 +174,14 @@
     (define-key dired-mode-map (kbd "C-x C-q") 'wdired-change-to-wdired-mode)
     (add-hook 'dired-mode-hook 'my/dired-mode-hook)))
 
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (use-package idle-highlight-mode
-              :init (idle-highlight-mode t))
-            (setq show-trailing-whitespace t)
-            (hl-line-mode -1)
-            (subword-mode t)))
-
-(setq scroll-step 1)
-(setq scroll-conservatively 5)
-(global-set-key [delete] 'delete-char)
-
-(use-package saveplace
-  :init
-  (setq-default save-place t)
-  (setq save-place-file (expand-file-name "saved-places" user-emacs-directory)))
+;(require 'idle-highlight-mode)
+;(add-hook 'prog-mode-hook
+;          (lambda ()
+;            (use-package idle-highlight-mode
+;              :init (idle-highlight-mode t))
+;            (setq show-trailing-whitespace t)
+;            (hl-line-mode -1)
+;            (subword-mode t)))
 
 (use-package golden-ratio
   :diminish golden-ratio-mode
@@ -235,7 +200,7 @@
 (use-package org
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
-         ("C-c b" . org-iswitchb)
+;         ("C-c b" . org-iswitchb)
          ("C-c c" . org-capture)
          ("C-c M-p" . org-babel-previous-src-block)
          ("C-c M-n" . org-babel-next-src-block)
@@ -558,6 +523,38 @@ ackground of code to whatever theme I'm using's background"
 
    ))
 
+(setq ispell-personal-dictionary "~/.dictionary.txt")
+;; flyspell
+(use-package flyspell
+  :config
+  (define-key flyspell-mode-map (kbd "M-n") 'flyspell-goto-next-error)
+  (define-key flyspell-mode-map (kbd "M-p") 'ispell-word))
+
+(use-package diminish
+  :init
+  (progn
+    (diminish 'flyspell-mode "FS")))
+
+(add-hook 'ess-mode-hook        ;; flyspell disable
+          (lambda ()
+            (flyspell-mode -1)
+;               (ispell-kill-ispell 1)
+;               (flyspell-prog-mode -1)
+          ))
+
+(setq initial-major-mode 'r-mode
+      initial-scratch-message "\
+# This buffer is for notes you don't want to save, and for R code.
+# If you want to create an *.Rnw file, run ~/perls/knitr.pl
+# then enter the file's and project's name.
+")
+;;; Burry the scratch buffer but dont kill it
+(defadvice kill-buffer (around kill-buffer-around-advice activate)
+  (let ((buffer-to-kill (ad-get-arg 0)))
+    (if (equal buffer-to-kill "*scratch*")
+        (bury-buffer)
+      ad-do-it)))
+
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 ;(load-theme 'zenburn t) 
 ;(load-theme 'monokai t)
@@ -700,10 +697,10 @@ ackground of code to whatever theme I'm using's background"
     ad-do-it)
     ad-do-it))
 
-(quietly-read-abbrev-file)
-(setq-default abbrev-mode t)
-(setq save-abbrevs t)
-(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
+;(quietly-read-abbrev-file)
+;(setq-default abbrev-mode t)
+;(setq save-abbrevs t)
+;(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
 
 (use-package flycheck
   :bind (("M-g M-n" . flycheck-next-error)
@@ -816,7 +813,7 @@ ackground of code to whatever theme I'm using's background"
                'face 'font-lock-variable-name-face))
  (setq eldoc-argument-case 'ted-frob-eldoc-argument-list)
 
-(org-eldoc-hook-setup) ;; have org-eldoc add itself to `org-mode-hook'
+;(org-eldoc-hook-setup) ;; have org-eldoc add itself to `org-mode-hook'
 ; for python
 (add-hook 'python-mode-hook
           '(lambda () (eldoc-mode 1)) t)
@@ -854,6 +851,8 @@ ackground of code to whatever theme I'm using's background"
 
 (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm-other-window)
 (define-key lisp-interaction-mode-map (kbd "C-c C-z") 'ielm-other-window)
+
+(global-set-key (kbd "C-x g") 'magit-status)
 
 (use-package ess-site
   :config
@@ -897,9 +896,9 @@ ackground of code to whatever theme I'm using's background"
 ;  :diminish ""
 ;  :idle (yas-reload-all)
   :config
-  (setq yas-snippet-dirs "~/.emacs.d/snippets/"
-        yas-load-directory "~/.emacs.d/elpa/"
-        yas-use-menu nil)
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
+;        yas-load-directory "~/.emacs.d/elpa/"
+;        yas-use-menu nil)
   (yas-global-mode 1))
 ;;; Chose snippets using Helm
 (progn
@@ -923,7 +922,7 @@ ackground of code to whatever theme I'm using's background"
 (global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
 
 (smartparens-global-mode t)
-;; different colors for parenthesis highlights
+; different colors for parenthesis highlights
 (use-package highlight-parentheses
   :init
   (setq hl-paren-colors '("gold" "IndianRed" "cyan" "green" "orange" "magenta")))
@@ -943,7 +942,7 @@ ackground of code to whatever theme I'm using's background"
   (("C-M-z" . helm-resume)
    ("C-c x" . helm-bibtex)
    ("M-y" . helm-show-kill-ring)
-   ("C-h b" . helm-descbinds)
+;   ("C-h b" . helm-descbinds)
    ;;("C-x C-r" . helm-mini)
    ;;("C-x M-o" . helm-occur)
    ("C-x C-o" . helm-occur)
@@ -980,7 +979,7 @@ ackground of code to whatever theme I'm using's background"
       :bind (("C-x M-b" . helm-bookmarks)))
     (use-package helm-projectile
       :bind (("C-x f" . helm-projectile)
-             ;("C-c p f" . helm-projectile-find-file)
+             ("C-x C-a" . helm-projectile-find-file)
              ))
     (use-package helm-eshell
       :init (add-hook 'eshell-mode-hook
@@ -1096,8 +1095,8 @@ ackground of code to whatever theme I'm using's background"
     (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 
 
-    (use-package helm-descbinds
-      :init (helm-descbinds-mode t))
+;    (use-package helm-descbinds
+;      :init (helm-descbinds-mode t))
     (use-package helm-ag)
     (use-package helm-swoop
       :bind (("M-i" . helm-swoop)
@@ -1202,10 +1201,10 @@ section headings and list items."
 
     t))
 
-(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
+;(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
 
 ;(setq debug-on-error t) ;; debug-on-error
-(iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
+;(iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
 ;(setq-default transient-mark-mode t) ; highligh the marked region
 ;(set-face-attribute 'region nil :background "#666")
 ;(require 'uniquify) ; change title buffer

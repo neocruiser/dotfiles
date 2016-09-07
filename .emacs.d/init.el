@@ -27,4 +27,21 @@
 ;(require 'org)
 (org-babel-load-file "~/.emacs.d/settings.org")
 
+;; helm and async from github
+(add-to-list 'load-path "~/.emacs.d/async")
 
+(add-to-list 'load-path "~/.emacs.d/helm")
+(require 'helm-config)
+
+;; ESS
+(add-to-list 'load-path "~/.emacs.d/ess/lisp/")
+(load "ess-site")
+
+;; MAgit for git
+(add-to-list 'load-path "~/.emacs.d/magit/lisp")
+(require 'magit)
+
+(with-eval-after-load 'info
+  (info-initialize)
+  (add-to-list 'Info-directory-list
+	       "~/.emacs.d/magit/Documentation/"))
