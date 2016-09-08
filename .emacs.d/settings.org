@@ -34,6 +34,7 @@ use UTF8 for everything
 
 synthax highlighting for all buffers
 #+begin_src emacs-lisp
+(require 'font-lock+)
 (global-font-lock-mode t)
 #+end_src
 
@@ -355,8 +356,8 @@ General Settings. Global.
           org-return-follows-link t
           ;; allow changing between todo stats directly by hotkey
           org-use-fast-todo-selection t
-;          org-src-fontify-natively t
-;          org-fontify-whole-heading-line t
+          org-src-fontify-natively t
+          org-fontify-whole-heading-line t
          ;; org-completion-use-ido t
           org-edit-src-content-indentation 0
           ;; Imenu should use 3 depth instead of 2
@@ -422,10 +423,6 @@ General Settings. Global.
               '(lambda ()
                  (delete '("\\.pdf\\'" . default) org-file-apps)
                  (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
-
-    (use-package org-toc
-      :disabled t
-      :init (add-hook 'org-mode-hook 'org-toc-enable))
 
     ;; Agenda org-mode files
     (setq org-agenda-files
@@ -660,6 +657,13 @@ ackground of code to whatever theme I'm using's background"
    ))
 #+end_src
 
+Org-toc
+#+BEGIN_SRC emacs-lisp
+(if (require 'toc-org nil t)
+    (add-hook 'org-mode-hook 'toc-org-enable)
+  (warn "toc-org not found"))
+#+END_SRC
+
 * DICTIONARY
 Build a dictionary file with Flyspell
 #+begin_src emacs-lisp
@@ -707,7 +711,7 @@ Intialize the scratch buffer with a R
 Custom themes
 #+begin_src emacs-lisp
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
-;(load-theme 'zenburn t) 
+(load-theme 'zenburn t) 
 ;(load-theme 'monokai t)
 ;(load-theme 'darkokai t)
 ;(load-theme 'gotham t)
@@ -716,12 +720,12 @@ Custom themes
 ;(load-theme 'molokai t)
 ;(load-theme 'gruvbox t)
 
-(require 'moe-theme)
-(setq moe-theme-highlight-buffer-id nil)
-     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
-     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
-     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
-     (moe-dark)
+;(require 'moe-theme)
+;(setq moe-theme-highlight-buffer-id nil)
+;     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
+;     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
+;     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
+;     (moe-dark)
 #+end_src
 * FRAME SETTINGS
 Window resize in linux
