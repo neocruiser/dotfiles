@@ -191,12 +191,6 @@ Moving cursor down at bottom scrolls only a single line, not half page
 #+END_SRC
 
 * VISUAL BUFFER SETTINGS (removes the end of the files)
-Remove fringe things
-#+begin_src emacs-lisp
-;(when (functionp 'set-fringe-style)
-;  (set-fringe-style 0))
-#+end_src
-
 revert buffer if it changes on disk
 #+begin_src emacs-lisp
 (global-auto-revert-mode 1)
@@ -348,7 +342,7 @@ General Settings. Global.
     (use-package org-install)
     ;; load github-flavored-markdown
     (add-hook 'org-mode-hook 'turn-on-auto-fill)
-    (use-package org-latex)
+;    (use-package org-latex)
     (unless (boundp 'org-export-latex-classes)
       (setq org-export-latex-classes nil))
     (setq org-directory "~/data/Dropbox/Private/org"
@@ -710,6 +704,7 @@ Intialize the scratch buffer with a R
 * COLOR THEMES
 Custom themes
 #+begin_src emacs-lisp
+
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 (load-theme 'zenburn t) 
 ;(load-theme 'monokai t)
@@ -730,8 +725,8 @@ Custom themes
 * FRAME SETTINGS
 Window resize in linux
 #+begin_src emacs-lisp
-(global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-S-s-<right>") 'shrink-window-horizontally)
+(global-set-key (kbd "M-S-s-<left>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-S-s-<down>") 'shrink-window)
 (global-set-key (kbd "M-S-s-<up>") 'enlarge-window)
 #+end_src
@@ -756,17 +751,6 @@ instead of giving two panes with the same buffer [[https://www.reddit.com/r/emac
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
 #+END_SRC
 * IN-FRAME NAVIGUATION
-undo tree
-#+begin_src emacs-lisp
-(use-package undo-tree
-;  :idle (global-undo-tree-mode t)
-  :diminish ""
-  :bind ("M-/" . undo-tree-redo)
-  :config
-    (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
-    (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo))
-#+end_src
-
 Autoindentation plugins are numerous. Either electric indent or aggressive
 indent with add-hooks. Both need further parametrization issues with the comment
 section.
@@ -889,15 +873,13 @@ MAKE READONLY FILES WRITABLE FOR A FULL ROOT PERMISSION
     ad-do-it))
 #+end_src
 * GRAMMAR
-
 Set an abbreviation file and save whenever emacs is closed. Hit C-x ag to add
 new abbreviations. M-x write-abbrev-file to create the abbrev file
 #+BEGIN_SRC emacs-lisp
-
-;(quietly-read-abbrev-file)
-;(setq-default abbrev-mode t)
-;(setq save-abbrevs t)
-;(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
+(quietly-read-abbrev-file)
+(setq-default abbrev-mode t)
+(setq save-abbrevs t)
+(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
 #+END_SRC
 
 Flycheck (perl latex)
@@ -1120,7 +1102,7 @@ Helm
     (use-package helm-grep)
     (use-package helm-man)
     (use-package helm-misc)
-    (use-package helm-aliases)
+;    (use-package helm-aliases)
     (use-package helm-elisp)
     (use-package helm-imenu)
     (use-package helm-semantic)
@@ -1291,7 +1273,7 @@ Master files will be introduced in each nested tex files. Be carefull to chose
 correctly the master file. Once set, a master file can be corrected with "C-_".
 Compile using Latex. Ssometimes Tex is chosen automatically.It doesn't work.
 #+begin_src emacs-lisp
-(use-package AUCTeX
+(use-package latex
   :init
   (setq TeX-parse-self t ; Enable parse on load.
           TeX-auto-save t ; Enable parse on save
@@ -1399,6 +1381,7 @@ Samartparens
 * AUTOCAPITALIZE 
 Auto-capitalization
 #+BEGIN_SRC emacs-lisp
+(require 'auto-capitalize)
 (use-package auto-capitalize
   :disabled t
   :init
@@ -1566,9 +1549,10 @@ Some customization for the powerline. Adding full path and removing non necessar
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Latex" ":LaTeX:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/R" ":R:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Private/org" ":org:") t)
-(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox" ":dropbox:") t) 
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox" ":dropbox:") t)
 
 #+END_SRC
+
 * CURSOR
 #+BEGIN_SRC emacs-lisp
 ;(use-package smart-cursor-color
