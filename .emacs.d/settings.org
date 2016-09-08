@@ -1378,39 +1378,6 @@ Samartparens
 #+end_src
 
 
-* AUTOCAPITALIZE 
-Auto-capitalization
-#+BEGIN_SRC emacs-lisp
-(require 'auto-capitalize)
-(use-package auto-capitalize
-  :disabled t
-  :init
-  (progn
-  (autoload 'auto-capitalize-mode "auto-capitalize"
-"Toggle `auto-capitalize' minor mode in this buffer." t)
-(autoload 'turn-on-auto-capitalize-mode "auto-capitalize"
-"Turn on `auto-capitalize' minor mode in this buffer." t)
-(autoload 'enable-auto-capitalize-mode "auto-capitalize"
-"Enable `auto-capitalize' minor mode in this buffer." t)
-(add-hook 'text-mode-hook 'turn-on-auto-capitalize-mode)
-; add apostrophe as a symbol to enable contraction
-(modify-syntax-entry ?' ". " text-mode-syntax-table)
-
-; a fix for org heading auto-capitalization
-(defun org-auto-capitalize-headings-and-lists ()
-"Create a buffer-local binding of sentence-end to auto-capitalize
-section headings and list items."
-(make-local-variable 'sentence-end)
-(setq sentence-end (concat (rx (or
-;; headings
-(seq line-start (1+ "*") (1+ space))
-;; list and checklist items
-(seq line-start (0+ space) "-" (1+ space) (? (or "[ ]" "[X]") (1+ space)))))
-"\\|" (sentence-end))))
- 
-(add-hook 'org-mode-hook #'org-auto-capitalize-headings-and-lists)))
-#+END_SRC 
-
 * JAVASCRIPT
 After install the =web-beautify= package install js-beautify in shell. More information [[https://github.com/yasuyk/web-beautify][here on github]]
 #+BEGIN_SRC shell
