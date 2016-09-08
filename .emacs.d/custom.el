@@ -12,7 +12,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (with-editor dired-imenu dired+ bm highlight-parentheses yasnippet helm-bibtex auctex web-mode use-package smartparens smart-mode-line-powerline-theme paren-face org-bullets moe-theme markdown-mode highlight-numbers highlight-escape-sequences eldoc-eval ag)))
+    (molokai-theme darkokai-theme auto-indent-mode helm-ag helm-anything helm-R web-beautify python-mode easy-kill keyfreq bookmark+ auto-capitalize writegood-mode company-auctex company font-lock+ toc-org with-editor dired-imenu dired+ bm highlight-parentheses yasnippet helm-bibtex auctex web-mode use-package smartparens smart-mode-line-powerline-theme paren-face org-bullets moe-theme markdown-mode highlight-numbers highlight-escape-sequences eldoc-eval ag)))
  '(tool-bar-mode nil)
  '(yas-prompt-functions (quote (my-yas/prompt)))
  '(yas/prompt-functions (quote (my-yas/prompt))))

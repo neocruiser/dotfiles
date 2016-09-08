@@ -45,3 +45,12 @@
   (info-initialize)
   (add-to-list 'Info-directory-list
 	       "~/.emacs.d/magit/Documentation/"))
+
+;; Powerline
+(add-to-list 'load-path "~/.emacs.d/powerline")
+(require 'powerline)
+(require 'cl)
+(setq powerline-arrow-shape 'arrow14)
+(custom-set-faces
+ '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
+ '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil)))))

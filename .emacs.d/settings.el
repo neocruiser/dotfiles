@@ -13,6 +13,7 @@
 (set-language-environment "UTF-8")
 (prefer-coding-system 'utf-8)
 
+(require 'font-lock+)
 (global-font-lock-mode t)
 
 (setq gc-cons-threshold 20000000)
@@ -94,9 +95,6 @@
 (setq scroll-step 1)
 (setq scroll-conservatively 5)
 (global-set-key [delete] 'delete-char)
-
-;(when (functionp 'set-fringe-style)
-;  (set-fringe-style 0))
 
 (global-auto-revert-mode 1)
 
@@ -211,7 +209,7 @@
     (use-package org-install)
     ;; load github-flavored-markdown
     (add-hook 'org-mode-hook 'turn-on-auto-fill)
-    (use-package org-latex)
+;    (use-package org-latex)
     (unless (boundp 'org-export-latex-classes)
       (setq org-export-latex-classes nil))
     (setq org-directory "~/data/Dropbox/Private/org"
@@ -219,8 +217,8 @@
           org-return-follows-link t
           ;; allow changing between todo stats directly by hotkey
           org-use-fast-todo-selection t
-;          org-src-fontify-natively t
-;          org-fontify-whole-heading-line t
+          org-src-fontify-natively t
+          org-fontify-whole-heading-line t
          ;; org-completion-use-ido t
           org-edit-src-content-indentation 0
           ;; Imenu should use 3 depth instead of 2
@@ -286,10 +284,6 @@
               '(lambda ()
                  (delete '("\\.pdf\\'" . default) org-file-apps)
                  (add-to-list 'org-file-apps '("\\.pdf\\'" . "evince %s"))))
-
-    (use-package org-toc
-      :disabled t
-      :init (add-hook 'org-mode-hook 'org-toc-enable))
 
     ;; Agenda org-mode files
     (setq org-agenda-files
@@ -523,6 +517,10 @@ ackground of code to whatever theme I'm using's background"
 
    ))
 
+(if (require 'toc-org nil t)
+    (add-hook 'org-mode-hook 'toc-org-enable)
+  (warn "toc-org not found"))
+
 (setq ispell-personal-dictionary "~/.dictionary.txt")
 ;; flyspell
 (use-package flyspell
@@ -556,7 +554,7 @@ ackground of code to whatever theme I'm using's background"
       ad-do-it)))
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
-;(load-theme 'zenburn t) 
+(load-theme 'zenburn t) 
 ;(load-theme 'monokai t)
 ;(load-theme 'darkokai t)
 ;(load-theme 'gotham t)
@@ -565,15 +563,15 @@ ackground of code to whatever theme I'm using's background"
 ;(load-theme 'molokai t)
 ;(load-theme 'gruvbox t)
 
-(require 'moe-theme)
-(setq moe-theme-highlight-buffer-id nil)
-     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
-     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
-     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
-     (moe-dark)
+;(require 'moe-theme)
+;(setq moe-theme-highlight-buffer-id nil)
+;     (setq moe-theme-resize-markdown-title '(2.0 1.7 1.5 1.3 1.0 1.0))
+;     (setq moe-theme-resize-org-title '(1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0 1.0))
+;     (setq moe-theme-resize-rst-title '(2.0 1.7 1.5 1.3 1.1 1.0))
+;     (moe-dark)
 
-(global-set-key (kbd "M-S-s-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "M-S-s-<right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "M-S-s-<right>") 'shrink-window-horizontally)
+(global-set-key (kbd "M-S-s-<left>") 'enlarge-window-horizontally)
 (global-set-key (kbd "M-S-s-<down>") 'shrink-window)
 (global-set-key (kbd "M-S-s-<up>") 'enlarge-window)
 
@@ -592,14 +590,6 @@ ackground of code to whatever theme I'm using's background"
 
 (global-set-key (kbd "C-x 2") 'vsplit-last-buffer)
 (global-set-key (kbd "C-x 3") 'hsplit-last-buffer)
-
-(use-package undo-tree
-;  :idle (global-undo-tree-mode t)
-  :diminish ""
-  :bind ("M-/" . undo-tree-redo)
-  :config
-    (define-key undo-tree-map (kbd "C-x u") 'undo-tree-visualize)
-    (define-key undo-tree-map (kbd "C-/") 'undo-tree-undo))
 
 (use-package auto-indent-mode
   :init
@@ -697,10 +687,10 @@ ackground of code to whatever theme I'm using's background"
     ad-do-it)
     ad-do-it))
 
-;(quietly-read-abbrev-file)
-;(setq-default abbrev-mode t)
-;(setq save-abbrevs t)
-;(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
+(quietly-read-abbrev-file)
+(setq-default abbrev-mode t)
+(setq save-abbrevs t)
+(add-hook 'text-mode-hook (lambda () (abbrev-mode 1)))
 
 (use-package flycheck
   :bind (("M-g M-n" . flycheck-next-error)
@@ -885,7 +875,7 @@ ackground of code to whatever theme I'm using's background"
     (use-package helm-grep)
     (use-package helm-man)
     (use-package helm-misc)
-    (use-package helm-aliases)
+;    (use-package helm-aliases)
     (use-package helm-elisp)
     (use-package helm-imenu)
     (use-package helm-semantic)
@@ -1046,7 +1036,7 @@ ackground of code to whatever theme I'm using's background"
                   'comint-dynamic-complete-filename)
      ))))
 
-(use-package AUCTeX
+(use-package latex
   :init
   (setq TeX-parse-self t ; Enable parse on load.
           TeX-auto-save t ; Enable parse on save
@@ -1097,14 +1087,20 @@ ackground of code to whatever theme I'm using's background"
 
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+
 ;(global-set-key (kbd "C-c M-g") 'magit-file-popup)
 (global-set-key (kbd "C-c M-g s") 'magit-stage-file)
 (global-set-key (kbd "C-c M-g u") 'magit-unstage-file)
 (global-set-key (kbd "C-c M-g c") 'magit-commit-popup)
+
 (global-set-key (kbd "C-c M-g D") 'magit-diff-buffer-file-popup)
 (global-set-key (kbd "C-c M-g d") 'magit-diff-buffer-file)
 (global-set-key (kbd "C-c M-g L") 'magit-log-buffer-file-popup)
 (global-set-key (kbd "C-c M-g l") 'magit-log-buffer-file)
+
+(global-set-key (kbd "C-c M-g a") 'magit-commit-amend)
+(global-set-key (kbd "C-c M-g e") 'magit-commit-extend)
+(global-set-key (kbd "C-c M-g w") 'magit-commit-reword)
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
@@ -1126,6 +1122,7 @@ ackground of code to whatever theme I'm using's background"
 (use-package paren-face
   :init (global-paren-face-mode))
 
+(require 'auto-capitalize)
 (use-package auto-capitalize
   :disabled t
   :init
