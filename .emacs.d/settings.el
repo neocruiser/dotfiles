@@ -1098,9 +1098,13 @@ ackground of code to whatever theme I'm using's background"
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
 ;(global-set-key (kbd "C-c M-g") 'magit-file-popup)
-;(global-set-key (kbd "C-c M-g s") 'magit-stage-file)
-;(global-set-key (kbd "C-c M-g u") 'magit-unstage-file)
-;(global-set-key (kbd "C-c M-g c") 'magit-commit-popup)
+(global-set-key (kbd "C-c M-g s") 'magit-stage-file)
+(global-set-key (kbd "C-c M-g u") 'magit-unstage-file)
+(global-set-key (kbd "C-c M-g c") 'magit-commit-popup)
+(global-set-key (kbd "C-c M-g D") 'magit-diff-buffer-file-popup)
+(global-set-key (kbd "C-c M-g d") 'magit-diff-buffer-file)
+(global-set-key (kbd "C-c M-g L") 'magit-log-buffer-file-popup)
+(global-set-key (kbd "C-c M-g l") 'magit-log-buffer-file)
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
