@@ -852,91 +852,6 @@ ackground of code to whatever theme I'm using's background"
 (define-key emacs-lisp-mode-map (kbd "C-c C-z") 'ielm-other-window)
 (define-key lisp-interaction-mode-map (kbd "C-c C-z") 'ielm-other-window)
 
-(global-set-key (kbd "C-x g") 'magit-status)
-
-(use-package ess-site
-  :config
-  (progn
-   (put 'upcase-region 'disabled nil)
-   (add-hook 'inferior-ess-mode-hook
-             '(lambda nil
-                (define-key inferior-ess-mode-map [\C-up]
-                  'comint-previous-matching-input-from-input)
-                (define-key inferior-ess-mode-map [\C-down]
-                  'comint-next-matching-input-from-input)
-                (define-key inferior-ess-mode-map [\C-x \t]
-                  'comint-dynamic-complete-filename)
-     ))))
-
-(use-package AUCTeX
-  :init
-  (setq TeX-parse-self t ; Enable parse on load.
-          TeX-auto-save t ; Enable parse on save
-          TeX-auto-untabify t ; convert tab to spaces (Parsing Files section of the manual)
-          tex-dvi-view-command "xdvi"
-          reftex-plug-into-AUCTeX t
-          TeX-save-query nil
-          TeX-PDF-mode t)
-    (setq-default TeX-master nil)
-    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
-    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
-    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-    ; Table of content activation in menubar
-    (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
-    (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
-    (add-hook 'doc-view-mode-hook 'auto-revert-mode)
-    )
-
-(use-package expand-region
-  :bind (("C-=" . er/expand-region)
-         ("C-M-=" . er/contract-region)))
-
-(use-package yasnippet
-;  :diminish ""
-;  :idle (yas-reload-all)
-  :config
-  (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
-;        yas-load-directory "~/.emacs.d/elpa/"
-;        yas-use-menu nil)
-  (yas-global-mode 1))
-;;; Chose snippets using Helm
-(progn
-      (defun my-yas/prompt (prompt choices &optional display-fn)
-      (let* ((names (loop for choice in choices
-                          collect (or (and display-fn
-                                           (funcall display-fn choice))
-                                      coice)))
-             (selected (helm-other-buffer
-                        `(((name . ,(format "%s" prompt))
-                           (candidates . names)
-                           (action . (("Insert snippet" . (lambda (arg)
-                                                            arg))))))
-                        "*helm yas/prompt*")))
-        (if selected
-            (let ((n (position selected names :test 'equal)))
-              (nth n choices))
-          (signal 'quit "user quit!"))))
-      (custom-set-variables '(yas/prompt-functions '(my-yas/prompt))))
-
-(global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
-
-(smartparens-global-mode t)
-; different colors for parenthesis highlights
-(use-package highlight-parentheses
-  :init
-  (setq hl-paren-colors '("gold" "IndianRed" "cyan" "green" "orange" "magenta")))
-
-(defun hpm-on ()
-  (highlight-parentheses-mode t))
-(add-hook 'ess-mode-hook 'hpm-on)
-(add-hook 'inferior-ess-mode-hook 'hpm-on)
-(add-hook 'latex-mode-hook 'hpm-on)
-
-;;; darken parentheses
-(use-package paren-face
-  :init (global-paren-face-mode))
-
 (use-package helm
   :bind
   (("C-M-z" . helm-resume)
@@ -1116,6 +1031,96 @@ ackground of code to whatever theme I'm using's background"
               helm-swoop-split-direction 'split-window-vertically
               ;; If nil, you can slightly boost invoke speed in exchange for text color
               helm-swoop-speed-or-color nil)))))
+
+(use-package ess-site
+  :config
+  (progn
+   (put 'upcase-region 'disabled nil)
+   (add-hook 'inferior-ess-mode-hook
+             '(lambda nil
+                (define-key inferior-ess-mode-map [\C-up]
+                  'comint-previous-matching-input-from-input)
+                (define-key inferior-ess-mode-map [\C-down]
+                  'comint-next-matching-input-from-input)
+                (define-key inferior-ess-mode-map [\C-x \t]
+                  'comint-dynamic-complete-filename)
+     ))))
+
+(use-package AUCTeX
+  :init
+  (setq TeX-parse-self t ; Enable parse on load.
+          TeX-auto-save t ; Enable parse on save
+          TeX-auto-untabify t ; convert tab to spaces (Parsing Files section of the manual)
+          tex-dvi-view-command "xdvi"
+          reftex-plug-into-AUCTeX t
+          TeX-save-query nil
+          TeX-PDF-mode t)
+    (setq-default TeX-master nil)
+    (add-hook 'LaTeX-mode-hook 'visual-line-mode)
+    (add-hook 'LaTeX-mode-hook 'flyspell-mode)
+    (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+    (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+    ; Table of content activation in menubar
+    (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
+    (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
+    (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+    )
+
+(use-package yasnippet
+;  :diminish ""
+;  :idle (yas-reload-all)
+  :config
+  (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
+;        yas-load-directory "~/.emacs.d/elpa/"
+;        yas-use-menu nil)
+  (yas-global-mode 1))
+;;; Chose snippets using Helm
+(progn
+      (defun my-yas/prompt (prompt choices &optional display-fn)
+      (let* ((names (loop for choice in choices
+                          collect (or (and display-fn
+                                           (funcall display-fn choice))
+                                      coice)))
+             (selected (helm-other-buffer
+                        `(((name . ,(format "%s" prompt))
+                           (candidates . names)
+                           (action . (("Insert snippet" . (lambda (arg)
+                                                            arg))))))
+                        "*helm yas/prompt*")))
+        (if selected
+            (let ((n (position selected names :test 'equal)))
+              (nth n choices))
+          (signal 'quit "user quit!"))))
+      (custom-set-variables '(yas/prompt-functions '(my-yas/prompt))))
+
+(global-set-key (kbd "C-!") 'yas-insert-snippet)  ;; yas + helm
+
+(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+;(global-set-key (kbd "C-c M-g") 'magit-file-popup)
+;(global-set-key (kbd "C-c M-g s") 'magit-stage-file)
+;(global-set-key (kbd "C-c M-g u") 'magit-unstage-file)
+;(global-set-key (kbd "C-c M-g c") 'magit-commit-popup)
+
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)
+         ("C-M-=" . er/contract-region)))
+
+(smartparens-global-mode t)
+; different colors for parenthesis highlights
+(use-package highlight-parentheses
+  :init
+  (setq hl-paren-colors '("gold" "IndianRed" "cyan" "green" "orange" "magenta")))
+
+(defun hpm-on ()
+  (highlight-parentheses-mode t))
+(add-hook 'ess-mode-hook 'hpm-on)
+(add-hook 'inferior-ess-mode-hook 'hpm-on)
+(add-hook 'latex-mode-hook 'hpm-on)
+
+;;; darken parentheses
+(use-package paren-face
+  :init (global-paren-face-mode))
 
 (use-package auto-capitalize
   :disabled t
