@@ -69,7 +69,7 @@ Turn off all modes
 (when (functionp 'tool-bar-mode)
   (tool-bar-mode -1))
 (when (functionp 'blink-cursor-mode)
-  (blink-cursor-mode -1))
+  (blink-cursor-mode 1))
 #+end_src
 
 Turn off beep
@@ -1450,15 +1450,6 @@ Synthax highlighting. more [[http://web-mode.org/][customization]]
 ;(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
 #+END_SRC
 
-* MISCELLANEOUS
-#+begin_src emacs-lisp
-;(setq debug-on-error t) ;; debug-on-error
-;(iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
-;(setq-default transient-mark-mode t) ; highligh the marked region
-;(set-face-attribute 'region nil :background "#666")
-;(require 'uniquify) ; change title buffer
-#+end_src
-
 * DESKTOP MANAGEMENT
 Desktop Session Managment. This code is very usefull. It wont work though with
 *Rnw files. It is thus better to close all knitr files before session-save.
@@ -1508,7 +1499,7 @@ Some customization for the powerline. Adding full path and removing non necessar
 (use-package smart-mode-line
   :init
   (sml/setup)
-  (sml/apply-theme 'dark)
+  (sml/apply-theme 'powerline)
   )
  
 (add-to-list 'sml/replacer-regexp-list '("^~/.emacs.d/configs/" ":ED:") t)
@@ -1517,6 +1508,7 @@ Some customization for the powerline. Adding full path and removing non necessar
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/R" ":R:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Private/org" ":org:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox" ":dropbox:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/pipeline" ":pipeline:") t)
 
 #+END_SRC
 
