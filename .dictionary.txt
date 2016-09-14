@@ -1,4 +1,4 @@
-personal_ws-1.1 en 136 
+personal_ws-1.1 en 142 
 postlarvae
 api
 devtools
@@ -10,6 +10,7 @@ preprocess
 methylation
 ectotherms
 dplyr
+metagenomic
 dataframe
 df
 geoffjentry
@@ -30,6 +31,7 @@ MapReduce
 pathogenicity
 intragenic
 noindent
+proteomic
 href
 GPClient
 interpretability
@@ -91,9 +93,13 @@ beamertemplatenavigationsymbolsempty
 Plink
 Hadoop
 macronutrients
+lectins
 username
+neuropeptides
 dimerization
 GenePattern
+microbiota
+Microbiota
 neuroimaging
 MySQL
 spatfall

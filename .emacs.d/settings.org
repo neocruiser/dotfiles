@@ -706,10 +706,10 @@ Custom themes
 #+begin_src emacs-lisp
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
-(load-theme 'zenburn t) 
+;(load-theme 'zenburn t) 
 ;(load-theme 'monokai t)
 ;(load-theme 'darkokai t)
-;(load-theme 'gotham t)
+(load-theme 'gotham t)
 ;(load-theme 'leuven t) ;; best for org-mode
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)

@@ -554,10 +554,10 @@ ackground of code to whatever theme I'm using's background"
       ad-do-it)))
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
-(load-theme 'zenburn t) 
+;(load-theme 'zenburn t) 
 ;(load-theme 'monokai t)
 ;(load-theme 'darkokai t)
-;(load-theme 'gotham t)
+(load-theme 'gotham t)
 ;(load-theme 'leuven t) ;; best for org-mode
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)
@@ -1121,35 +1121,6 @@ ackground of code to whatever theme I'm using's background"
 ;;; darken parentheses
 (use-package paren-face
   :init (global-paren-face-mode))
-
-(require 'auto-capitalize)
-(use-package auto-capitalize
-  :disabled t
-  :init
-  (progn
-  (autoload 'auto-capitalize-mode "auto-capitalize"
-"Toggle `auto-capitalize' minor mode in this buffer." t)
-(autoload 'turn-on-auto-capitalize-mode "auto-capitalize"
-"Turn on `auto-capitalize' minor mode in this buffer." t)
-(autoload 'enable-auto-capitalize-mode "auto-capitalize"
-"Enable `auto-capitalize' minor mode in this buffer." t)
-(add-hook 'text-mode-hook 'turn-on-auto-capitalize-mode)
-; add apostrophe as a symbol to enable contraction
-(modify-syntax-entry ?' ". " text-mode-syntax-table)
-
-; a fix for org heading auto-capitalization
-(defun org-auto-capitalize-headings-and-lists ()
-"Create a buffer-local binding of sentence-end to auto-capitalize
-section headings and list items."
-(make-local-variable 'sentence-end)
-(setq sentence-end (concat (rx (or
-;; headings
-(seq line-start (1+ "*") (1+ space))
-;; list and checklist items
-(seq line-start (0+ space) "-" (1+ space) (? (or "[ ]" "[X]") (1+ space)))))
-"\\|" (sentence-end))))
- 
-(add-hook 'org-mode-hook #'org-auto-capitalize-headings-and-lists)))
 
 (use-package web-beautify
   :init
