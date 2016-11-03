@@ -36,7 +36,7 @@
 (when (functionp 'tool-bar-mode)
   (tool-bar-mode -1))
 (when (functionp 'blink-cursor-mode)
-  (blink-cursor-mode -1))
+  (blink-cursor-mode 1))
 
 (setq ring-bell-function (lambda()))
 (setq inhibit-startup-message t
@@ -172,23 +172,23 @@
     (define-key dired-mode-map (kbd "C-x C-q") 'wdired-change-to-wdired-mode)
     (add-hook 'dired-mode-hook 'my/dired-mode-hook)))
 
-;(require 'idle-highlight-mode)
-;(add-hook 'prog-mode-hook
-;          (lambda ()
-;            (use-package idle-highlight-mode
-;              :init (idle-highlight-mode t))
-;            (setq show-trailing-whitespace t)
-;            (hl-line-mode -1)
-;            (subword-mode t)))
+(require 'idle-highlight-mode)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (use-package idle-highlight-mode
+              :init (idle-highlight-mode t))
+            (setq show-trailing-whitespace t)
+            (hl-line-mode -1)
+            (subword-mode t)))
 
 (use-package golden-ratio
   :diminish golden-ratio-mode
   :defer t)
 
-(dolist (hook '(text-mode-hook org-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
-(dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode -1))))
+;(dolist (hook '(text-mode-hook org-mode-hook))
+;  (add-hook hook (lambda () (flyspell-mode 1))))
+;(dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
+;  (add-hook hook (lambda () (flyspell-mode -1))))
 
 (use-package org-bullets
 :ensure t
@@ -333,46 +333,6 @@
             ("TABLE" . ?t)
             ("export" . ?e)
             ("noexport" . ?n)))
-    ;; Custom agenda command definitions
-;    (setq org-agenda-custom-commands
- ;         (quote
-  ;         (("N" "Notes" tags "NOTE"
-  ;           ((org-agenda-overriding-header "Notes")
-   ;           (org-tags-match-list-sublevels t)))
-    ;        (" " "Agenda"
-     ;        ((agenda "" nil)
-              ;; All items with the "REFILE" tag, everything in refile.org
-              ;; automatically gets that applied
-   ;           (tags "REFILE"
-    ;                ((org-agenda-overriding-header "Tasks to Refile")
-     ;                (org-tags-match-list-sublevels nil)))
-              ;; All "INPROGRESS" todo items
-      ;        (todo "INPROGRESS"
-       ;             ((org-agenda-overriding-header "Current work")))
-        ;      ;; All headings with the "support" tag
-         ;     (tags "support/!"
-          ;          ((org-agenda-overriding-header "Support cases")))
-              ;; All "NEESREVIEW" todo items
-        ;      (todo "NEEDSREVIEW"
-         ;           ((org-agenda-overriding-header "Waiting on reviews")))
-              ;; All "WAITING" items without a "support" tag
-          ;    (tags "WAITING-support"
-           ;         ((org-agenda-overriding-header "Waiting for feedback")))
-              ;; All TODO items
-;              (todo "TODO"
- ;                   ((org-agenda-overriding-header "Task list")
-  ;                   (org-agenda-sorting-strategy '(category-keep))))
-              ;; Everything on hold
-   ;           (todo "HOLD"
-    ;
-;                ((org-agenda-overriding-header "On-hold")))
-              ;; Everything that's done and archivable
- ;             (todo "DONE"
-  ;                  ((org-agenda-overriding-header "Tasks for archive")
-   ;                  (org-agenda-skip-function 'my/skip-non-archivable-tasks))))
-    ;         nil))))
-
-;;    (ido-mode (quote both))
 
     ;; Exclude DONE state tasks from refile targets
     (defun my/verify-refile-target ()
@@ -386,16 +346,16 @@
     (define-key org-mode-map (kbd "M-G") 'org-plot/gnuplot)
     (local-unset-key (kbd "M-S-<return>"))
 
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (turn-on-flyspell)
-                (define-key org-mode-map [C-tab] 'other-window)
-                (define-key org-mode-map [C-S-tab]
-                  (lambda ()
-                    (interactive)
-                    (other-window -1)))
-                (define-key org-mode-map (kbd "C-'")
-                  'eyebrowse-next-window-config)))
+;    (add-hook 'org-mode-hook
+;              (lambda ()
+;                (turn-on-flyspell)
+;                (define-key org-mode-map [C-tab] 'other-window)
+;                (define-key org-mode-map [C-S-tab]
+;                  (lambda ()
+;                    (interactive)
+;                    (other-window -1)))
+;                (define-key org-mode-map (kbd "C-'")
+;                  'eyebrowse-next-window-config)))
 
     ;; org-babel stuff
     (org-babel-do-load-languages
@@ -407,20 +367,6 @@
        (perl . t)
        (gnuplot . t)
        (latex . t)))
-
-    ;; Use org.css from the :wq website for export document stylesheets
-;    (setq org-html-head-extra
- ;         "<link rel=\"stylesheet\" href=\"http://dakrone.github.io/org.css\" type=\"text/css\" />")
-  ;  (setq org-html-head-include-default-style nil)
-
-
-    ;; ensure this variable is defined
-;    (unless (boundp 'org-babel-default-header-args:sh)
- ;     (setq org-babel-default-header-args:sh '()))
-
-    ;; add a default shebang header argument shell scripts
-  ;  (add-to-list 'org-babel-default-header-args:sh
-   ;              '(:shebang . "#!/usr/bin/env zsh"))
 
 
     ;; Function declarations
@@ -465,56 +411,56 @@ urrently open, based on `org-agenda-files'."
    ;; save all the agenda files after each capture
    (add-hook 'org-capture-after-finalize-hook 'my/save-all-agenda-buffers)
 
-   (use-package org-id
-     :config
-     (progn
-       (setq org-id-link-to-org-use-id t)
+;   (use-package org-id
+;     :config
+;     (progn
+;       (setq org-id-link-to-org-use-id t)
 
-       (defun my/org-custom-id-get (&optional pom create prefix)
-         "Get the CUSTOM_ID property of the entry at point-or-marker POM.
-f POM is nil, refer to the entry at point. If the entry does not
-ave an CUSTOM_ID, the function returns nil. However, when CREATE
-s non nil, create a CUSTOM_ID if none is present already. PREFIX
-ill be passed through to `org-id-new'. In any case, the
-USTOM_ID of the entry is returned."
-         (interactive)
-         (org-with-point-at pom
-           (let ((id (org-entry-get nil "CUSTOM_ID")))
-             (cond
-              ((and id (stringp id) (string-match "\\S-" id))
-               id)
-              (create
-               (setq id (org-id-new prefix))
-               (org-entry-put pom "CUSTOM_ID" id)
-               (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
-               id)))))
-
-       (defun my/org-add-ids-to-headlines-in-file ()
-         "Add CUSTOM_ID properties to all headlines in the
-urrent file which do not already have one."
-         (interactive)
-         (org-map-entries (lambda () (my/org-custom-id-get (point) 'create))))
-
-       ;; automatically add ids to captured headlines
-       (add-hook 'org-capture-prepare-finalize-hook
-                 (lambda () (my/org-custom-id-get (point) 'create)))))
-
-   (defun my/org-inline-css-hook (exporter)
-     "Insert custom inline css to automatically set the
-ackground of code to whatever theme I'm using's background"
-     (when (eq exporter 'html)
-       (let* ((my-pre-bg (face-background 'default))
-              (my-pre-fg (face-foreground 'default)))
-         ;;(setq org-html-head-include-default-style nil)
-         (setq
-          org-html-head-extra
-          (concat
-           org-html-head-extra
-           (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
-                   my-pre-bg my-pre-fg))))))
-
-   (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
-
+;       (defun my/org-custom-id-get (&optional pom create prefix)
+;         "Get the CUSTOM_ID property of the entry at point-or-marker POM.
+;f POM is nil, refer to the entry at point. If the entry does not
+;ave an CUSTOM_ID, the function returns nil. However, when CREATE
+;s non nil, create a CUSTOM_ID if none is present already. PREFIX
+;ill be passed through to `org-id-new'. In any case, the
+;USTOM_ID of the entry is returned."
+;         (interactive)
+;         (org-with-point-at pom
+;           (let ((id (org-entry-get nil "CUSTOM_ID")))
+;             (cond
+;              ((and id (stringp id) (string-match "\\S-" id))
+;               id)
+;              (create
+;               (setq id (org-id-new prefix))
+;               (org-entry-put pom "CUSTOM_ID" id)
+;               (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
+;               id)))))
+;
+;       (defun my/org-add-ids-to-headlines-in-file ()
+;         "Add CUSTOM_ID properties to all headlines in the
+;urrent file which do not already have one."
+;         (interactive)
+;         (org-map-entries (lambda () (my/org-custom-id-get (point) 'create))))
+;
+;       ;; automatically add ids to captured headlines
+;       (add-hook 'org-capture-prepare-finalize-hook
+;                 (lambda () (my/org-custom-id-get (point) 'create)))))
+;
+;;   (defun my/org-inline-css-hook (exporter)
+;;     "Insert custom inline css to automatically set the
+;;ackground of code to whatever theme I'm using's background"
+;;     (when (eq exporter 'html)
+;;       (let* ((my-pre-bg (face-background 'default))
+;;              (my-pre-fg (face-foreground 'default)))
+;;         ;;(setq org-html-head-include-default-style nil)
+;;         (setq
+;;          org-html-head-extra
+;;          (concat
+;;           org-html-head-extra
+;;           (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
+;;                   my-pre-bg my-pre-fg))))))
+;;
+;;   (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+;
    ))
 
 (if (require 'toc-org nil t)
@@ -555,13 +501,12 @@ ackground of code to whatever theme I'm using's background"
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 ;(load-theme 'zenburn t) 
-;(load-theme 'monokai t)
+(load-theme 'monokai t)
 ;(load-theme 'darkokai t)
-(load-theme 'gotham t)
+;(load-theme 'gotham t)
 ;(load-theme 'leuven t) ;; best for org-mode
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)
-;(load-theme 'gruvbox t)
 
 ;(require 'moe-theme)
 ;(setq moe-theme-highlight-buffer-id nil)
@@ -917,11 +862,11 @@ ackground of code to whatever theme I'm using's background"
     ;; Bibliographie
     (setq helm-bibtex-bibliography '(
                    ;;                  "~/data/Bibliography/deeplearninggpu2014.bib"
-                                      "~/data/Bibliography/articlev11.bib"
-                                      "~/data/Bibliography/genomicsMarine.bib"
-                                     "~/data/Bibliography/humanGenetics.bib"))
-    (setq helm-bibtex-library-path "~/data/Bibliography/Bibliography2017/"
-          helm-bibtex-notes-path "~/data/Bibliography/notes/"
+                                      "~/data/Dropbox/Bibliography/articlev11.bib"
+                                      "~/data/Dropbox/Bibliography/genomicsMarine.bib"
+                                     "~/data/Dropbox/Bibliography/humanGenetics.bib"))
+    (setq helm-bibtex-library-path "~/data/Dropbox/Bibliography/Bibliography2017/"
+          helm-bibtex-notes-path "~/data/Dropbox/Bibliography/notes/"
           helm-bibtex-pdf-symbol "P")
     (setq helm-bibtex-pdf-open-function    ;; Open PDF in Evince
       (lambda (fpath) (shell-command-to-string
@@ -1056,6 +1001,10 @@ ackground of code to whatever theme I'm using's background"
     (add-hook 'doc-view-mode-hook 'auto-revert-mode)
     )
 
+;(autoload ’whizzytex-mode
+;"whizzytex"
+;"WhizzyTeX, a minor-mode WYSIWIG environment for LaTeX" t)
+
 (use-package yasnippet
 ;  :diminish ""
 ;  :idle (yas-reload-all)
@@ -1180,12 +1129,6 @@ ackground of code to whatever theme I'm using's background"
 
 ;(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
 
-;(setq debug-on-error t) ;; debug-on-error
-;(iswitchb-mode 0)  ; Inactivate iswitch to use HELM Cx-b and Cc-m 
-;(setq-default transient-mark-mode t) ; highligh the marked region
-;(set-face-attribute 'region nil :background "#666")
-;(require 'uniquify) ; change title buffer
-
 (desktop-save-mode -1)                  ;; Save state of the desktop
 (setq history-length 250)
     (add-to-list 'desktop-globals-to-save 'file-name-history)
@@ -1222,7 +1165,7 @@ ackground of code to whatever theme I'm using's background"
 (use-package smart-mode-line
   :init
   (sml/setup)
-  (sml/apply-theme 'dark)
+  (sml/apply-theme 'powerline)
   )
  
 (add-to-list 'sml/replacer-regexp-list '("^~/.emacs.d/configs/" ":ED:") t)
@@ -1231,6 +1174,7 @@ ackground of code to whatever theme I'm using's background"
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/R" ":R:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/Private/org" ":org:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox" ":dropbox:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/data/Dropbox/pipeline" ":pipeline:") t)
 
 ;(use-package smart-cursor-color
 ;  :init

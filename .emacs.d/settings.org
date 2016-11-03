@@ -289,14 +289,14 @@ Dired
 * SUBWORDS
 Turn on highlight and subword modes
 #+begin_src emacs-lisp
-;(require 'idle-highlight-mode)
-;(add-hook 'prog-mode-hook
-;          (lambda ()
-;            (use-package idle-highlight-mode
-;              :init (idle-highlight-mode t))
-;            (setq show-trailing-whitespace t)
-;            (hl-line-mode -1)
-;            (subword-mode t)))
+(require 'idle-highlight-mode)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (use-package idle-highlight-mode
+              :init (idle-highlight-mode t))
+            (setq show-trailing-whitespace t)
+            (hl-line-mode -1)
+            (subword-mode t)))
 #+end_src
 
 
@@ -311,11 +311,10 @@ Automatically resizes windows to the golden ration (1.618)
 * ORG-MODE
 remove/activate spelling in org-mode
 #+begin_src emacs-lisp
-(dolist (hook '(text-mode-hook org-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode 1))))
-(dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
-  (add-hook hook (lambda () (flyspell-mode -1))))
-
+;(dolist (hook '(text-mode-hook org-mode-hook))
+;  (add-hook hook (lambda () (flyspell-mode 1))))
+;(dolist (hook '(change-log-mode-hook log-edit-mode-hook org-agenda-mode-hook))
+;  (add-hook hook (lambda () (flyspell-mode -1))))
 #+end_src
 
 Change bullet point styles in org files
@@ -466,46 +465,6 @@ General Settings. Global.
             ("TABLE" . ?t)
             ("export" . ?e)
             ("noexport" . ?n)))
-    ;; Custom agenda command definitions
-;    (setq org-agenda-custom-commands
- ;         (quote
-  ;         (("N" "Notes" tags "NOTE"
-  ;           ((org-agenda-overriding-header "Notes")
-   ;           (org-tags-match-list-sublevels t)))
-    ;        (" " "Agenda"
-     ;        ((agenda "" nil)
-              ;; All items with the "REFILE" tag, everything in refile.org
-              ;; automatically gets that applied
-   ;           (tags "REFILE"
-    ;                ((org-agenda-overriding-header "Tasks to Refile")
-     ;                (org-tags-match-list-sublevels nil)))
-              ;; All "INPROGRESS" todo items
-      ;        (todo "INPROGRESS"
-       ;             ((org-agenda-overriding-header "Current work")))
-        ;      ;; All headings with the "support" tag
-         ;     (tags "support/!"
-          ;          ((org-agenda-overriding-header "Support cases")))
-              ;; All "NEESREVIEW" todo items
-        ;      (todo "NEEDSREVIEW"
-         ;           ((org-agenda-overriding-header "Waiting on reviews")))
-              ;; All "WAITING" items without a "support" tag
-          ;    (tags "WAITING-support"
-           ;         ((org-agenda-overriding-header "Waiting for feedback")))
-              ;; All TODO items
-;              (todo "TODO"
- ;                   ((org-agenda-overriding-header "Task list")
-  ;                   (org-agenda-sorting-strategy '(category-keep))))
-              ;; Everything on hold
-   ;           (todo "HOLD"
-    ;
-;                ((org-agenda-overriding-header "On-hold")))
-              ;; Everything that's done and archivable
- ;             (todo "DONE"
-  ;                  ((org-agenda-overriding-header "Tasks for archive")
-   ;                  (org-agenda-skip-function 'my/skip-non-archivable-tasks))))
-    ;         nil))))
-
-;;    (ido-mode (quote both))
 
     ;; Exclude DONE state tasks from refile targets
     (defun my/verify-refile-target ()
@@ -519,16 +478,16 @@ General Settings. Global.
     (define-key org-mode-map (kbd "M-G") 'org-plot/gnuplot)
     (local-unset-key (kbd "M-S-<return>"))
 
-    (add-hook 'org-mode-hook
-              (lambda ()
-                (turn-on-flyspell)
-                (define-key org-mode-map [C-tab] 'other-window)
-                (define-key org-mode-map [C-S-tab]
-                  (lambda ()
-                    (interactive)
-                    (other-window -1)))
-                (define-key org-mode-map (kbd "C-'")
-                  'eyebrowse-next-window-config)))
+;    (add-hook 'org-mode-hook
+;              (lambda ()
+;                (turn-on-flyspell)
+;                (define-key org-mode-map [C-tab] 'other-window)
+;                (define-key org-mode-map [C-S-tab]
+;                  (lambda ()
+;                    (interactive)
+;                    (other-window -1)))
+;                (define-key org-mode-map (kbd "C-'")
+;                  'eyebrowse-next-window-config)))
 
     ;; org-babel stuff
     (org-babel-do-load-languages
@@ -540,20 +499,6 @@ General Settings. Global.
        (perl . t)
        (gnuplot . t)
        (latex . t)))
-
-    ;; Use org.css from the :wq website for export document stylesheets
-;    (setq org-html-head-extra
- ;         "<link rel=\"stylesheet\" href=\"http://dakrone.github.io/org.css\" type=\"text/css\" />")
-  ;  (setq org-html-head-include-default-style nil)
-
-
-    ;; ensure this variable is defined
-;    (unless (boundp 'org-babel-default-header-args:sh)
- ;     (setq org-babel-default-header-args:sh '()))
-
-    ;; add a default shebang header argument shell scripts
-  ;  (add-to-list 'org-babel-default-header-args:sh
-   ;              '(:shebang . "#!/usr/bin/env zsh"))
 
 
     ;; Function declarations
@@ -598,58 +543,60 @@ urrently open, based on `org-agenda-files'."
    ;; save all the agenda files after each capture
    (add-hook 'org-capture-after-finalize-hook 'my/save-all-agenda-buffers)
 
-   (use-package org-id
-     :config
-     (progn
-       (setq org-id-link-to-org-use-id t)
+;   (use-package org-id
+;     :config
+;     (progn
+;       (setq org-id-link-to-org-use-id t)
 
-       (defun my/org-custom-id-get (&optional pom create prefix)
-         "Get the CUSTOM_ID property of the entry at point-or-marker POM.
-f POM is nil, refer to the entry at point. If the entry does not
-ave an CUSTOM_ID, the function returns nil. However, when CREATE
-s non nil, create a CUSTOM_ID if none is present already. PREFIX
-ill be passed through to `org-id-new'. In any case, the
-USTOM_ID of the entry is returned."
-         (interactive)
-         (org-with-point-at pom
-           (let ((id (org-entry-get nil "CUSTOM_ID")))
-             (cond
-              ((and id (stringp id) (string-match "\\S-" id))
-               id)
-              (create
-               (setq id (org-id-new prefix))
-               (org-entry-put pom "CUSTOM_ID" id)
-               (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
-               id)))))
-
-       (defun my/org-add-ids-to-headlines-in-file ()
-         "Add CUSTOM_ID properties to all headlines in the
-urrent file which do not already have one."
-         (interactive)
-         (org-map-entries (lambda () (my/org-custom-id-get (point) 'create))))
-
-       ;; automatically add ids to captured headlines
-       (add-hook 'org-capture-prepare-finalize-hook
-                 (lambda () (my/org-custom-id-get (point) 'create)))))
-
-   (defun my/org-inline-css-hook (exporter)
-     "Insert custom inline css to automatically set the
-ackground of code to whatever theme I'm using's background"
-     (when (eq exporter 'html)
-       (let* ((my-pre-bg (face-background 'default))
-              (my-pre-fg (face-foreground 'default)))
-         ;;(setq org-html-head-include-default-style nil)
-         (setq
-          org-html-head-extra
-          (concat
-           org-html-head-extra
-           (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
-                   my-pre-bg my-pre-fg))))))
-
-   (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
-
+;       (defun my/org-custom-id-get (&optional pom create prefix)
+;         "Get the CUSTOM_ID property of the entry at point-or-marker POM.
+;f POM is nil, refer to the entry at point. If the entry does not
+;ave an CUSTOM_ID, the function returns nil. However, when CREATE
+;s non nil, create a CUSTOM_ID if none is present already. PREFIX
+;ill be passed through to `org-id-new'. In any case, the
+;USTOM_ID of the entry is returned."
+;         (interactive)
+;         (org-with-point-at pom
+;           (let ((id (org-entry-get nil "CUSTOM_ID")))
+;             (cond
+;              ((and id (stringp id) (string-match "\\S-" id))
+;               id)
+;              (create
+;               (setq id (org-id-new prefix))
+;               (org-entry-put pom "CUSTOM_ID" id)
+;               (org-id-add-location id (buffer-file-name (buffer-base-buffer)))
+;               id)))))
+;
+;       (defun my/org-add-ids-to-headlines-in-file ()
+;         "Add CUSTOM_ID properties to all headlines in the
+;urrent file which do not already have one."
+;         (interactive)
+;         (org-map-entries (lambda () (my/org-custom-id-get (point) 'create))))
+;
+;       ;; automatically add ids to captured headlines
+;       (add-hook 'org-capture-prepare-finalize-hook
+;                 (lambda () (my/org-custom-id-get (point) 'create)))))
+;
+;;   (defun my/org-inline-css-hook (exporter)
+;;     "Insert custom inline css to automatically set the
+;;ackground of code to whatever theme I'm using's background"
+;;     (when (eq exporter 'html)
+;;       (let* ((my-pre-bg (face-background 'default))
+;;              (my-pre-fg (face-foreground 'default)))
+;;         ;;(setq org-html-head-include-default-style nil)
+;;         (setq
+;;          org-html-head-extra
+;;          (concat
+;;           org-html-head-extra
+;;           (format "<style type=\"text/css\">\n pre.src {background-color: %s; color: %s;}</style>\n"
+;;                   my-pre-bg my-pre-fg))))))
+;;
+;;   (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+;
    ))
 #+end_src
+
+#+RESULTS:
 
 Org-toc
 #+BEGIN_SRC emacs-lisp
@@ -707,13 +654,12 @@ Custom themes
 
 (add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/"))
 ;(load-theme 'zenburn t) 
-;(load-theme 'monokai t)
+(load-theme 'monokai t)
 ;(load-theme 'darkokai t)
-(load-theme 'gotham t)
+;(load-theme 'gotham t)
 ;(load-theme 'leuven t) ;; best for org-mode
 ;(load-theme 'spacegray t)
 ;(load-theme 'molokai t)
-;(load-theme 'gruvbox t)
 
 ;(require 'moe-theme)
 ;(setq moe-theme-highlight-buffer-id nil)
@@ -1144,11 +1090,11 @@ Helm
     ;; Bibliographie
     (setq helm-bibtex-bibliography '(
                    ;;                  "~/data/Bibliography/deeplearninggpu2014.bib"
-                                      "~/data/Bibliography/articlev11.bib"
-                                      "~/data/Bibliography/genomicsMarine.bib"
-                                     "~/data/Bibliography/humanGenetics.bib"))
-    (setq helm-bibtex-library-path "~/data/Bibliography/Bibliography2017/"
-          helm-bibtex-notes-path "~/data/Bibliography/notes/"
+                                      "~/data/Dropbox/Bibliography/articlev11.bib"
+                                      "~/data/Dropbox/Bibliography/genomicsMarine.bib"
+                                     "~/data/Dropbox/Bibliography/humanGenetics.bib"))
+    (setq helm-bibtex-library-path "~/data/Dropbox/Bibliography/Bibliography2017/"
+          helm-bibtex-notes-path "~/data/Dropbox/Bibliography/notes/"
           helm-bibtex-pdf-symbol "P")
     (setq helm-bibtex-pdf-open-function    ;; Open PDF in Evince
       (lambda (fpath) (shell-command-to-string
@@ -1294,6 +1240,13 @@ Compile using Latex. Ssometimes Tex is chosen automatically.It doesn't work.
     )
 
 #+end_src
+
+Whizzytex for automatic latex preview
+#+BEGIN_SRC emacs-lisp
+;(autoload ’whizzytex-mode
+;"whizzytex"
+;"WhizzyTeX, a minor-mode WYSIWIG environment for LaTeX" t)
+#+END_SRC
 * YASSNIPPETS
 Yasnippets
 #+begin_src emacs-lisp

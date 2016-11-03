@@ -1,4 +1,4 @@
-personal_ws-1.1 en 142 
+personal_ws-1.1 en 146 
 postlarvae
 api
 devtools
@@ -56,6 +56,7 @@ Contigs
 twitteR
 emacs
 documentclass
+transcriptomics
 subsec
 biogeographical
 availableTrendLocations
@@ -64,6 +65,7 @@ phenotypically
 intronic
 phenotypic
 overfit
+deployable
 resequencing
 timeline
 Epistasis
@@ -99,19 +101,21 @@ neuropeptides
 dimerization
 GenePattern
 microbiota
-Microbiota
 neuroimaging
 MySQL
 spatfall
 GWASs
+ribosomally
 datasets
 uvm
 eicosanoid
 getTrends
 workflows
+fontified
 unialgal
 SNPTEST
 HapMap
+epigenetics
 ROAuth
 searchTwitter
 genotyping
